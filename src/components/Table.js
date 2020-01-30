@@ -3,7 +3,8 @@ import React, { useContext } from 'react';
 import { StarWarsContext } from '../context/StarWarsContext';
 
 function Table() {
-  const { resultAPI } = useContext(StarWarsContext)
+  const { resultAPI, isFetching } = useContext(StarWarsContext);
+  console.log('teste', resultAPI.results);
   // const capitalize = (word) => {
   //   const newWord = word.toLowerCase();
   //   return newWord && newWord[0].toUpperCase() + newWord.slice(1);
@@ -70,7 +71,7 @@ function Table() {
       <h1>StarWars Datatable with Filters</h1>
       <table>
         <thead>{headColumns()}</thead>
-        <tbody>{resultAPI && bodyTableRow(resultAPI)}</tbody>
+        <tbody>{isFetching && bodyTableRow({ resultAPI })}</tbody>
       </table>
     </>
   );
