@@ -6,17 +6,11 @@ import App from './App';
 describe('testing default paragraphs', () => {
   it('testing header', () => {
     const { getByText, getByTestId } = render(<App />);
-    const filtersActive = getByText(/Filters active:/i);
-    const chooseFilters = getByText(/Choose the column to filter:/i);
-    const nameInput = getByTestId('nameInput');
-    const column = getByTestId('column');
-    const comparison = getByTestId('comparison');
-    const comparisonValue = getByTestId('comparisonValue');
-    expect(column).toBeInTheDocument();
-    expect(comparison).toBeInTheDocument();
-    expect(comparisonValue).toBeInTheDocument();
-    expect(nameInput).toBeInTheDocument();
-    expect(chooseFilters).toBeInTheDocument();
-    expect(filtersActive).toBeInTheDocument();
+    expect(getByTestId('column')).toBeInTheDocument();
+    expect(getByTestId('comparison')).toBeInTheDocument();
+    expect(getByTestId('comparisonValue')).toBeInTheDocument();
+    expect(getByTestId('nameInput')).toBeInTheDocument();
+    expect(getByText(/Choose the column to filter:/i)).toBeInTheDocument();
+    expect(getByText(/Filters active:/i)).toBeInTheDocument();
   });
 });

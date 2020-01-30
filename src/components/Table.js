@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { loadData } from '../actions/starWarsApi';
+// import { loadData } from '../actions/starWarsApi';
+import storeContext from '../context';
 import './table.css';
 
 class Table extends React.Component {
@@ -37,18 +38,19 @@ class Table extends React.Component {
   }
 
   componentDidMount() {
-    this.props.loadData();
+    this.context.starWarsAPI();
   }
 
   render() {
-    if (this.props.isFetching) {
+    console.log(this.context)
+    if (this.context.initialData.isFetching) {
       return <p>LOADING...</p>;
     }
-    if (this.props.sucess) {
+    if (this.context.initialData.sucess) {
       if (this.props.finalData) {
         return Table.generateTableHead(this.props.finalData);
       }
-      return Table.generateTableHead(this.props.initialData.results);
+      return Table.generateTableHead(this.context.initialData.data.results);
     }
     return <div>ERROR</div>;
   }
@@ -56,27 +58,28 @@ class Table extends React.Component {
 
 const mapStateToProps = (state) => ({
   finalData: state.finalFilterReducer.data,
-  initialData: state.apiServiceReducer.data,
-  isFetching: state.apiServiceReducer.isFetching,
-  sucess: state.apiServiceReducer.sucess,
+  // initialData: state.apiServiceReducer.data,
+  // isFetching: state.apiServiceReducer.isFetching,
+  // sucess: state.apiServiceReducer.sucess,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  loadData: () => dispatch(loadData()),
-});
+// const mapDispatchToProps = (dispatch) => ({
+//   loadData: () => dispatch(loadData()),
+// });
 
 Table.propTypes = {
-  sucess: PropTypes.string.isRequired,
-  isFetching: PropTypes.string.isRequired,
-  initialData: PropTypes.shape({
-    count: PropTypes.number.isRequired,
-    results: PropTypes.arrayOf.isRequired,
-  }).isRequired,
+  // sucess: PropTypes.string.isRequired,
+  // isFetching: PropTypes.string.isRequired,
+  // initialData: PropTypes.shape({
+  //   count: PropTypes.number.isRequired,
+  //   results: PropTypes.arrayOf.isRequired,
+  // }).isRequired,
   finalData: PropTypes.shape({
     count: PropTypes.number.isRequired,
     results: PropTypes.arrayOf.isRequired,
   }).isRequired,
-  loadData: PropTypes.func.isRequired,
+  // loadData: PropTypes.func.isRequired,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Table);
+Table.contextType = storeContext;
+export default connect(mapStateToProps)(Table);

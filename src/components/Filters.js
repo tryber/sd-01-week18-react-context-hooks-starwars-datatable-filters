@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import storeContext from '../context';
 import finalFilter from '../actions/filters';
 import removeValuesFilter from '../actions/valueFilterRemove';
 
@@ -105,4 +106,6 @@ Filters.propTypes = {
   sendFinalFilter: PropTypes.func.isRequired,
   removeFilters: PropTypes.func.isRequired,
 };
+
+Filters.contextType = storeContext;
 export default connect(mapStateToProps, mapDispatchToProps)(Filters);
