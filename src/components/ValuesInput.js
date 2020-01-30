@@ -68,11 +68,15 @@ class ValuesInput extends React.Component {
     return (
       <div>
         <label htmlFor="column">
-          <select onChange={(e) => this.changeState(e, 'column')} id="column">
+          <select onChange={(e) => this.changeState(e, 'column')} data-testid="column" id="column">
             {this.generateColumnOptions()}
           </select>
         </label>
-        <select onChange={(e) => this.changeState(e, 'comparison')} id="comparison">
+        <select
+          onChange={(e) => this.changeState(e, 'comparison')}
+          data-testid="comparison"
+          id="comparison"
+        >
           <option />
           <option value="Maior">Maior que</option>
           <option value="Menor">Menor que</option>
@@ -80,6 +84,7 @@ class ValuesInput extends React.Component {
         </select>
         <input
           onChange={(e) => this.changeState(e, 'value')}
+          data-testid="comparisonValue"
           id="comparisonValue"
           type="number"
           placeholder="Valor"

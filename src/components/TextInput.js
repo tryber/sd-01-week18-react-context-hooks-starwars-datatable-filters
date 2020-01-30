@@ -11,6 +11,7 @@ class TextInput extends React.Component {
           type="text"
           onChange={(e) => this.props.changeNameInFilter(e.target.value)}
           placeholder="Nome"
+          data-testid="nameInput"
         />
       </div>
     );
