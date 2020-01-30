@@ -54,7 +54,7 @@ class Filters extends React.Component {
     const actualFilter = this.props.filtersActive;
     const newFilters = actualFilter.filter((filt) => filt.column !== filter.column);
     this.props.removeFilters(newFilters);
-    this.showFilters(this.props.initialData.results, newFilters);
+    this.showFilters(this.context.initialData.data.results, newFilters);
   }
 
   showFilters(data, filtersActive) {
@@ -79,7 +79,7 @@ class Filters extends React.Component {
     return (
       <div>
         <p>Filters active:</p>
-        <div>{this.showFilters(this.props.initialData.results, this.props.filtersActive)}</div>
+        <div>{this.showFilters(this.context.initialData.data.results, this.props.filtersActive)}</div>
       </div>
     );
   }
@@ -88,7 +88,7 @@ class Filters extends React.Component {
 const mapStateToProps = (state) => ({
   nameFilter: state.textFilterReducer.filters,
   filtersActive: state.valueFilterReducer.columns,
-  initialData: state.apiServiceReducer.data,
+  // initialData: state.apiServiceReducer.data,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -99,10 +99,10 @@ const mapDispatchToProps = (dispatch) => ({
 Filters.propTypes = {
   nameFilter: PropTypes.string.isRequired,
   filtersActive: PropTypes.arrayOf.isRequired,
-  initialData: PropTypes.shape({
-    count: PropTypes.number.isRequired,
-    results: PropTypes.arrayOf.isRequired,
-  }).isRequired,
+  // initialData: PropTypes.shape({
+  //   count: PropTypes.number.isRequired,
+  //   results: PropTypes.arrayOf.isRequired,
+  // }).isRequired,
   sendFinalFilter: PropTypes.func.isRequired,
   removeFilters: PropTypes.func.isRequired,
 };
