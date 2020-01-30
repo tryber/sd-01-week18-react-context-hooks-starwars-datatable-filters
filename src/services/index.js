@@ -1,16 +1,12 @@
-import axios from 'axios';
+const STARWARS_API = 'https://swapi.co/api/planets/';
 
-async function getPlanets() {
-  const API = 'swapi.co/api/planets/';
-  try {
-    const responseAPI = await axios({
-      url: `${API}`,
-      method: 'GET',
-    });
-    return responseAPI;
-  } catch (e) {
-    console.log(e);
-  }
-}
+const getStarWarsPlanets = () => (
+  fetch(`${STARWARS_API}`)
+    .then((response) => (
+      response
+        .json()
+        .then((json) => (response.ok ? Promise.resolve(json) : Promise.reject(json)))
+    ))
+);
 
-export default getPlanets;
+export default getStarWarsPlanets;
