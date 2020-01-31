@@ -3,7 +3,7 @@ import { PlanetsContext } from '../context/PlanetsContext.js';
 
 
 const FilterName = () => {
-  const { filterName, setFilterName } = useContext(PlanetsContext)
+  const { filterName, setFilterName } = useContext(PlanetsContext);
   return (
     <div>
       <label htmlFor="filter-name">
@@ -15,7 +15,7 @@ const FilterName = () => {
         />
       </label>
     </div>
-  )
+  );
 };
 
 

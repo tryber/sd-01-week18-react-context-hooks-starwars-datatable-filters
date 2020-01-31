@@ -45,7 +45,7 @@ const allFilters = (data, filters) => (
 );
 
 const numericFilters = (data, filters) => {
-  if (filters.length!==0) return allFilters(data, filters);
+  if (filters.length !== 0) return allFilters(data, filters);
   return data;
 };
 
@@ -76,8 +76,8 @@ const createRow = (planet) => (
 );
 
 const Table = () => {
-  const { data: { planets, sucess }, filters, filterName } = useContext(PlanetsContext)
-  if (!sucess) return <div>CARREGANDO</div>
+  const { data: { planets, sucess }, filters, filterName } = useContext(PlanetsContext);
+  if (!sucess) return <div>CARREGANDO</div>;
   const planetsFiltered = (planets) ? returnFilterList(planets, filters, filterName) : false;
   return (
     <div>

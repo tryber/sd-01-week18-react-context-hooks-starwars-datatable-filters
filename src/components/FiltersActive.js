@@ -1,8 +1,6 @@
 import React, { useContext } from 'react';
 import { PlanetsContext } from '../context/PlanetsContext.js';
 
-
-
 const saveFilter = (AllFilters, filter, index, setFilters, removeFilters) => {
   const { column, comparison, value } = filter;
   const columnsProperties = {
@@ -25,18 +23,25 @@ const saveFilter = (AllFilters, filter, index, setFilters, removeFilters) => {
 
 const removeFilters = (AllFilters, removeIndex, setFilters) => {
   setFilters([...AllFilters.filter((filter, index) => (index !== removeIndex))]);
-}
+};
 
 const FiltersActive = () => {
-  const { filters, setFilters } = useContext(PlanetsContext)
+  const { filters, setFilters } = useContext(PlanetsContext);
   return (
     <div>
       {
         filters &&
-        filters.map((filter, index) => saveFilter(filters, filter, index, setFilters, removeFilters, filters))
+        filters.map((filter, index) => saveFilter(
+          filters,
+          filter,
+          index,
+          setFilters,
+          removeFilters,
+          filters
+        ))
       }
     </div>
-  )
+  );
 };
 
 export default FiltersActive;

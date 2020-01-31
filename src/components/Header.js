@@ -3,7 +3,7 @@ import { PlanetsContext } from '../context/PlanetsContext.js';
 
 
 const Header = () => {
-  const { fetchPlanets } = useContext(PlanetsContext)
+  const { fetchPlanets } = useContext(PlanetsContext);
 
   useEffect(() => {
     fetchPlanets();
@@ -13,8 +13,8 @@ const Header = () => {
     <h1>
       PLANETAS DO STAR WARS SHOW
       </h1>
-  )
-}
+  );
+};
 
 
 export default Header;

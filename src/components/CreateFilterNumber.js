@@ -1,6 +1,5 @@
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
-import filtersType from '../types';
 import { PlanetsContext } from '../context/PlanetsContext.js';
 
 const renderSelectFilter = (changeColumn, hideFilters) => (
@@ -36,16 +35,15 @@ const renderInputNumber = (value, changeValue) => (
   </div>
 );
 
-const renderButtonAdd = (sendValues) => {
-  return (
-    <input
-      id="inputNumber"
-      type="button"
-      value="Adicionar Filtro"
-      onClick={() => sendValues()}
-    />
-  );
-};
+const renderButtonAdd = (sendValues) => (
+  <input
+    id="inputNumber"
+    type="button"
+    value="Adicionar Filtro"
+    onClick={() => sendValues()}
+  />
+);
+
 
 const CreateFilterNumber = ({
   comparison,
@@ -55,7 +53,7 @@ const CreateFilterNumber = ({
   changeColumn,
   sendValues,
 }) => {
-  const { filters } = useContext(PlanetsContext)
+  const { filters } = useContext(PlanetsContext);
   if (filters.length === 5) return (<div><h2>Todos os Filtros já foram selecionados</h2></div>);
   const hideFilters = filters.map((filter) => filter.column);
   return (
@@ -71,7 +69,6 @@ const CreateFilterNumber = ({
 };
 
 CreateFilterNumber.propTypes = {
-  filters: filtersType.isRequired,
   value: PropTypes.string.isRequired,
   comparison: PropTypes.string.isRequired,
   changeValue: PropTypes.func.isRequired,
