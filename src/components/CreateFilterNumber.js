@@ -50,12 +50,12 @@ const renderInputNumber = (value, changeValue) => (
     <label htmlFor="inputNumber">
       Números:
     <input
-        data-testid="input-value"
-        id="inputNumber"
-        value={value}
-        type="number"
-        onChange={(e) => changeValue(e.target.value)}
-      />
+      data-testid="input-value"
+      id="inputNumber"
+      value={value}
+      type="number"
+      onChange={(e) => changeValue(e.target.value)}
+    />
     </label>
   </div>
 );
