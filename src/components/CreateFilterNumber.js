@@ -22,23 +22,26 @@ const renderRadioButton = (value, changeComparison) => (
       name="comparison"
       value="Maior que"
       onClick={(e) => changeComparison(e.target.value)}
-    /> Maior que
-      <input
+    />
+    Maior que
+    <input
       data-testid="radio-comparison-menor"
       type="radio"
       checked={value === 'Menor que'}
       name="comparison"
       value="Menor que"
       onClick={(e) => changeComparison(e.target.value)}
-    /> Menor que
-      <input
+    />
+    Menor que
+    <input
       data-testid="radio-comparison-igual"
       type="radio"
       checked={value === 'Igual a'}
       name="comparison"
       value="Igual a"
       onClick={(e) => changeComparison(e.target.value)}
-    /> Igual a
+    />
+    Igual a
     </div>
 );
 
