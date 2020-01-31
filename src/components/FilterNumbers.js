@@ -1,50 +1,36 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React, { useContext, useState } from 'react';
 import CreateFilterNumber from './CreateFilterNumber';
+import { PlanetsContext } from '../context/PlanetsContext.js';
 
-class FilterNumbers extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      column: '',
-      comparison: '',
-      value: '0',
-    };
+const FilterNumbers = () => {
+  const [column, setColumn] = useState('');
+  const [comparison, setComparison] = useState('');
+  const [value, setValue] = useState('0');
 
-    this.changeColumn = this.changeColumn.bind(this);
-    this.changeComparison = this.changeComparison.bind(this);
-    this.changeValue = this.changeValue.bind(this);
+  const { setFilters, filters } = useContext(PlanetsContext)
+
+  const sendValues = () => {
+    const allColumn = filters.map((filter) => filter.column)
+    if (column !== '', comparison !== ''
+      && !allColumn.includes(column)) {
+      const obj = { column, comparison, value }
+      setFilters([...filters, obj])
+    }
   }
 
-  changeColumn(value) {
-    this.setState({ column: value });
-  }
+  return (
+    <div>
+      <CreateFilterNumber
+        changeValue={(newValue) => setValue(newValue)}
+        changeComparison={(newComparison) => setComparison(newComparison)}
+        changeColumn={(newColumn) => setColumn(newColumn)}
+        column={column}
+        comparison={comparison}
+        value={value}
+        sendValues={() => sendValues()}
+      />
+    </div>
+  )
+};
 
-  changeComparison(value) {
-    this.setState({ comparison: value });
-  }
-
-  changeValue(value) {
-    this.setState({ value });
-  }
-
-  render() {
-    const { column, comparison, value } = this.state;
-    return (
-      <div>
-        <CreateFilterNumber
-          changeValue={(newValue) => this.changeValue(newValue)}
-          changeComparison={(newComparison) => this.changeComparison(newComparison)}
-          changeColumn={(newColumn) => this.changeColumn(newColumn)}
-          column={column}
-          comparison={comparison}
-          value={value}
-        />
-      </div>
-    );
-  }
-}
-
-const mapStateToProps = ({ planets }) => ({ planets });
-
-export default connect(mapStateToProps)(FilterNumbers);
+export default FilterNumbers;

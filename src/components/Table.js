@@ -1,8 +1,5 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import filtersType from '../types';
-import store from '../store'
+import React, { useContext } from 'react';
+import { PlanetsContext } from '../context/PlanetsContext.js';
 
 const renderHeadColumns = () => {
   const columnsProperties = [
@@ -27,9 +24,9 @@ const renderHeadColumns = () => {
   );
 };
 
-const filterByName = (data, filtersName) => {
-  if (filtersName) {
-    return data.filter(({ name }) => name.includes(filtersName));
+const filterByName = (data, filterName) => {
+  if (filterName) {
+    return data.filter(({ name }) => name.includes(filterName));
   }
   return data;
 };
@@ -48,7 +45,7 @@ const allFilters = (data, filters) => (
 );
 
 const numericFilters = (data, filters) => {
-  if (filters.length !== 0) return allFilters(data, filters);
+  if (filters.length!==0) return allFilters(data, filters);
   return data;
 };
 
@@ -70,7 +67,7 @@ const createRow = (planet) => (
     <td>{`${planet.rotation_period} Hours`}</td>
     <td>{`${planet.surface_water} %`}</td>
     <td>
-      {planet.films.map((film) => <div>{film}</div>)}
+      {planet.films.map((film) => <div key={film}>{film}</div>)}
     </td>
     <td>{`${planet.created}`}</td>
     <td>{`${planet.edited} %`}</td>
@@ -78,10 +75,10 @@ const createRow = (planet) => (
   </tr>
 );
 
-const Table = ({ data, filters, filtersName }) => {
-  console.log(store.getState().filters)
-  const searchName = filtersName.filters;
-  const planetsFiltered = (data) ? returnFilterList(data, filters, searchName) : false;
+const Table = () => {
+  const { data: { planets, sucess }, filters, filterName } = useContext(PlanetsContext)
+  if (!sucess) return <div>CARREGANDO</div>
+  const planetsFiltered = (planets) ? returnFilterList(planets, filters, filterName) : false;
   return (
     <div>
       <table>
@@ -95,24 +92,4 @@ const Table = ({ data, filters, filtersName }) => {
   );
 };
 
-
-const mapStateToProps = ({ data: { data }, filtersName, filters }) => (
-  { data, filters, filtersName }
-);
-
-
-Table.propTypes = {
-  filtersName: PropTypes.shape({
-    filters: PropTypes.string,
-  }),
-  filters: filtersType.isRequired,
-  data: PropTypes.arrayOf(PropTypes.shape({
-    name: PropTypes.string.isRequired,
-  })),
-};
-
-Table.defaultProps = {
-  data: [],
-};
-
-export default connect(mapStateToProps)(Table);
+export default Table;

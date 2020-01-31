@@ -1,17 +1,16 @@
 import React from 'react';
-// import './App.css';
-
+import { Provider } from './context/PlanetsContext.js';
 import Table from './components/Table';
 import Filters from './components/Filters';
 import Header from './components/Header';
 
 function App() {
   return (
-    <div className="App">
+    <Provider>
       <Header />
       <Filters />
       <Table />
-    </div>
+    </Provider>
   );
 }
 

@@ -1,34 +1,22 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { addFilterName } from '../actions';
+import React, { useContext } from 'react';
+import { PlanetsContext } from '../context/PlanetsContext.js';
 
-const FilterName = ({ changeFilterName, filters }) => (
-  <div>
-    <label htmlFor="filter-name">
-      <input
-        id="filter-name"
-        type="text"
-        value={filters}
-        onChange={(e) => changeFilterName(e.target.value)}
-      />
-    </label>
-  </div>
-);
 
-const mapDispatchToProps = (dispatch) => ({
-  changeFilterName: (value) => dispatch(addFilterName(value)),
-});
-
-const mapStateToProps = ({ filtersName: { filters } }) => ({ filters });
-
-FilterName.propTypes = {
-  changeFilterName: PropTypes.func.isRequired,
-  filters: PropTypes.string,
+const FilterName = () => {
+  const { filterName, setFilterName } = useContext(PlanetsContext)
+  return (
+    <div>
+      <label htmlFor="filter-name">
+        <input
+          id="filter-name"
+          type="text"
+          value={filterName}
+          onChange={(e) => setFilterName(e.target.value)}
+        />
+      </label>
+    </div>
+  )
 };
 
-FilterName.defaultProps = {
-  filters: '',
-};
 
-export default connect(mapStateToProps, mapDispatchToProps)(FilterName);
+export default FilterName;

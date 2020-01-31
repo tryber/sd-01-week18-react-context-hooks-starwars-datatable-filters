@@ -1,10 +1,10 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { removeFilter } from '../actions';
-import filtersType from '../types';
+import React, { useContext } from 'react';
+import { PlanetsContext } from '../context/PlanetsContext.js';
 
-const saveFilter = ({ column, comparison, value }, index, removeFilters) => {
+
+
+const saveFilter = (AllFilters, filter, index, setFilters, removeFilters) => {
+  const { column, comparison, value } = filter;
   const columnsProperties = {
     population: 'Populção',
     orbital_period: 'Periodo de Orbita',
@@ -14,37 +14,29 @@ const saveFilter = ({ column, comparison, value }, index, removeFilters) => {
   };
 
   return (
-    <div key={index}>
+    <div key={column}>
       <p>
         {`${columnsProperties[column]}| ${comparison} | ${value} `}
       </p>
-      <input type="button" value="X" onClick={() => removeFilters(index)} />
+      <input type="button" value="X" onClick={() => removeFilters(AllFilters, index, setFilters)} />
     </div>
   );
 };
 
-const FiltersActive = ({ filters, removesFilter }) => (
-  <div>
-    {filters && filters.map((filter, index) => saveFilter(filter, index, removesFilter))}
-  </div>
-);
+const removeFilters = (AllFilters, removeIndex, setFilters) => {
+  setFilters([...AllFilters.filter((filter, index) => (index !== removeIndex))]);
+}
 
-
-const mapDispatchToProps = (dispatch) => ({
-  removesFilter: (index) => dispatch(removeFilter(index)),
-});
-
-const mapStateToProps = ({ filters }) => ({ filters });
-
-FiltersActive.propTypes = {
-  filters: filtersType.isRequired,
-  removesFilter: PropTypes.func.isRequired,
+const FiltersActive = () => {
+  const { filters, setFilters } = useContext(PlanetsContext)
+  return (
+    <div>
+      {
+        filters &&
+        filters.map((filter, index) => saveFilter(filters, filter, index, setFilters, removeFilters, filters))
+      }
+    </div>
+  )
 };
 
-saveFilter.propTypes = {
-  value: PropTypes.number.isRequired,
-  column: PropTypes.string.isRequired,
-  comparison: PropTypes.string.isRequired,
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(FiltersActive);
+export default FiltersActive;

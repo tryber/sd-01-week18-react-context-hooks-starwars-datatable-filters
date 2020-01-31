@@ -1,8 +1,7 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { addFilter } from '../actions';
 import filtersType from '../types';
+import { PlanetsContext } from '../context/PlanetsContext.js';
 
 const renderSelectFilter = (changeColumn, hideFilters) => (
   <select onChange={(e) => changeColumn(e.target.value)}>
@@ -37,34 +36,26 @@ const renderInputNumber = (value, changeValue) => (
   </div>
 );
 
-const sendFilter = ({ column, value, comparison }, sendValues, hideFilters) => {
-  const valueFilters = { column, value, comparison };
-  const verify = hideFilters.includes(column);
-  if (column !== '' && comparison !== '' && !verify) return sendValues(valueFilters);
-  return '';
-};
-
-const renderButtonAdd = (column, value, comparison, sendValues, hideFilters) => {
-  const obj = { column, value, comparison };
+const renderButtonAdd = (sendValues) => {
   return (
     <input
       id="inputNumber"
       type="button"
       value="Adicionar Filtro"
-      onClick={() => sendFilter(obj, sendValues, hideFilters)}
+      onClick={() => sendValues()}
     />
   );
 };
 
 const CreateFilterNumber = ({
-  column,
   comparison,
   value,
   changeValue,
   changeComparison,
   changeColumn,
   sendValues,
-  filters }) => {
+}) => {
+  const { filters } = useContext(PlanetsContext)
   if (filters.length === 5) return (<div><h2>Todos os Filtros já foram selecionados</h2></div>);
   const hideFilters = filters.map((filter) => filter.column);
   return (
@@ -73,27 +64,20 @@ const CreateFilterNumber = ({
         {renderSelectFilter(changeColumn, hideFilters)}
         {renderRadioButton(comparison, changeComparison)}
         {renderInputNumber(value, changeValue)}
-        {renderButtonAdd(column, value, comparison, sendValues, hideFilters)}
+        {renderButtonAdd(sendValues)}
       </div>
     </div>
   );
 };
 
-const mapDispatchToProps = (dispatch) => ({
-  sendValues: (value) => dispatch(addFilter(value)),
-});
-
-const mapStateToProps = ({ filters }) => ({ filters });
-
 CreateFilterNumber.propTypes = {
   filters: filtersType.isRequired,
-  value: PropTypes.string,
-  column: PropTypes.string,
-  comparison: PropTypes.string,
+  value: PropTypes.string.isRequired,
+  comparison: PropTypes.string.isRequired,
   changeValue: PropTypes.func.isRequired,
   changeColumn: PropTypes.func.isRequired,
   changeComparison: PropTypes.func.isRequired,
   sendValues: PropTypes.func.isRequired,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(CreateFilterNumber);
+export default CreateFilterNumber;
