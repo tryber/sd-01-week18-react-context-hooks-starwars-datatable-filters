@@ -1,5 +1,25 @@
-import { createContext } from 'react';
+import React, { createContext, useState, useEffect } from 'react';
+
+import getPlanets from '../services/StarWarsApi';
 
 const StarWarsContext = createContext();
 
-export default StarWarsContext;
+const StarWarsProvider = ({ children }) => {
+  const [getApiStarWars, setGetApiStarWars] = useState([]);
+  const [isFetching, setIsFetching] = useState(false);
+
+  useEffect(() => {
+    getPlanets().then((planets) => setGetApiStarWars(planets));
+    setIsFetching(true);
+  }, []);
+
+  const context = { getApiStarWars, isFetching }
+
+  return (
+    <StarWarsContext.Provider value={context}>
+      {children}
+    </StarWarsContext.Provider>
+  );
+}
+
+export { StarWarsContext, StarWarsProvider as Provider };
