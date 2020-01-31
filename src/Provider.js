@@ -12,6 +12,9 @@ function Provider({ children }) {
   const [nameFilter, setNameFilter] = useState('');
   const [initialData, setInitialData] = useState(initialValue);
   const [finalFilter, setFinalFilter] = useState('');
+  const [column, setColumn] = useState('');
+  const [comparison, setComparison] = useState('Maior');
+  const [value, setValue] = useState('');
 
   function starWarsAPI() {
     fetch('https://swapi.co/api/planets/')
@@ -29,6 +32,12 @@ function Provider({ children }) {
     setValuesFilter,
     finalFilter,
     setFinalFilter,
+    column,
+    setColumn,
+    comparison,
+    setComparison,
+    value,
+    setValue,
   };
   return <storeContext.Provider value={context}>{children}</storeContext.Provider>;
 }

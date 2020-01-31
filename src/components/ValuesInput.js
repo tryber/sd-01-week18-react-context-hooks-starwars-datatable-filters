@@ -1,14 +1,11 @@
+/* eslint-disable react/destructuring-assignment */
 import React from 'react';
 import storeContext from '../context';
 
 class ValuesInput extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      column: '',
-      comparison: '',
-      value: '',
-    };
+    this.updateStore = this.updateStore.bind(this);
   }
 
   arrayOfColumns() {
@@ -41,8 +38,8 @@ class ValuesInput extends React.Component {
     ));
   }
 
-  updateStore(state) {
-    const { column, comparison, value } = state;
+  updateStore() {
+    const { column, comparison, value } = this.context;
     const numericValues = {
       column,
       comparison,
@@ -53,42 +50,39 @@ class ValuesInput extends React.Component {
     if (column === '' || comparison === '' || value === '') {
       return alert('dados não preenchidos');
     }
-    this.setState({ column: '' });
+    this.context.setColumn({ column: '' });
     return this.context.setValuesFilter({ numericValues, columns });
   }
 
   changeState(event, id) {
-    this.setState({
-      [id]: event.target.value,
-    });
+    this.context[`set${id}`](event.target.value);
   }
 
   generateValuesInput() {
     return (
       <div>
         <label htmlFor="column">
-          <select onChange={(e) => this.changeState(e, 'column')} data-testid="column" id="column">
+          <select onChange={(e) => this.changeState(e, 'Column')} data-testid="column" id="column">
             {this.generateColumnOptions()}
           </select>
         </label>
         <select
-          onChange={(e) => this.changeState(e, 'comparison')}
+          onChange={(e) => this.changeState(e, 'Comparison')}
           data-testid="comparison"
           id="comparison"
         >
-          <option />
           <option value="Maior">Maior que</option>
           <option value="Menor">Menor que</option>
           <option value="Igual">Igual</option>
         </select>
         <input
-          onChange={(e) => this.changeState(e, 'value')}
+          onChange={(e) => this.changeState(e, 'Value')}
           data-testid="comparisonValue"
           id="comparisonValue"
           type="number"
           placeholder="Valor"
         />
-        <button onClick={() => this.updateStore(this.state)}>Adicionar filtro</button>
+        <button onClick={this.updateStore}>Adicionar filtro</button>
       </div>
     );
   }

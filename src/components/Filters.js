@@ -1,3 +1,4 @@
+/* eslint-disable react/destructuring-assignment */
 import React from 'react';
 import storeContext from '../context';
 
@@ -48,7 +49,6 @@ class Filters extends React.Component {
 
   showFilters(data, filtersActive) {
     if (filtersActive.length > 0) {
-      // console.log('passou aq 1')
       const finalData = filtersActive.reduce((acc, filter, index) => {
         const array = index === 0 ? data : acc;
         return this.filterByName(array, filter);
@@ -64,7 +64,6 @@ class Filters extends React.Component {
       ));
     }
     this.context.setFinalFilter(this.filterByName(data));
-    // console.log('passou aq 2')
     return 'no filter';
   }
 
