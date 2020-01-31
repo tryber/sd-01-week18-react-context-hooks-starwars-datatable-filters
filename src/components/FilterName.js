@@ -7,13 +7,14 @@ const FilterName = () => {
   return (
     <div>
       <label htmlFor="filter-name">
-        <input
-          id="filter-name"
-          type="text"
-          value={filterName}
-          onChange={(e) => setFilterName(e.target.value)}
-        />
+        Filtro name:
       </label>
+      <input
+        id="filter-name"
+        type="text"
+        value={filterName}
+        onChange={(e) => setFilterName(e.target.value)}
+      />
     </div>
   );
 };

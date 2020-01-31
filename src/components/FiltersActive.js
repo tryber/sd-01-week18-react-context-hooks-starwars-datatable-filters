@@ -4,7 +4,7 @@ import { PlanetsContext } from '../context/PlanetsContext.js';
 const saveFilter = (AllFilters, filter, index, setFilters, removeFilters) => {
   const { column, comparison, value } = filter;
   const columnsProperties = {
-    population: 'Populção',
+    population: 'População',
     orbital_period: 'Periodo de Orbita',
     diameter: 'Diametro',
     rotation_period: 'Periodo de Rotação',
@@ -13,10 +13,15 @@ const saveFilter = (AllFilters, filter, index, setFilters, removeFilters) => {
 
   return (
     <div key={column}>
-      <p>
+      <p data-testid={`data-${column}`}>
         {`${columnsProperties[column]}| ${comparison} | ${value} `}
       </p>
-      <input type="button" value="X" onClick={() => removeFilters(AllFilters, index, setFilters)} />
+      <input
+        data-testid="remove-filter"
+        type="button"
+        value="X"
+        onClick={() => removeFilters(AllFilters, index, setFilters)}
+      />
     </div>
   );
 };

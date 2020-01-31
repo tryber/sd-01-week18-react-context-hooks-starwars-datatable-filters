@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import { PlanetsContext } from '../context/PlanetsContext.js';
 
 const renderSelectFilter = (changeColumn, hideFilters) => (
-  <select onChange={(e) => changeColumn(e.target.value)}>
+  <select data-testid="select" onChange={(e) => changeColumn(e.target.value)}>
     <option value="" />
-    {hideFilters.includes('population') || <option value="population">Populaçao</option>}
+    {hideFilters.includes('population') || <option value="population">População</option>}
     {hideFilters.includes('orbital_period') || <option value="orbital_period">Duração da Orbita</option>}
     {hideFilters.includes('diameter') || <option value="diameter">Diametro</option>}
     {hideFilters.includes('rotation_period') || <option value="rotation_period">Duração da Rotação</option>}
@@ -15,9 +15,30 @@ const renderSelectFilter = (changeColumn, hideFilters) => (
 
 const renderRadioButton = (value, changeComparison) => (
   <div>
-    <input type="radio" checked={value === 'Maior que'} name="comparison" value="Maior que" onClick={(e) => changeComparison(e.target.value)} /> Maior que
-      <input type="radio" checked={value === 'Menor que'} name="comparison" value="Menor que" onClick={(e) => changeComparison(e.target.value)} /> Menor que
-      <input type="radio" checked={value === 'Igual a'} name="comparison" value="Igual a" onClick={(e) => changeComparison(e.target.value)} /> Igual a
+    <input
+      data-testid="radio-comparison-maior"
+      type="radio"
+      checked={value === 'Maior que'}
+      name="comparison"
+      value="Maior que"
+      onClick={(e) => changeComparison(e.target.value)}
+    /> Maior que
+      <input
+      data-testid="radio-comparison-menor"
+      type="radio"
+      checked={value === 'Menor que'}
+      name="comparison"
+      value="Menor que"
+      onClick={(e) => changeComparison(e.target.value)}
+    /> Menor que
+      <input
+      data-testid="radio-comparison-igual"
+      type="radio"
+      checked={value === 'Igual a'}
+      name="comparison"
+      value="Igual a"
+      onClick={(e) => changeComparison(e.target.value)}
+    /> Igual a
     </div>
 );
 
@@ -25,7 +46,8 @@ const renderInputNumber = (value, changeValue) => (
   <div>
     <label htmlFor="inputNumber">
       Números:
-      <input
+    <input
+        data-testid="input-value"
         id="inputNumber"
         value={value}
         type="number"
@@ -37,6 +59,7 @@ const renderInputNumber = (value, changeValue) => (
 
 const renderButtonAdd = (sendValues) => (
   <input
+    data-testid="input-button-add"
     id="inputNumber"
     type="button"
     value="Adicionar Filtro"

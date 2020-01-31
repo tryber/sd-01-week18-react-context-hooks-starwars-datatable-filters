@@ -78,7 +78,7 @@ const createRow = (planet) => (
 const Table = () => {
   const { data: { planets, sucess }, filters, filterName } = useContext(PlanetsContext);
   if (!sucess) return <div>CARREGANDO</div>;
-  const planetsFiltered = (planets) ? returnFilterList(planets, filters, filterName) : false;
+  const planetsFiltered = returnFilterList(planets, filters, filterName);
   return (
     <div>
       <table>
@@ -87,7 +87,7 @@ const Table = () => {
           {(planetsFiltered) && planetsFiltered.map((planet) => createRow(planet))}
         </tbody>
       </table>
-      {(planetsFiltered === undefined) && <h3>Planeta não encontrado</h3>}
+      {(planetsFiltered.length === 0) && <h3>Planeta não encontrado</h3>}
     </div>
   );
 };
