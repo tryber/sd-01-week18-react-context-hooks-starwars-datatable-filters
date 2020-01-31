@@ -1,7 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import updatingValuesFilter from '../actions/valuesFilter';
+import storeContext from '../context';
 
 class ValuesInput extends React.Component {
   constructor(props) {
@@ -14,6 +12,9 @@ class ValuesInput extends React.Component {
   }
 
   arrayOfColumns() {
+    const {
+      valuesFilter: { columns },
+    } = this.context;
     const completeColumns = [
       '',
       'population',
@@ -22,8 +23,8 @@ class ValuesInput extends React.Component {
       'rotation_period',
       'surface_water',
     ];
-    if (this.props.columns.length > 0) {
-      const arrayOfUsedColumns = this.props.columns.map((column) => column.column);
+    if (columns.length > 0) {
+      const arrayOfUsedColumns = columns.map((column) => column.column);
       const arrayOfColumnsToUse = completeColumns.filter(
         (column) => !arrayOfUsedColumns.includes(column),
       );
@@ -42,20 +43,18 @@ class ValuesInput extends React.Component {
 
   updateStore(state) {
     const { column, comparison, value } = state;
-    const obj = {
-      numeric_values: {
-        column,
-        comparison,
-        value,
-      },
+    const numericValues = {
+      column,
+      comparison,
+      value,
     };
     const formatFilter = { column, comparison, value };
-    const newFilter = [...this.props.columns, formatFilter];
+    const columns = [...this.context.valuesFilter.columns, formatFilter];
     if (column === '' || comparison === '' || value === '') {
       return alert('dados não preenchidos');
     }
     this.setState({ column: '' });
-    return this.props.updateValues(obj, newFilter);
+    return this.context.setValuesFilter({ numericValues, columns });
   }
 
   changeState(event, id) {
@@ -95,7 +94,7 @@ class ValuesInput extends React.Component {
   }
 
   render() {
-    if (this.props.columns.length === 5) {
+    if (this.context.valuesFilter.columns.length === 5) {
       return 'All filters are being used';
     }
     return (
@@ -107,17 +106,6 @@ class ValuesInput extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => ({
-  columns: state.valueFilterReducer.columns,
-});
+ValuesInput.contextType = storeContext;
 
-const mapDispatchToProps = (dispatch) => ({
-  updateValues: (obj, columns) => dispatch(updatingValuesFilter(obj, columns)),
-});
-
-ValuesInput.propTypes = {
-  columns: PropTypes.arrayOf.isRequired,
-  updateValues: PropTypes.func.isRequired,
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(ValuesInput);
+export default ValuesInput;

@@ -8,8 +8,10 @@ function Provider({ children }) {
     isFetching: true,
     sucess: false,
   };
-
+  const [valuesFilter, setValuesFilter] = useState({ filters: '', columns: [] });
+  const [nameFilter, setNameFilter] = useState('');
   const [initialData, setInitialData] = useState(initialValue);
+  const [finalFilter, setFinalFilter] = useState('');
 
   function starWarsAPI() {
     fetch('https://swapi.co/api/planets/')
@@ -18,7 +20,16 @@ function Provider({ children }) {
       .catch((error) => alert(error));
   }
 
-  const context = { initialData, starWarsAPI };
+  const context = {
+    initialData,
+    starWarsAPI,
+    nameFilter,
+    setNameFilter,
+    valuesFilter,
+    setValuesFilter,
+    finalFilter,
+    setFinalFilter,
+  };
   return <storeContext.Provider value={context}>{children}</storeContext.Provider>;
 }
 

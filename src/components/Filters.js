@@ -1,9 +1,5 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
 import storeContext from '../context';
-import finalFilter from '../actions/filters';
-import removeValuesFilter from '../actions/valueFilterRemove';
 
 class Filters extends React.Component {
   static findComparisons(valueFilter, data) {
@@ -32,15 +28,8 @@ class Filters extends React.Component {
     return data;
   }
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      data: '',
-    };
-  }
-
   filterByName(data, valueFilter) {
-    const { nameFilter } = this.props;
+    const { nameFilter } = this.context;
     if (nameFilter) {
       return Filters.filterByValues(
         data.filter((planet) => planet.name.includes(nameFilter)),
@@ -51,9 +40,9 @@ class Filters extends React.Component {
   }
 
   removeFilter(filter) {
-    const actualFilter = this.props.filtersActive;
+    const actualFilter = this.context.valuesFilter.columns;
     const newFilters = actualFilter.filter((filt) => filt.column !== filter.column);
-    this.props.removeFilters(newFilters);
+    this.context.setFinalFilter(newFilters);
     this.showFilters(this.context.initialData.data.results, newFilters);
   }
 
@@ -63,15 +52,17 @@ class Filters extends React.Component {
         const array = index === 0 ? data : acc;
         return this.filterByName(array, filter);
       }, []);
-      this.props.sendFinalFilter(finalData);
+      this.context.setFinalFilter(finalData);
       return filtersActive.map((filter) => (
         <div>
           <p key={filter.column}>{`${filter.column} - ${filter.comparison} - ${filter.value}`}</p>
-          <button type="button" onClick={() => this.removeFilter(filter)}>X</button>
+          <button type="button" onClick={() => this.removeFilter(filter)}>
+            X
+          </button>
         </div>
       ));
     }
-    this.props.sendFinalFilter(this.filterByName(data));
+    this.context.setFinalFilter(this.filterByName(data));
     return 'no filter';
   }
 
@@ -79,33 +70,16 @@ class Filters extends React.Component {
     return (
       <div>
         <p>Filters active:</p>
-        <div>{this.showFilters(this.context.initialData.data.results, this.props.filtersActive)}</div>
+        <div>
+          {this.showFilters(
+            this.context.initialData.data.results,
+            this.context.valuesFilter.columns,
+          )}
+        </div>
       </div>
     );
   }
 }
 
-const mapStateToProps = (state) => ({
-  nameFilter: state.textFilterReducer.filters,
-  filtersActive: state.valueFilterReducer.columns,
-  // initialData: state.apiServiceReducer.data,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  sendFinalFilter: (data) => dispatch(finalFilter(data)),
-  removeFilters: (columns) => dispatch(removeValuesFilter(columns)),
-});
-
-Filters.propTypes = {
-  nameFilter: PropTypes.string.isRequired,
-  filtersActive: PropTypes.arrayOf.isRequired,
-  // initialData: PropTypes.shape({
-  //   count: PropTypes.number.isRequired,
-  //   results: PropTypes.arrayOf.isRequired,
-  // }).isRequired,
-  sendFinalFilter: PropTypes.func.isRequired,
-  removeFilters: PropTypes.func.isRequired,
-};
-
 Filters.contextType = storeContext;
-export default connect(mapStateToProps, mapDispatchToProps)(Filters);
+export default Filters;

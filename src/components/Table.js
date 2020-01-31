@@ -1,7 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-// import { loadData } from '../actions/starWarsApi';
 import storeContext from '../context';
 import './table.css';
 
@@ -42,7 +39,6 @@ class Table extends React.Component {
   }
 
   render() {
-    console.log(this.context)
     if (this.context.initialData.isFetching) {
       return <p>LOADING...</p>;
     }
@@ -56,30 +52,5 @@ class Table extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => ({
-  finalData: state.finalFilterReducer.data,
-  // initialData: state.apiServiceReducer.data,
-  // isFetching: state.apiServiceReducer.isFetching,
-  // sucess: state.apiServiceReducer.sucess,
-});
-
-// const mapDispatchToProps = (dispatch) => ({
-//   loadData: () => dispatch(loadData()),
-// });
-
-Table.propTypes = {
-  // sucess: PropTypes.string.isRequired,
-  // isFetching: PropTypes.string.isRequired,
-  // initialData: PropTypes.shape({
-  //   count: PropTypes.number.isRequired,
-  //   results: PropTypes.arrayOf.isRequired,
-  // }).isRequired,
-  finalData: PropTypes.shape({
-    count: PropTypes.number.isRequired,
-    results: PropTypes.arrayOf.isRequired,
-  }).isRequired,
-  // loadData: PropTypes.func.isRequired,
-};
-
 Table.contextType = storeContext;
-export default connect(mapStateToProps)(Table);
+export default Table;
