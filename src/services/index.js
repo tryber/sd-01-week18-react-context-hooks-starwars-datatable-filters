@@ -1,17 +1,9 @@
-import React, { useState } from 'react';
+const StarWarsAPI = 'https://swapi.co/api/planets/';
 
-const initialValue = {
-  data: [],
-  isFetching: true,
-  sucess: false,
+const getAPIinfo = () => {
+  fetch(`${StarWarsAPI}`)
+    .then((response) => response.json()
+      .then((json) => (response.ok ? Promise.resolve(json) : Promise.reject(json))));
 };
-const [initialData, setInitialData] = useState(initialValue);
-function starWarsAPI() {
-  fetch(`${API}`)
-    .then((data) => data.json())
-    .then((response) => setInitialData({ data: response, isFetching: false, sucess: true }))
-    .catch((error) => alert(error));
-}
-const context = { initialData, starWarsAPI };
 
-export default getStarWarsPlanets;
+export default getAPIinfo;
