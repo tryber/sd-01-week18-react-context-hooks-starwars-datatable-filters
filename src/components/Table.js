@@ -1,12 +1,11 @@
-import { useContext } from 'react';
-
+import React, { useContext } from 'react';
 import { StarWarsContext } from '../context/StarWarsContext';
 
 const Planets = () => {
-  const { APIResult } = useContext(StarWarsContext);
+  const { getApiStarWars } = useContext(StarWarsContext);
   return (
-    console.log(APIResult)
-   )
+    console.log(getApiStarWars)
+  );
 }
 
 export default Planets;

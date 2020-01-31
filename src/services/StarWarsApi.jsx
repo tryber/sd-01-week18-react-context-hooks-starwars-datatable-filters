@@ -2,7 +2,7 @@ const START_WARS_PLANETS_API = 'https://swapi.co/api/planets/.json';
 
 const getPlanets = () => (
   fetch(`${START_WARS_PLANETS_API}`)
-  .then ((response) => (
+  .then((response) => (
     response
     .json()
     .then((json) => (response.ok ? Promise.resolve(json) : Promise.reject(json)))

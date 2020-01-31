@@ -2,7 +2,6 @@ import React from 'react';
 
 import { Provider } from './context/StarWarsContext';
 import Table from './components/Table';
-
 import './App.css';
 
 function App() {

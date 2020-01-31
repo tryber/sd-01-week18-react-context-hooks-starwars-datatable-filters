@@ -13,13 +13,13 @@ const StarWarsProvider = ({ children }) => {
     setIsFetching(true);
   }, []);
 
-  const context = { getApiStarWars, isFetching }
+  const context = { getApiStarWars, isFetching };
 
   return (
     <StarWarsContext.Provider value={context}>
       {children}
     </StarWarsContext.Provider>
   );
-}
+};
 
 export { StarWarsContext, StarWarsProvider as Provider };
