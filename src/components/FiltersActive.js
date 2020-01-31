@@ -37,7 +37,7 @@ const FiltersActive = () => {
           index,
           setFilters,
           removeFilters,
-          filters
+          filters,
         ))
       }
     </div>

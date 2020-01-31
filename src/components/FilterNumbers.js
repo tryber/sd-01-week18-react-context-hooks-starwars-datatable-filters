@@ -10,7 +10,7 @@ const FilterNumbers = () => {
   const { setFilters, filters } = useContext(PlanetsContext);
 
   const sendValues = () => {
-    const allColumn = filters.map((filter) => filter.column)
+    const allColumn = filters.map((filter) => filter.column);
     if (column !== '' && comparison !== ''
       && !allColumn.includes(column)) {
       const obj = { column, comparison, value };
