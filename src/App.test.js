@@ -2,6 +2,7 @@ import React from 'react';
 import { render, fireEvent, waitForDomChange, cleanup } from '@testing-library/react';
 import App from './App';
 
+
 afterEach(cleanup);
 
 test('Verify Title', () => {
