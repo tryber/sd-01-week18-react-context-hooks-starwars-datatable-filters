@@ -1,9 +1,9 @@
 const StarWarsAPI = 'https://swapi.co/api/planets/';
 
-const getAPIinfo = () => {
+const SWAPI = () => {
   fetch(`${StarWarsAPI}`)
     .then((response) => response.json()
       .then((json) => (response.ok ? Promise.resolve(json) : Promise.reject(json))));
 };
 
-export default getAPIinfo;
+export default SWAPI;

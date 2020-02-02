@@ -1,9 +1,19 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { StarWarsContext } from '../context/StarWarsContext';
+import React from 'react';
 
-function Teste() {
-  const { APIresult } = useContext(StarWarsContext);
-  return APIresult;
-}
-
-export default Teste;
+const Table = () => {
+  const headerTable = [
+    'Name',
+    'Rotation_period',
+    'Orbital_period',
+    'Diameter',
+    'Climate',
+    'Gravity',
+    'Terrain',
+    'Surface_water',
+    'Population',
+    'Films',
+    'Created',
+    'Edited',
+    'Url',
+  ];
+};
