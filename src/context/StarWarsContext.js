@@ -1,6 +1,6 @@
 import React, { useState, createContext } from 'react';
-import SWAPI from '../services/SWAPI';
 import Proptypes from 'prop-types';
+import SWAPI from '../services/SWAPI';
 
 const StarWarsContext = createContext();
 
