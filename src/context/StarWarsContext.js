@@ -1,4 +1,4 @@
-import { useState, createContext } from 'react';
+import React, { useState, createContext } from 'react';
 import SWAPI from '../services/SWAPI';
 import Proptypes from 'prop-types';
 
@@ -32,4 +32,8 @@ const dataSWAPI = ({ children }) => {
   );
 };
 
-export default StarWarsContext;
+export { StarWarsContext, dataSWAPI as Provider };
+
+dataSWAPI.propTypes = {
+  children: Proptypes.node.isRequired,
+};
