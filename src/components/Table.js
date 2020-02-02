@@ -3,17 +3,24 @@ import React from 'react';
 const Table = () => {
   const headerTable = [
     'Name',
-    'Rotation_period',
-    'Orbital_period',
+    'Rotation Period',
+    'Orbital Period',
     'Diameter',
     'Climate',
     'Gravity',
     'Terrain',
-    'Surface_water',
+    'Surface Water',
     'Population',
     'Films',
     'Created',
     'Edited',
     'Url',
   ];
+  return (
+    <tr>
+      {headerTable.map((value) => <th key={value}>{value}</th>)}
+    </tr>
+  );
 };
+
+export default Table;
