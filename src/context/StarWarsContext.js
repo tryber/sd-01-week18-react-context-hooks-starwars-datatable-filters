@@ -21,7 +21,6 @@ const DataSWAPI = ({ children }) => {
 
   const context = {
     data,
-    setData,
     IsReadyAPI,
   };
 
