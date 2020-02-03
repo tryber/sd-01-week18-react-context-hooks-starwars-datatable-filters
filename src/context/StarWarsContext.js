@@ -4,13 +4,13 @@ import SWAPI from '../services/SWAPI';
 
 const StarWarsContext = createContext();
 
-const dataSWAPI = ({ children }) => {
+const DataSWAPI = ({ children }) => {
   const [data, setData] = useState({
     planets: [],
     success: false,
   });
 
-  const isReadyAPI = () => {
+  const IsReadyAPI = () => {
     if (data.success) return;
     SWAPI()
       .then((obj) => setData({
@@ -22,7 +22,7 @@ const dataSWAPI = ({ children }) => {
   const context = {
     data,
     setData,
-    isReadyAPI,
+    IsReadyAPI,
   };
 
   return (
@@ -32,8 +32,8 @@ const dataSWAPI = ({ children }) => {
   );
 };
 
-export { StarWarsContext, dataSWAPI as Provider };
+export { StarWarsContext, DataSWAPI as Provider };
 
-dataSWAPI.propTypes = {
+DataSWAPI.propTypes = {
   children: Proptypes.node.isRequired,
 };

@@ -1,10 +1,10 @@
 import React from 'react';
-import Table from './components/Table';
+import BaseTable from './components/Table';
 import './App.css';
 
 function App() {
   return (
-    <div>{Table()}</div>
+    <div>{BaseTable()}</div>
   );
 }
 

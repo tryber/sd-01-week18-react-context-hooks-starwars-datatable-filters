@@ -1,6 +1,9 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import StarWarsContext from '../context/StarWarsContext';
+import './Table.css';
 
-const Table = () => {
+
+const BaseTable = () => {
   const headerTable = [
     'Name',
     'Rotation Period',
@@ -16,11 +19,13 @@ const Table = () => {
     'Edited',
     'Url',
   ];
+
   return (
     <tr>
       {headerTable.map((value) => <th key={value}>{value}</th>)}
     </tr>
+
   );
 };
 
-export default Table;
+export default BaseTable;
