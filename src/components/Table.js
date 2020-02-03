@@ -1,5 +1,4 @@
-import React, { useContext } from 'react';
-import StarWarsContext from '../context/StarWarsContext';
+import React from 'react';
 import './Table.css';
 
 
@@ -24,11 +23,10 @@ const BaseTable = () => {
     <tr>
       {headerTable.map((value) => <th key={value}>{value}</th>)}
     </tr>
-
   );
 };
 
-const FullTable = (planet) => (
+const PlanetsInfo = (planet) => (
   <tr key={planet.name}>
     <td>{`${planet.name}`}</td>
     <td>{planet.orbital_period}</td>
@@ -38,11 +36,20 @@ const FullTable = (planet) => (
     <td>{planet.terrain}</td>
     <td>{planet.surface_water}</td>
     <td>{planet.population}</td>
-    <td>{/*planet.films*/}</td>
+    <td>{planet.films.map((film) => <div>{film}</div>)}</td>
     <td>{planet.created}</td>
     <td>{planet.edited}</td>
     <td>{planet.url}</td>
   </tr>
 );
 
-export default BaseTable;
+const FullTable = (data) => (
+  <table>
+    <tbody>
+      {BaseTable()}
+      {PlanetsInfo(data)}
+    </tbody>
+  </table>
+);
+
+export default FullTable;
