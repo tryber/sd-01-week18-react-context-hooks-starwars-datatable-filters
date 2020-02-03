@@ -13,9 +13,34 @@ const obj = [
   { "name": "Geonosis", "rotation_period": "30", "orbital_period": "256", "diameter": "11370", "climate": "temperate, arid", "gravity": "0.9 standard", "terrain": "rock, desert, mountain, barren", "surface_water": "5", "population": "100000000000", "residents": ["https://swapi.co/api/people/63/"], "films": ["https://swapi.co/api/films/5/"], "created": "2014-12-10T12:47:22.350000Z", "edited": "2014-12-20T20:58:18.437000Z", "url": "https://swapi.co/api/planets/11/" }
 ]
 
-test('properly test a Promise', () => {
-  return getStarWarsPlanets().then(({ results }) => {
-    expect(results).toEqual(obj);
+describe('API', () => {
+  test('func exist', () => {
+    expect(typeof getStarWarsPlanets).toBe('function')
+  })
+
+  const fetch = jest.fn(() => {
+    Promise.resolve({
+      json: () => Promise.resolve({
+        count: 61,
+        next: "https://swapi.co/api/planets/?page=2",
+        previous: null,
+        results: obj,
+      })
+    })
+  });
+  const STARWARS_API = 'https://swapi.co/api/planets/';
+  console.log(getStarWarsPlanets(fetch, STARWARS_API))
+  describe('Test', () => {
+    test('AAAAAAAA', () => {
+      const promiseShow = getStarWarsPlanets(fetch);
+      expect(fetch).toHabeBeenCalledWith('https://swapi.co/api/planets/', {
+        method: 'POST',
+        body: { results: obj }
+      });
+
+      return promiseShow
+        .then((data)=>expect(data.results).toEqual(obj));
+    })
   })
 })
 
