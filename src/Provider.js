@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import storeContext from './context';
+import finalData from './components/FilterService';
 
 function Provider({ children }) {
   const initialValue = {
@@ -8,13 +9,10 @@ function Provider({ children }) {
     isFetching: true,
     sucess: false,
   };
-  const [valuesFilter, setValuesFilter] = useState({ filters: '', columns: [] });
+  const [valuesFilter, setValuesFilter] = useState([]);
   const [nameFilter, setNameFilter] = useState('');
   const [initialData, setInitialData] = useState(initialValue);
-  const [finalFilter, setFinalFilter] = useState('');
-  const [column, setColumn] = useState('');
-  const [comparison, setComparison] = useState('Maior');
-  const [value, setValue] = useState('');
+  const [filteredData, setFilteredData] = useState();
 
   function starWarsAPI() {
     fetch('https://swapi.co/api/planets/')
@@ -22,7 +20,7 @@ function Provider({ children }) {
       .then((response) => setInitialData({ data: response, isFetching: false, sucess: true }))
       .catch((error) => alert(error));
   }
-
+  const filteringData = () => setFilteredData(finalData(initialData.data.result, valuesFilter, nameFilter));
   const context = {
     initialData,
     starWarsAPI,
@@ -30,14 +28,8 @@ function Provider({ children }) {
     setNameFilter,
     valuesFilter,
     setValuesFilter,
-    finalFilter,
-    setFinalFilter,
-    column,
-    setColumn,
-    comparison,
-    setComparison,
-    value,
-    setValue,
+    filteringData,
+    filteredData,
   };
   return <storeContext.Provider value={context}>{children}</storeContext.Provider>;
 }

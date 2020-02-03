@@ -3,21 +3,25 @@ import storeContext from '../context';
 import './table.css';
 
 class Table extends React.Component {
+  static arrayOfTags(data) {
+    return Object.entries(data[0])
+      .map((tag) => tag[0])
+      .filter((name) => name !== 'residents');
+  }
+
   static generateTableHead(data) {
+    const tags = Table.arrayOfTags(data);
     if (data.length > 0) {
-      const arrayOfTags = Object.entries(data[0])
-        .map((tag) => tag[0])
-        .filter((name) => name !== 'residents');
       return (
         <table>
           <thead>
             <tr>
-              {arrayOfTags.map((tag) => (
+              {tags.map((tag) => (
                 <th key={`${tag}1`}>{tag}</th>
               ))}
             </tr>
           </thead>
-          <tbody>{Table.generateTableBody(data, arrayOfTags)}</tbody>
+          <tbody>{Table.generateTableBody(data, tags)}</tbody>
         </table>
       );
     }
@@ -43,8 +47,8 @@ class Table extends React.Component {
       return <p>LOADING...</p>;
     }
     if (this.context.initialData.sucess) {
-      if (this.props.finalData) {
-        return Table.generateTableHead(this.props.finalData);
+      if (this.context.filteredData) {
+        return Table.generateTableHead(this.context.filteredData);
       }
       return Table.generateTableHead(this.context.initialData.data.results);
     }

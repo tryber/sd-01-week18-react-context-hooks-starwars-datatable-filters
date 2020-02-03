@@ -5,13 +5,15 @@ import storeContext from '../context';
 class ValuesInput extends React.Component {
   constructor(props) {
     super(props);
-    this.updateStore = this.updateStore.bind(this);
+    this.state = {
+      column: '',
+      comparison: '',
+      value: '',
+    };
   }
 
   arrayOfColumns() {
-    const {
-      valuesFilter: { columns },
-    } = this.context;
+    const { valuesFilter } = this.context;
     const completeColumns = [
       '',
       'population',
@@ -20,8 +22,8 @@ class ValuesInput extends React.Component {
       'rotation_period',
       'surface_water',
     ];
-    if (columns.length > 0) {
-      const arrayOfUsedColumns = columns.map((column) => column.column);
+    if (valuesFilter.length > 0) {
+      const arrayOfUsedColumns = valuesFilter.map((column) => column.column);
       const arrayOfColumnsToUse = completeColumns.filter(
         (column) => !arrayOfUsedColumns.includes(column),
       );
@@ -38,36 +40,38 @@ class ValuesInput extends React.Component {
     ));
   }
 
-  updateStore() {
-    const { column, comparison, value } = this.context;
+  updateStore(state) {
+    const { column, comparison, value } = state;
     const numericValues = {
       column,
       comparison,
       value,
     };
     const formatFilter = { column, comparison, value };
-    const columns = [...this.context.valuesFilter.columns, formatFilter];
+    const columns = [...this.context.valuesFilter, formatFilter];
     if (column === '' || comparison === '' || value === '') {
       return alert('dados não preenchidos');
     }
-    this.context.setColumn({ column: '' });
+    this.setState({ column: '' });
     return this.context.setValuesFilter({ numericValues, columns });
   }
 
   changeState(event, id) {
-    this.context[`set${id}`](event.target.value);
+    this.setState({
+      [id]: event.target.value,
+    });
   }
 
   generateValuesInput() {
     return (
       <div>
         <label htmlFor="column">
-          <select onChange={(e) => this.changeState(e, 'Column')} data-testid="column" id="column">
+          <select onChange={(e) => this.changeState(e, 'column')} data-testid="column" id="column">
             {this.generateColumnOptions()}
           </select>
         </label>
         <select
-          onChange={(e) => this.changeState(e, 'Comparison')}
+          onChange={(e) => this.changeState(e, 'comparison')}
           data-testid="comparison"
           id="comparison"
         >
@@ -76,19 +80,19 @@ class ValuesInput extends React.Component {
           <option value="Igual">Igual</option>
         </select>
         <input
-          onChange={(e) => this.changeState(e, 'Value')}
+          onChange={(e) => this.changeState(e, 'value')}
           data-testid="comparisonValue"
           id="comparisonValue"
           type="number"
           placeholder="Valor"
         />
-        <button onClick={this.updateStore}>Adicionar filtro</button>
+        <button onClick={() => this.updateStore(this.state)}>Adicionar filtro</button>
       </div>
     );
   }
 
   render() {
-    if (this.context.valuesFilter.columns.length === 5) {
+    if (this.context.valuesFilter === 5) {
       return 'All filters are being used';
     }
     return (
