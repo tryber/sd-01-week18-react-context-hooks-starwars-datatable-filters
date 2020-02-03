@@ -1,10 +1,12 @@
 const STARWARS_API = 'https://swapi.co/api/planets/';
 
-const getStarWarsPlanets = (fetch, URL = STARWARS_API) => (
-  fetch(URL)
-    .then((response) => response.json())
-        .then((data) => data.results)
-);
+const getStarWarsPlanets = () => (
+  fetch(`${STARWARS_API}`)
+    .then((response) => (
+      response
+        .json()
+        .then((json) => (response && Promise.resolve(json))
+        ))
+    ));
 
-console.log(getStarWarsPlanets())
 export default getStarWarsPlanets;
