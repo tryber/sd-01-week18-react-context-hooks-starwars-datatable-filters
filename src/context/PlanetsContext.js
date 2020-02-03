@@ -12,8 +12,8 @@ const PlanetsProvider = ({ children }) => {
   const fetchPlanets = () => {
     if (data.sucess) return;
     getStarWarsPlanets(fetch)
-      .then((value) => {csetData({ planets: value.results, sucess: true }));
-  };
+      .then((value) => {setData({ planets: value.results, sucess: true })
+  });
 
   const context = {
     data,
