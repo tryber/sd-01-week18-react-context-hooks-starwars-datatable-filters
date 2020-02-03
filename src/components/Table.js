@@ -42,7 +42,6 @@ const FullTable = (planet) => (
     <td>{planet.created}</td>
     <td>{planet.edited}</td>
     <td>{planet.url}</td>
-
   </tr>
 );
 
