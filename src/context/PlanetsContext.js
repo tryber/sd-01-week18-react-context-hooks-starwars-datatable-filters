@@ -13,9 +13,9 @@ const PlanetsProvider = ({ children }) => {
     if (data.sucess) return;
     getStarWarsPlanets()
       .then((value) => {
-        setData({ planets: value.results, sucess: true })
+        setData({ planets: value.results, sucess: true });
       });
-  }
+  };
 
   const context = {
     data,
