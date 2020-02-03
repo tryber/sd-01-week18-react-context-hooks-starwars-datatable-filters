@@ -57,7 +57,7 @@ function Table() {
   return (
     <>
       <h1>StarWars Datatable with Filters</h1>
-      <div>{Filter}</div>
+      <Filter />
       <table>
         <thead>{headColumns()}</thead>
         <tbody>{isFetching && switchOfTable(resultAPI)}</tbody>
