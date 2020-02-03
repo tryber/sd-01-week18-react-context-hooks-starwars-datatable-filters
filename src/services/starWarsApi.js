@@ -4,7 +4,7 @@ const getStarWarsPlanets = () => (
   fetch(`${STARWARS_API}`)
     .then((response) => (
       response.json()
-        .then((json) => (response && Promise.resolve(json)),
+        .then((json) => ((response && Promise.resolve(json)))
         )
     )
     )
