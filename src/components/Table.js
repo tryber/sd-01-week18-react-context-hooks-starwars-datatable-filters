@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-// import Filter from './Filter';
+import Filter from './Filter';
 import { StarWarsContext } from '../context/StarWarsContext';
 
 function Table() {
@@ -9,28 +9,6 @@ function Table() {
   //   const newWord = word.toLowerCase();
   //   return newWord && newWord[0].toUpperCase() + newWord.slice(1);
   // }
-
-  // const switchOfTable = (data, filters) => {
-  //   let dataFinal = null;
-  //   switch (filters) {
-  //     case filters !== '':
-
-  //       dataFinal = data.filter((planet) => planet.name.toUpperCase().includes(filters.toUpperCase()));
-  //       break;
-  //     default:
-  //       dataFinal = data;
-  //       break;
-  //   }
-  //   return dataFinal.map((data) => bodyTableRow(data));
-  // };
-
-  // if (filters) {
-  //   dataFinal = data.filter((planet) => planet.name.toUpperCase().includes(filters.toUpperCase()));
-  // } else {
-  //   dataFinal = data
-  // }
-
-  // return dataFinal.map((data) => this.bodyTableRow(data));
 
   const headColumns = () => {
     const textColumns = [
@@ -66,12 +44,23 @@ function Table() {
       <td>{planets.surface_water}</td>
     </tr>
   );
+  const switchOfTable = (data, filters) => {
+    let dataFinal = null;
+    if (filters) {
+      dataFinal = data.filter((planet) => planet.name.toUpperCase().includes(filters.toUpperCase()));
+    } else {
+      dataFinal = data;
+    }
+
+    return dataFinal.map((date) => bodyTableRow(date));
+  };
   return (
     <>
       <h1>StarWars Datatable with Filters</h1>
+      <div>{Filter}</div>
       <table>
         <thead>{headColumns()}</thead>
-        <tbody>{isFetching && bodyTableRow({ resultAPI })}</tbody>
+        <tbody>{isFetching && switchOfTable(resultAPI)}</tbody>
       </table>
     </>
   );

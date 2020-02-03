@@ -7,13 +7,17 @@ const StarWarsContext = createContext();
 const StarWarsProvider = ({ children }) => {
   const [resultAPI, setResultAPI] = useState([]);
   const [isFetching, setIsFetching] = useState(false);
+  const [filter, setFilter] = useState('');
 
   useEffect(() => {
     getPlanetFetch().then((planets) => setResultAPI(planets));
     setIsFetching(true);
   }, []);
+  const filterInputName = (e) => setFilter(e);
 
-  const context = { resultAPI, isFetching };
+  const context = {
+    resultAPI, isFetching, filter, setFilter, filterInputName,
+  };
   return <StarWarsContext.Provider value={context}>{children}</StarWarsContext.Provider>;
 };
 

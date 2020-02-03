@@ -1,22 +1,16 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { updateInput } from '../actions/updateInput';
+import React, { useContext } from 'react';
+import { StarWarsContext } from '../context/StarWarsContext';
 
-function Filter(props) {
+function Filter() {
+  const { filterInputName } = useContext(StarWarsContext);
   return (
     <div>
       <input
-        value={props.inputValue}
         placeholder="Digite o nome do planeta aqui"
-        onChange={(e) => props.inputChange(e.target.value)}
+        onChange={(e) => filterInputName(e.target.value)}
       />
     </div>
   );
 }
-const mapStateToProps = (state) => ({
-  inputValue: state.updateInput.inputValue,
-});
-const mapDispatchToProps = (dispatch) => ({
-  inputChange: (text) => dispatch(updateInput(text)),
-});
-export default connect(mapStateToProps, mapDispatchToProps)(Filter);
+
+export default Filter;
