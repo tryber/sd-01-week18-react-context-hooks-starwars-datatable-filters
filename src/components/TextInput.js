@@ -1,21 +1,18 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import storeContext from '../context';
 
-class TextInput extends React.Component {
-  render() {
-    return (
-      <div>
-        <input
-          type="text"
-          onChange={(e) => this.context.setNameFilter(e.target.value)}
-          placeholder="Nome"
-          data-testid="nameInput"
-        />
-      </div>
-    );
-  }
+function TextInput() {
+  const { setNameFilter } = useContext(storeContext);
+  return (
+    <div>
+      <input
+        type="text"
+        onChange={(e) => setNameFilter(e.target.value)}
+        placeholder="Nome"
+        data-testid="nameInput"
+      />
+    </div>
+  );
 }
-
-TextInput.contextType = storeContext;
 
 export default TextInput;
