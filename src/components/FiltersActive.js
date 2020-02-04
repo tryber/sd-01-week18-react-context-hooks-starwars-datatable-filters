@@ -2,25 +2,28 @@ import React, { useContext } from 'react';
 import storeContext from '../context';
 
 function FiltersActive() {
-  const { valuesFilter, setValuesFilter } = useContext(storeContext);
+  const {
+    valuesFilter: { filters },
+    setValuesFilter,
+  } = useContext(storeContext);
 
-  function removeFilter(filter) {
-    const newFilters = valuesFilter.filter((filt) => filt.column !== filter.column);
-    return setValuesFilter(newFilters);
+  function removeFilter(column) {
+    const newFilters = filters.filter((filter) => filter.column !== column);
+    return setValuesFilter({ filters: newFilters });
   }
 
   function showFilters() {
-    if (valuesFilter.length > 0) {
-      return valuesFilter.map((filter) => (
-        <div>
-          <p key={filter.column}>{`${filter.column} - ${filter.comparison} - ${filter.value}`}</p>
-          <button type="button" onClick={() => removeFilter(filter)}>
+    if (filters.length > 0) {
+      return filters.map((filter) => (
+        <div key={filter.column}>
+          <p>{`${filter.column} - ${filter.comparison} - ${filter.value}`}</p>
+          <button type="button" onClick={() => removeFilter(filter.column)}>
             X
           </button>
         </div>
       ));
     }
-    return 'no filter';
+    return 'No filter';
   }
 
   return (

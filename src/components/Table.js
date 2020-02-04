@@ -1,17 +1,29 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 import storeContext from '../context';
 import './table.css';
 
-class Table extends React.Component {
-  static arrayOfTags(data) {
+function Table() {
+  const { initialData, filteredData, starWarsAPI } = useContext(storeContext);
+
+  function arrayOfTags(data) {
     return Object.entries(data[0])
       .map((tag) => tag[0])
       .filter((name) => name !== 'residents');
   }
 
-  static generateTableHead(data) {
-    const tags = Table.arrayOfTags(data);
+  function generateTableBody(data, tags) {
+    return data.map((planet) => (
+      <tr key={planet.diameter}>
+        {tags.map((tag) => (
+          <td key={tag}>{planet[tag]}</td>
+        ))}
+      </tr>
+    ));
+  }
+
+  function generateTable(data) {
     if (data.length > 0) {
+      const tags = arrayOfTags(data);
       return (
         <table>
           <thead>
@@ -21,40 +33,24 @@ class Table extends React.Component {
               ))}
             </tr>
           </thead>
-          <tbody>{Table.generateTableBody(data, tags)}</tbody>
+          <tbody>{generateTableBody(data, tags)}</tbody>
         </table>
       );
     }
     return <p>Planeta não encontrado</p>;
   }
 
-  static generateTableBody(data, arrayOfTags) {
-    return data.map((planet) => (
-      <tr key={planet.diameter}>
-        {arrayOfTags.map((tag) => (
-          <td key={tag}>{planet[tag]}</td>
-        ))}
-      </tr>
-    ));
-  }
+  useEffect(() => {
+    starWarsAPI();
+  }, []);
 
-  componentDidMount() {
-    this.context.starWarsAPI();
+  if (initialData.isFetching) {
+    return <p>LOADING...</p>;
   }
-
-  render() {
-    if (this.context.initialData.isFetching) {
-      return <p>LOADING...</p>;
-    }
-    if (this.context.initialData.sucess) {
-      if (this.context.filteredData) {
-        return Table.generateTableHead(this.context.filteredData);
-      }
-      return Table.generateTableHead(this.context.initialData.data.results);
-    }
-    return <div>ERROR</div>;
+  if (filteredData) {
+    return generateTable(filteredData);
   }
+  return generateTable(initialData.data.results);
 }
 
-Table.contextType = storeContext;
 export default Table;

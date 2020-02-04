@@ -13,7 +13,9 @@ class ValuesInput extends React.Component {
   }
 
   arrayOfColumns() {
-    const { valuesFilter } = this.context;
+    const {
+      valuesFilter: { filters },
+    } = this.context;
     const completeColumns = [
       '',
       'population',
@@ -22,8 +24,8 @@ class ValuesInput extends React.Component {
       'rotation_period',
       'surface_water',
     ];
-    if (valuesFilter.length > 0) {
-      const arrayOfUsedColumns = valuesFilter.map((column) => column.column);
+    if (filters.length > 0) {
+      const arrayOfUsedColumns = filters.map((filter) => filter.column);
       const arrayOfColumnsToUse = completeColumns.filter(
         (column) => !arrayOfUsedColumns.includes(column),
       );
@@ -42,18 +44,13 @@ class ValuesInput extends React.Component {
 
   updateStore(state) {
     const { column, comparison, value } = state;
-    const numericValues = {
-      column,
-      comparison,
-      value,
-    };
-    const formatFilter = { column, comparison, value };
-    const columns = [...this.context.valuesFilter, formatFilter];
+    const numericValues = { column, comparison, value };
+    const filters = [...this.context.valuesFilter.filters, state];
     if (column === '' || comparison === '' || value === '') {
       return alert('dados não preenchidos');
     }
-    this.setState({ column: '' });
-    return this.context.setValuesFilter({ numericValues, columns });
+    this.setState({ column: '', comparison: '', value: '' });
+    return this.context.setValuesFilter({ numericValues, filters });
   }
 
   changeState(event, id) {
@@ -75,6 +72,7 @@ class ValuesInput extends React.Component {
           data-testid="comparison"
           id="comparison"
         >
+          <option value="" />
           <option value="Maior">Maior que</option>
           <option value="Menor">Menor que</option>
           <option value="Igual">Igual</option>
@@ -86,13 +84,15 @@ class ValuesInput extends React.Component {
           type="number"
           placeholder="Valor"
         />
-        <button onClick={() => this.updateStore(this.state)}>Adicionar filtro</button>
+        <button type="button" onClick={() => this.updateStore(this.state)}>
+          Adicionar filtro
+        </button>
       </div>
     );
   }
 
   render() {
-    if (this.context.valuesFilter === 5) {
+    if (this.context.valuesFilter.filters.length === 5) {
       return 'All filters are being used';
     }
     return (
