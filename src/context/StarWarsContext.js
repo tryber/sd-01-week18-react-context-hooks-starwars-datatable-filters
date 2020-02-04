@@ -4,7 +4,7 @@ import SWAPI from '../services/SWAPI';
 
 const StarWarsContext = createContext();
 
-const DataSWAPI = ({ children }) => {
+const ProviderStarWars = ({ children }) => {
   const [data, setData] = useState({
     planets: [],
     success: false,
@@ -31,8 +31,8 @@ const DataSWAPI = ({ children }) => {
   );
 };
 
-export { StarWarsContext, DataSWAPI as Provider };
+export { StarWarsContext, ProviderStarWars as Provider };
 
-DataSWAPI.propTypes = {
+ProviderStarWars.propTypes = {
   children: Proptypes.node.isRequired,
 };

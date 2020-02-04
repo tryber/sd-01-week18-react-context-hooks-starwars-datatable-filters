@@ -1,8 +1,9 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { StarWarsContext } from '../context/StarWarsContext';
 import './Table.css';
 
 const BaseTable = () => {
+  const { IsReadyAPI, data } = useContext(StarWarsContext);
   const headerTable = [
     'Name',
     'Rotation Period',
@@ -18,6 +19,9 @@ const BaseTable = () => {
     'Edited',
     'Url',
   ];
+  useEffect(() => {
+    IsReadyAPI();
+  }, [IsReadyAPI]);
 
   const Header = () => (
     <tr>
@@ -25,9 +29,7 @@ const BaseTable = () => {
     </tr>
   );
 
-  const { planetsFullInfo } = useContext(StarWarsContext);
-
-  const PlanetsInfo = (planet) => (
+  const PlanetInfo = (planet) => (
     <tr key={planet.name}>
       <td>{`${planet.name}`}</td>
       <td>{planet.orbital_period}</td>
@@ -37,7 +39,7 @@ const BaseTable = () => {
       <td>{planet.terrain}</td>
       <td>{planet.surface_water}</td>
       <td>{planet.population}</td>
-      <td>{planet.films.map((film) => <div>{film}</div>)}</td>
+      <td>{planet.films.map((film) => <div key={film}>{film}</div>)}</td>
       <td>{planet.created}</td>
       <td>{planet.edited}</td>
       <td>{planet.url}</td>
@@ -48,7 +50,7 @@ const BaseTable = () => {
     <table>
       <tbody>
         {Header()}
-        {PlanetsInfo(planetsFullInfo)}
+        {data.planets.map((planet) => PlanetInfo(planet))}
       </tbody>
     </table>
   );
