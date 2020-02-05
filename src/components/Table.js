@@ -1,5 +1,6 @@
 import React, { useContext, useEffect } from 'react';
 import { StarWarsContext } from '../context/StarWarsContext';
+import filterData from '../filters/InputPlanetFilter';
 import Header from './Header';
 import './Table.css';
 

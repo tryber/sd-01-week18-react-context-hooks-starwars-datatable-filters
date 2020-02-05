@@ -10,6 +10,8 @@ const ProviderStarWars = ({ children }) => {
     success: false,
   });
 
+  const [filterData, setFilterData] = useState('');
+
   const IsReadyAPI = () => {
     if (data.success) return;
     SWAPI()
@@ -22,6 +24,8 @@ const ProviderStarWars = ({ children }) => {
   const context = {
     data,
     IsReadyAPI,
+    filterData,
+    setFilterData,
   };
 
   return (
