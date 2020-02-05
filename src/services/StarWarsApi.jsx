@@ -1,4 +1,4 @@
-const START_WARS_PLANETS_API = 'https://swapi.co/api/planets/.json';
+const START_WARS_PLANETS_API = 'https://swapi.co/api/planets/';
 
 const getPlanets = () => (
   fetch(`${START_WARS_PLANETS_API}`)

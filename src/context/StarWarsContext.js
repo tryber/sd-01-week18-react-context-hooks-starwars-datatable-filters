@@ -6,15 +6,23 @@ import getPlanets from '../services/StarWarsApi';
 const StarWarsContext = createContext();
 
 const StarWarsProvider = ({ children }) => {
-  const [getApiStarWars, setGetApiStarWars] = useState([]);
+  const [data, setData] = useState([]);
   const [isFetching, setIsFetching] = useState(false);
+  const [inputTextValue, setInputTextValue] = useState('');
 
   useEffect(() => {
-    getPlanets().then((planets) => setGetApiStarWars(planets));
-    setIsFetching(true);
+    getPlanets().then((planets) => {
+      setData(planets.results);
+      setIsFetching(true);
+    });
   }, []);
 
-  const context = { getApiStarWars, isFetching };
+  const context = {
+    data,
+    isFetching,
+    inputTextValue,
+    setInputTextValue,
+  };
 
   return (
     <StarWarsContext.Provider value={context}>
