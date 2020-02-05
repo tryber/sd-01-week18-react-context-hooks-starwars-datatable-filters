@@ -1,8 +1,8 @@
 import React from 'react';
-import './Loading.css'
+import './Loading.css';
 
 export default function Loading() {
   return (
-    <div className="lds-dual-ring"></div>
-  )
+    <div className="lds-dual-ring" />
+  );
 }

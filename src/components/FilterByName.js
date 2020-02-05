@@ -6,13 +6,14 @@ export default function Filter() {
 
   return (
     <div>
-      <label htmlFor="input-text-value"> Filtrar:
-        <input id="input-text-value"
+      <label htmlFor="input-text-value"> Filter by planet name:
+        <input 
           type="text"
+          id="input-text-value"
           value={inputTextValue}
-          onChange={(event) => setInputTextValue(event.target.value)}
+          onChange={(event) => setInputTextValue(event.target.value.toLowerCase())}
         />
       </label>
     </div>
-  )
+  );
 }

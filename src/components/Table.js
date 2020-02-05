@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { StarWarsContext } from '../context/StarWarsContext';
 
-import Loading from './Loading'
+import Loading from './Loading';
 import './Table.css';
 
 const generatingTableHeader = () => {
@@ -48,24 +48,23 @@ const generatingTableBody = (data) => (
 );
 
 const filterByName = (data, inputTextValue) => {
-  if(inputTextValue) {
+  if (inputTextValue) {
     return data.filter(({ name }) => name.toLowerCase().includes(inputTextValue));
   }
   return data;
-}
+};
 
 const Planets = () => {
   const { data, isFetching, inputTextValue } = useContext(StarWarsContext);
   if (!isFetching) return <Loading />;
-  
+
   const filter = filterByName(data, inputTextValue);
-  console.log(filter);
 
   return (
     <div>
       <table className="table-formatation">
         <thead>{generatingTableHeader(data)}</thead>
-        <tbody>{filter.map((data) => generatingTableBody(data))}</tbody>
+        <tbody>{filter.map((planets) => generatingTableBody(planets))}</tbody>
       </table>
     </div>
   );
