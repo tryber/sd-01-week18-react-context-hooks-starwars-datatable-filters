@@ -28,8 +28,8 @@ function FiltersActive() {
 
   return (
     <div>
-      Filters active:
-      {showFilters()}
+      <p>Filters active:</p>
+      <div>{showFilters()}</div>
     </div>
   );
 }

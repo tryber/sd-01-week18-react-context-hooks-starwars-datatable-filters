@@ -42,8 +42,10 @@ function ValuesInput() {
     const numericValues = { column, comparison, value };
     const newFilters = [...filters, { column, comparison, value }];
     if (column === '' || comparison === '' || value === '') {
-      return alert('dados não preenchidos');
+      return null;
     }
+    setValue('');
+    setColumn('');
     return setValuesFilter({ numericValues, filters: newFilters });
   }
 
@@ -51,12 +53,12 @@ function ValuesInput() {
     return (
       <div>
         <label htmlFor="column">
-          <select onChange={(e) => setColumn(e, 'column')} data-testid="column" id="column">
+          <select onChange={(e) => setColumn(e.target.value)} data-testid="column" id="column">
             {generateColumnOptions()}
           </select>
         </label>
         <select
-          onChange={(e) => setComparison(e, 'comparison')}
+          onChange={(e) => setComparison(e.target.value)}
           data-testid="comparison"
           id="comparison"
         >
@@ -65,7 +67,8 @@ function ValuesInput() {
           <option value="Igual">Igual</option>
         </select>
         <input
-          onChange={(e) => setValue(e, 'value')}
+          value={value}
+          onChange={(e) => setValue(e.target.value)}
           data-testid="comparisonValue"
           id="comparisonValue"
           type="number"

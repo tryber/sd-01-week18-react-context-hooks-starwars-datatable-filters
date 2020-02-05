@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useContext, useEffect } from 'react';
 import storeContext from '../context';
 import './table.css';
@@ -15,7 +16,7 @@ function Table() {
     return data.map((planet) => (
       <tr key={planet.diameter}>
         {tags.map((tag) => (
-          <td key={tag}>{planet[tag]}</td>
+          <td data-testid="tableTD" key={tag}>{planet[tag]}</td>
         ))}
       </tr>
     ));
@@ -29,7 +30,7 @@ function Table() {
           <thead>
             <tr>
               {tags.map((tag) => (
-                <th key={`${tag}1`}>{tag}</th>
+                <th data-testid="tableTH" key={`${tag}1`}>{tag}</th>
               ))}
             </tr>
           </thead>
@@ -37,7 +38,7 @@ function Table() {
         </table>
       );
     }
-    return <p>Planeta não encontrado</p>;
+    return <p>Planet not found</p>;
   }
 
   useEffect(() => {

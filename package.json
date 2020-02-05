@@ -18,6 +18,7 @@
     "redux-thunk": "^2.3.0"
   },
   "scripts": {
+    "test-coverage": "react-scripts test --coverage --watchAll=false",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
