@@ -4,22 +4,13 @@ import { StarWarsContext } from '../context/StarWarsContext';
 function FilterPlanetsByName() {
   const { data, filterPlanetName, setFilteredPlanets } = useContext(StarWarsContext);
 
-  function Filter() {
-    if (filterPlanetName) {
-      return setFilteredPlanets(data.filter(({ name }) => name.toLowerCase().includes(filterPlanetName)))
-    }
-    return data;
-  }
-
+  console.log(filterPlanetName);
   return (
-    <div >
-      {Filter()} 
+    <div>
+      {filterPlanetName 
+      ? setFilteredPlanets(data.filter(({ name }) => name.toLowerCase().includes(filterPlanetName)))
+      : setFilteredPlanets(data)}
     </div>
-    // <div>
-    //   {filterPlanetName 
-    //   ? setFilteredPlanets(data.filter(({ name }) => name.toLowerCase().includes(filterPlanetName)))
-    //   : setFilteredPlanets(data)}
-    // </div>
   );
 }
 
