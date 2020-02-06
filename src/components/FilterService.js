@@ -1,15 +1,15 @@
 function findComparisons(data, filter) {
   const { column, comparison, value } = filter;
   switch (comparison) {
-    case 'Maior':
+    case 'bigger then':
       return data.filter(
         (planet) => planet[column] > Number(value) && planet[column] !== 'unknown',
       );
-    case 'Menor':
+    case 'less then':
       return data.filter(
         (planet) => planet[column] < Number(value) && planet[column] !== 'unknown',
       );
-    case 'Igual':
+    case 'equal to':
       return data.filter((planet) => planet[column] === value && planet[column] !== 'unknown');
     default:
       return false;

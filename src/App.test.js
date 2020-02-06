@@ -106,21 +106,21 @@ describe('change inputs should change table component...', () => {
     await waitForDomChange();
 
     fireEvent.change(getByTestId('column'), { target: { value: 'population' } });
-    fireEvent.change(getByTestId('comparison'), { target: { value: 'Maior' } });
+    fireEvent.change(getByTestId('comparison'), { target: { value: 'bigger then' } });
     fireEvent.change(getByTestId('comparisonValue'), { target: { value: '1000' } });
     fireEvent.click(getByText(/Adicionar filtro/i));
 
     expect(queryByText(/Alderaan/i)).toBeInTheDocument();
     expect(queryByText(/Hoth/i)).not.toBeInTheDocument();
     expect(queryByText(/Planet not found/i)).not.toBeInTheDocument();
-    expect(queryByText(/population - Maior - 1000/i)).toBeInTheDocument();
+    expect(queryByText(/population - bigger then - 1000/i)).toBeInTheDocument();
     expect(queryByText(/X/i)).toBeInTheDocument();
 
     expect(queryAllByTestId('tableTD').length).toBe(91);
     expect(queryAllByTestId('tableTH').length).toBe(13);
   });
 
-  it('change valuesInput value to "rotation_period - Maior - 30" should only return text "Planet not found"', async () => {
+  it('change valuesInput value to "rotation_period - bigger then - 30" should only return text "Planet not found"', async () => {
     const {
       getByTestId, queryAllByTestId, queryByText, getByText,
     } = render(
@@ -131,21 +131,21 @@ describe('change inputs should change table component...', () => {
     await waitForDomChange();
 
     fireEvent.change(getByTestId('column'), { target: { value: 'rotation_period' } });
-    fireEvent.change(getByTestId('comparison'), { target: { value: 'Maior' } });
+    fireEvent.change(getByTestId('comparison'), { target: { value: 'bigger then' } });
     fireEvent.change(getByTestId('comparisonValue'), { target: { value: '30' } });
     fireEvent.click(getByText(/Adicionar filtro/i));
 
     expect(queryByText(/Alderaan/i)).not.toBeInTheDocument();
     expect(queryByText(/Hoth/i)).not.toBeInTheDocument();
     expect(queryByText(/Planet not found/i)).toBeInTheDocument();
-    expect(queryByText(/rotation_period - Maior - 30/i)).toBeInTheDocument();
+    expect(queryByText(/rotation_period - bigger then - 30/i)).toBeInTheDocument();
     expect(queryByText(/X/i)).toBeInTheDocument();
 
     expect(queryAllByTestId('tableTD').length).toBe(0);
     expect(queryAllByTestId('tableTH').length).toBe(0);
   });
 
-  it('change valuesInput value to "population - Maior - 1000" and textInput to "Kamino" should only return planet called "Kamino"', async () => {
+  it('change valuesInput value to "population - bigger then - 1000" and textInput to "Kamino" should only return planet called "Kamino"', async () => {
     const {
       getByTestId, queryAllByTestId, queryByText, getByText,
     } = render(
@@ -157,20 +157,20 @@ describe('change inputs should change table component...', () => {
 
     fireEvent.change(getByTestId('nameInput'), { target: { value: 'Kamino' } });
     fireEvent.change(getByTestId('column'), { target: { value: 'population' } });
-    fireEvent.change(getByTestId('comparison'), { target: { value: 'Maior' } });
+    fireEvent.change(getByTestId('comparison'), { target: { value: 'bigger then' } });
     fireEvent.change(getByTestId('comparisonValue'), { target: { value: '1000' } });
     fireEvent.click(getByText(/Adicionar filtro/i));
 
     expect(queryByText(/Planet not found/i)).not.toBeInTheDocument();
     expect(queryByText(/Alderaan/i)).not.toBeInTheDocument();
     expect(queryByText(/Kamino/i)).toBeInTheDocument();
-    expect(queryByText(/population - Maior - 1000/i)).toBeInTheDocument();
+    expect(queryByText(/population - bigger then - 1000/i)).toBeInTheDocument();
     expect(queryByText(/X/i)).toBeInTheDocument();
 
     expect(queryAllByTestId('tableTD').length).toBe(13);
     expect(queryAllByTestId('tableTH').length).toBe(13);
   });
-  it('change valuesInput value to "population - Maior - " should no change the document', async () => {
+  it('change valuesInput value to "population - bigger then - " should no change the document', async () => {
     const {
       getByTestId, queryAllByTestId, getByText,
     } = render(
@@ -180,7 +180,7 @@ describe('change inputs should change table component...', () => {
     );
     await waitForDomChange();
     fireEvent.change(getByTestId('column'), { target: { value: 'population' } });
-    fireEvent.change(getByTestId('comparison'), { target: { value: 'Maior' } });
+    fireEvent.change(getByTestId('comparison'), { target: { value: 'bigger then' } });
     fireEvent.click(getByText(/Adicionar filtro/i));
 
     expect(getByText(/Alderaan/i)).toBeInTheDocument();
@@ -200,31 +200,31 @@ describe('change inputs should change table component...', () => {
     );
     await waitForDomChange();
     fireEvent.change(getByTestId('column'), { target: { value: 'rotation_period' } });
-    fireEvent.change(getByTestId('comparison'), { target: { value: 'Maior' } });
+    fireEvent.change(getByTestId('comparison'), { target: { value: 'bigger then' } });
     fireEvent.change(getByTestId('comparisonValue'), { target: { value: '18' } });
     fireEvent.click(queryByText(/Adicionar filtro/i));
     fireEvent.change(getByTestId('column'), { target: { value: 'population' } });
-    fireEvent.change(getByTestId('comparison'), { target: { value: 'Menor' } });
+    fireEvent.change(getByTestId('comparison'), { target: { value: 'less then' } });
     fireEvent.change(getByTestId('comparisonValue'), { target: { value: '10000000' } });
     fireEvent.click(queryByText(/Adicionar filtro/i));
     fireEvent.change(getByTestId('column'), { target: { value: 'orbital_period' } });
-    fireEvent.change(getByTestId('comparison'), { target: { value: 'Maior' } });
+    fireEvent.change(getByTestId('comparison'), { target: { value: 'bigger then' } });
     fireEvent.change(getByTestId('comparisonValue'), { target: { value: '4800' } });
     fireEvent.click(queryByText(/Adicionar filtro/i));
     fireEvent.change(getByTestId('column'), { target: { value: 'diameter' } });
-    fireEvent.change(getByTestId('comparison'), { target: { value: 'Maior' } });
+    fireEvent.change(getByTestId('comparison'), { target: { value: 'bigger then' } });
     fireEvent.change(getByTestId('comparisonValue'), { target: { value: '10000' } });
     fireEvent.click(queryByText(/Adicionar filtro/i));
     fireEvent.change(getByTestId('column'), { target: { value: 'surface_water' } });
-    fireEvent.change(getByTestId('comparison'), { target: { value: 'Igual' } });
+    fireEvent.change(getByTestId('comparison'), { target: { value: 'equal to' } });
     fireEvent.change(getByTestId('comparisonValue'), { target: { value: '8' } });
     fireEvent.click(queryByText(/Adicionar filtro/i));
 
-    expect(queryByText(/rotation_period - Maior - 18/i)).toBeInTheDocument();
-    expect(queryByText(/population - Menor - 10000000/i)).toBeInTheDocument();
-    expect(queryByText(/orbital_period - Maior - 4800/i)).toBeInTheDocument();
-    expect(queryByText(/diameter - Maior - 10000/i)).toBeInTheDocument();
-    expect(queryByText(/surface_water - Igual - 8/i)).toBeInTheDocument();
+    expect(queryByText(/rotation_period - bigger then - 18/i)).toBeInTheDocument();
+    expect(queryByText(/population - less then - 10000000/i)).toBeInTheDocument();
+    expect(queryByText(/orbital_period - bigger then - 4800/i)).toBeInTheDocument();
+    expect(queryByText(/diameter - bigger then - 10000/i)).toBeInTheDocument();
+    expect(queryByText(/surface_water - equal to - 8/i)).toBeInTheDocument();
     expect(queryAllByText(/X/).length).toBe(5);
     expect(queryByText('All filters are being used')).toBeInTheDocument();
     expect(queryByTestId('column')).not.toBeInTheDocument();
@@ -248,18 +248,18 @@ describe('change inputs should change table component...', () => {
     await waitForDomChange();
 
     fireEvent.change(getByTestId('column'), { target: { value: 'population' } });
-    fireEvent.change(getByTestId('comparison'), { target: { value: 'Maior' } });
+    fireEvent.change(getByTestId('comparison'), { target: { value: 'bigger then' } });
     fireEvent.change(getByTestId('comparisonValue'), { target: { value: '1000' } });
     fireEvent.click(getByText(/Adicionar filtro/i));
 
-    expect(queryByText(/population - Maior - 1000/i)).toBeInTheDocument();
+    expect(queryByText(/population - bigger then - 1000/i)).toBeInTheDocument();
     expect(queryByText(/X/i)).toBeInTheDocument();
     expect(queryAllByTestId('tableTD').length).toBe(91);
     expect(queryAllByTestId('tableTH').length).toBe(13);
 
     fireEvent.click(queryByText(/X/i));
 
-    expect(queryByText(/population - Maior - 1000/i)).not.toBeInTheDocument();
+    expect(queryByText(/population - bigger then - 1000/i)).not.toBeInTheDocument();
     expect(queryAllByTestId('tableTD').length).toBe(130);
     expect(queryAllByTestId('tableTH').length).toBe(13);
   });
