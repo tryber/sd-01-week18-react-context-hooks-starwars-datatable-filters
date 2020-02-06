@@ -1,4 +1,7 @@
 table,th,td {
   border: 1px solid black;
-  font-size: 10px;
+  border-collapse: collapse;
+  border-radius: 5px;
+  font-size: 11px;
+  margin: 50px 100px 0px 100px;
 }

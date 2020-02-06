@@ -8,7 +8,10 @@ const StarWarsContext = createContext();
 const StarWarsProvider = ({ children }) => {
   const [data, setData] = useState([]);
   const [isFetching, setIsFetching] = useState(false);
-  const [inputTextValue, setInputTextValue] = useState('');
+  const [filterPlanetName, setFilterPlanetName] = useState('');
+  const [filterNumberColumn, setFilterNumberColumn] = useState([]);
+  const [filterNumberComparison, setFilterNumberComparison] = useState([]);
+  const [filterNumberValue, setFilterNumberValue] = useState([]);
 
   useEffect(() => {
     getPlanets().then((planets) => {
@@ -20,8 +23,14 @@ const StarWarsProvider = ({ children }) => {
   const context = {
     data,
     isFetching,
-    inputTextValue,
-    setInputTextValue,
+    filterPlanetName,
+    setFilterPlanetName,
+    filterNumberColumn,
+    setFilterNumberColumn,
+    filterNumberComparison,
+    setFilterNumberComparison,
+    filterNumberValue,
+    setFilterNumberValue,
   };
 
   return (

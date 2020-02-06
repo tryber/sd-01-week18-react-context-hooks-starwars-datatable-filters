@@ -47,18 +47,18 @@ const generatingTableBody = (data) => (
   </tr>
 );
 
-const filterByName = (data, inputTextValue) => {
-  if (inputTextValue) {
-    return data.filter(({ name }) => name.toLowerCase().includes(inputTextValue));
+const filterByName = (data, filterPlanetName) => {
+  if (filterPlanetName) {
+    return data.filter(({ name }) => name.toLowerCase().includes(filterPlanetName));
   }
   return data;
 };
 
 const Planets = () => {
-  const { data, isFetching, inputTextValue } = useContext(StarWarsContext);
+  const { data, isFetching, filterPlanetName } = useContext(StarWarsContext);
   if (!isFetching) return <Loading />;
 
-  const filter = filterByName(data, inputTextValue);
+  const filter = filterByName(data, filterPlanetName);
 
   return (
     <div>
