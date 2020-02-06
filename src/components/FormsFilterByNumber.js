@@ -17,7 +17,7 @@ function FilterByNumber() {
       <select
         id="select-filter-column"
         value={filterNumberColumn}
-        onChange={(e) => setFilterNumberColumn(e.target.value)}
+        onChange={(event) => setFilterNumberColumn(event.target.value)}
       >
         <option value={null} disabled>Select the Column</option>
         <option value="population">Population</option>
@@ -35,7 +35,7 @@ function FilterByNumber() {
       <select
         id="select-filter-comparison"
         value={filterNumberComparison}
-        onChange={(e) => setFilterNumberComparison(e.target.value)}
+        onChange={(event) => setFilterNumberComparison(event.target.value)}
       >
         <option value="greater-than">Maior que</option>
         <option value="less-than">Menor que</option>
@@ -51,7 +51,7 @@ function FilterByNumber() {
         type="number"
         id="filter-number"
         value={filterNumberValue}
-        onChange={(e) => setFilterNumberValue(e.target.value)}
+        onChange={(event) => setFilterNumberValue(event.target.value)}
       />
     </label>
   );

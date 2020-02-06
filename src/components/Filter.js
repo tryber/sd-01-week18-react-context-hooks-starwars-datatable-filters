@@ -4,12 +4,15 @@ import { StarWarsContext } from '../context/StarWarsContext';
 function FilterPlanetsByName() {
   const { data, filterPlanetName, setFilteredPlanets } = useContext(StarWarsContext);
 
-  console.log(filterPlanetName);
+  let nameFiltered = filterPlanetName
+      ? data.filter(({ name }) => name.toLowerCase().includes(filterPlanetName.toLowerCase()))
+      : data;
+
+  console.log(nameFiltered);
+
   return (
     <div>
-      {filterPlanetName 
-      ? setFilteredPlanets(data.filter(({ name }) => name.toLowerCase().includes(filterPlanetName)))
-      : setFilteredPlanets(data)}
+      {setFilteredPlanets(nameFiltered)}
     </div>
   );
 }
