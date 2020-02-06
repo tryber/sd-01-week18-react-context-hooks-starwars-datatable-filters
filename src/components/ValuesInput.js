@@ -55,8 +55,8 @@ function generateValuesInput(state) {
         data-testid="comparison"
         id="comparison"
       >
-        <option value="bigger then">bigger then</option>
-        <option value="less then">less then</option>
+        <option value="bigger than">bigger than</option>
+        <option value="less than">less than</option>
         <option value="equal to">equal to</option>
       </select>
       <input
@@ -76,7 +76,7 @@ function generateValuesInput(state) {
 
 function ValuesInput() {
   const [column, setColumn] = useState('');
-  const [comparison, setComparison] = useState('bigger then');
+  const [comparison, setComparison] = useState('bigger than');
   const [value, setValue] = useState('');
   const {
     setValuesFilter,

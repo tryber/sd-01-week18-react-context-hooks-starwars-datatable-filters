@@ -16,7 +16,7 @@ function FiltersActive() {
     if (filters.length > 0) {
       return filters.map((filter) => (
         <div key={filter.column}>
-          <p>{`${filter.column} - ${filter.comparison} - ${filter.value}`}</p>
+          <p>{`${filter.column} ${filter.comparison} ${filter.value}`}</p>
           <button type="button" onClick={() => removeFilter(filter.column)}>
             X
           </button>
