@@ -47,24 +47,15 @@ const generatingTableBody = (data) => (
   </tr>
 );
 
-const filterByName = (data, filterPlanetName) => {
-  if (filterPlanetName) {
-    return data.filter(({ name }) => name.toLowerCase().includes(filterPlanetName));
-  }
-  return data;
-};
-
 const Planets = () => {
-  const { data, isFetching, filterPlanetName } = useContext(StarWarsContext);
+  const { isFetching, filteredPlanets } = useContext(StarWarsContext);
   if (!isFetching) return <Loading />;
-
-  const filter = filterByName(data, filterPlanetName);
 
   return (
     <div>
       <table className="table-formatation">
-        <thead>{generatingTableHeader(data)}</thead>
-        <tbody>{filter.map((planets) => generatingTableBody(planets))}</tbody>
+        <thead>{generatingTableHeader()}</thead>
+        <tbody>{filteredPlanets.map((planets) => generatingTableBody(planets))}</tbody>
       </table>
     </div>
   );
