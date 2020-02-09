@@ -1,4 +1,4 @@
-import React from 'react';
+// import React from 'react';
 
 
 // const renderTableData = () => {
@@ -14,7 +14,7 @@ import React from 'react';
 //        )
 //     })
 //  }
- 
+
 // export const Table = (props) => {
 //     const [todos, setTodos] = useState([
 //       {
@@ -25,12 +25,11 @@ import React from 'react';
 //       {
 //         "id": Date.now() + 1,
 //         "value": "Play with doge",
-//         "done": false  
+//         "done": false
 //       }
 //     ]);
-  
+
 //     return (
 //        {props.children}
 //     )
 //   }
-  

@@ -12,14 +12,13 @@
 //       {
 //         "id": Date.now() + 1,
 //         "value": "Play with doge",
-//         "done": false  
+//         "done": false
 //       }
 //     ]);
-  
+
 //     return (
 //       <TodoContext.Provider value={[todos, setTodos]}>
 //         {children}
 //       </TodoContext.Provider>
 //     )
 //   }
-  
