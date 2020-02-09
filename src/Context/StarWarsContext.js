@@ -2,23 +2,25 @@ import React, {createContext, useState} from 'react';
 
 export const StarWarsContext = createContext();
 
-export const StarWarsContext = (props) => {
-    const [todos, setTodos] = useState([
-      {
-        "id": Date.now(),
-        "value": "Buy milk",
-        "done": false
-      },
-      {
-        "id": Date.now() + 1,
-        "value": "Play with doge",
-        "done": false
-      }
-    ]);
+export const StarWarsContext = ({ children }) => {
+  const [data, setData] = useState({ planets: [], sucess: false });
 
-    return (
-      <TodoContext.Provider value={[todos, setTodos]}>
-        {children}
-      </TodoContext.Provider>
-    )
+  const fetchStarWars = () => {
+    if (data.sucess) return;
+    getSWAPI()
+    .then((value) => {
+      setData({ planets: value.results, sucess: true });
+    })
   }
+
+  const context {
+    data,
+    setData,
+  };
+
+  return (
+    <StarWarsContext.Provider value={context}>
+      {children}
+    </StarWarsContext.Provider>
+  )
+}
