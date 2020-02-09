@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import getSWAPI from './Services';
+import getSWAPI from './Services/Services';
 
 function App() {
   return (
