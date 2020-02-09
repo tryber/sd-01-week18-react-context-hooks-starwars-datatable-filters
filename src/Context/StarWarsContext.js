@@ -1,24 +1,24 @@
-// import React, {createContext, useState} from 'react';
+import React, {createContext, useState} from 'react';
 
-// export const StarWarsContext = createContext();
+export const StarWarsContext = createContext();
 
-// export const StarWarsContext = (props) => {
-//     const [todos, setTodos] = useState([
-//       {
-//         "id": Date.now(),
-//         "value": "Buy milk",
-//         "done": false
-//       },
-//       {
-//         "id": Date.now() + 1,
-//         "value": "Play with doge",
-//         "done": false
-//       }
-//     ]);
+export const StarWarsContext = (props) => {
+    const [todos, setTodos] = useState([
+      {
+        "id": Date.now(),
+        "value": "Buy milk",
+        "done": false
+      },
+      {
+        "id": Date.now() + 1,
+        "value": "Play with doge",
+        "done": false
+      }
+    ]);
 
-//     return (
-//       <TodoContext.Provider value={[todos, setTodos]}>
-//         {children}
-//       </TodoContext.Provider>
-//     )
-//   }
+    return (
+      <TodoContext.Provider value={[todos, setTodos]}>
+        {children}
+      </TodoContext.Provider>
+    )
+  }

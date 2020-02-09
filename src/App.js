@@ -3,9 +3,10 @@ import './App.css';
 import getSWAPI from './Services/Services';
 
 function App() {
+  getSWAPI().then((data) => (data));
   return (
-    <div className="App">
-      {getSWAPI().then((data) => console.log(data))}
+    <div>
+      oi
     </div>
   );
 }
