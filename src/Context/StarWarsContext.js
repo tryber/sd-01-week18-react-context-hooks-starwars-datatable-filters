@@ -2,16 +2,16 @@ import React, {createContext, useState} from 'react';
 
 export const StarWarsContext = createContext();
 
-export const StarWarsContext = ({ children }) => {
-  const [data, setData] = useState({ planets: [], sucess: false });
+export const StarWarsProvider = ({ children }) => {
+  const [data, setData] = useState([{ planets: [], sucess: false }]);
 
-  const fetchStarWars = () => {
+  useEffect(() => {
     if (data.sucess) return;
     getSWAPI()
-    .then((value) => {
-      setData({ planets: value.results, sucess: true });
+    .then((response) => {
+      setData({ planets: response.results, sucess: true });
     })
-  }
+  }, [])
 
   const context {
     data,

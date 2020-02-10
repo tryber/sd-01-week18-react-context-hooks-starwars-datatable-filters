@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import StarWarsContext from '../Context/StarWarsContext';
 
-const renderTableData = () => {
+const renderTableData = (data) => {
   return data.map((planets) => {
     const { name, diameter, climate, gravity, terrain, created } = planets;
     return (
@@ -16,16 +16,13 @@ const renderTableData = () => {
   });
 };
 
-export const Table = ({ children }) => {
-  const context {
-    data,
-    setData,
-  };
+export const Table = () => {
+  const { data, setData} = useContext(StarWarsContext);
 
   return (
   <StarWarsContext.Consumer>
     {(context) => {
-      {renderTableData}
+      {renderTableData(data.results)}
     }}
   </StarWarsContext.Consumer>
   )

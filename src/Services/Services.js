@@ -1,8 +1,8 @@
-const SWAPI = "https://swapi.co/api/planets"
+const SWAPI = 'https://swapi.co/api/planets';
 
 const getSWAPI = () => {
   return fetch(SWAPI)
-    .then((data) => data.json())
+    .then((res) => res.json())
     .then((response) => response)
     .catch((error) => alert(error));
 };

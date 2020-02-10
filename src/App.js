@@ -1,13 +1,13 @@
 import React from 'react';
 import './App.css';
-import getSWAPI from './Services/Services';
+import StarWarsProvider from './Context/StarWarsContext';
+import Table from './Components/Table';
 
 function App() {
-  getSWAPI().then((data) => (data));
   return (
-    <div>
-      oi
-    </div>
+    <StarWarsProvider>
+      <Table />
+    </StarWarsProvider>
   );
 }
 
