@@ -11,7 +11,7 @@ export default function Filter() {
           type="text"
           id="input-text-value"
           value={filterPlanetName}
-          onChange={(event) => setFilterPlanetName(event.target.value)}
+          onChange={(event) => setFilterPlanetName(event.target.value.toLowerCase())}
         />
       </label>
     </div>

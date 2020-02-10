@@ -2,17 +2,18 @@ import React, { createContext, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 import getPlanets from '../services/StarWarsApi';
+import FilterPlanetByName from '../components/filters';
 
 const StarWarsContext = createContext();
 
 const StarWarsProvider = ({ children }) => {
   const [data, setData] = useState([]);
-  const [isFetching, setIsFetching] = useState(false);
-  const [filteredPlanets, setFilteredPlanets] = useState([]);
   const [filterPlanetName, setFilterPlanetName] = useState('');
   const [filterNumberColumn, setFilterNumberColumn] = useState([]);
   const [filterNumberComparison, setFilterNumberComparison] = useState([]);
   const [filterNumberValue, setFilterNumberValue] = useState([]);
+  const [isFetching, setIsFetching] = useState(false);
+  const [planetFiltered, setPlanetFiltered] = useState([]);
 
   useEffect(() => {
     getPlanets().then((planets) => {
@@ -21,19 +22,23 @@ const StarWarsProvider = ({ children }) => {
     });
   }, []);
 
+  useEffect(() => {
+    setPlanetFiltered(FilterPlanetByName());
+  }, []);
+
   const context = {
     data,
     isFetching,
     filterPlanetName,
     setFilterPlanetName,
-    filteredPlanets,
-    setFilteredPlanets,
     filterNumberColumn,
     setFilterNumberColumn,
     filterNumberComparison,
     setFilterNumberComparison,
     filterNumberValue,
     setFilterNumberValue,
+    planetFiltered,
+    setPlanetFiltered,
   };
 
   return (
@@ -48,4 +53,3 @@ StarWarsProvider.propTypes = {
 };
 
 export { StarWarsContext, StarWarsProvider as Provider };
-

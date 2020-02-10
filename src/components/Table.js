@@ -48,14 +48,14 @@ const generatingTableBody = (data) => (
 );
 
 const Planets = () => {
-  const { data, isFetching, filteredPlanets } = useContext(StarWarsContext);
+  const { data, isFetching, planetFiltered } = useContext(StarWarsContext);
   if (!isFetching) return <Loading />;
 
   return (
     <div>
       <table className="table-formatation">
         <thead>{generatingTableHeader(data)}</thead>
-        <tbody>{filteredPlanets.map((planets) => generatingTableBody(planets))}</tbody>
+        <tbody>{planetFiltered.map((planets) => generatingTableBody(planets))}</tbody>
       </table>
     </div>
   );
