@@ -1,11 +1,18 @@
 import React, { useContext } from 'react';
 import StarWarsContext from '../Context/StarWarsContext';
 
-const renderTableData = (data) => {
-  return data.map((planets) => {
-    const { name, diameter, climate, gravity, terrain, created } = planets;
+function renderTableData(data) {
+  data.map((planets) => {
+    const {
+      name,
+      diameter,
+      climate,
+      gravity,
+      terrain,
+    } = planets;
+
     return (
-      <tr key={created}>
+      <tr key={diameter}>
         <td>{name}</td>
         <td>{diameter}</td>
         <td>{climate}</td>
@@ -14,16 +21,17 @@ const renderTableData = (data) => {
       </tr>
     );
   });
+}
+
+const Table = () => {
+  const { data } = useContext(StarWarsContext);
+  console.log(data);
+  return (
+    <div>
+      {renderTableData(data)}
+    </div>
+  );
 };
 
-export const Table = () => {
-  const { data, setData} = useContext(StarWarsContext);
 
-  return (
-  <StarWarsContext.Consumer>
-    {(context) => {
-      {renderTableData(data.results)}
-    }}
-  </StarWarsContext.Consumer>
-  )
-}
+export default Table;

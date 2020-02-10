@@ -1,19 +1,24 @@
-import React, {createContext, useState} from 'react';
+import React, {
+  createContext,
+  useState,
+  useEffect,
+} from 'react';
+import getSWAPI from '../Services/Services';
 
-export const StarWarsContext = createContext();
+const StarWarsContext = createContext();
 
-export const StarWarsProvider = ({ children }) => {
+const StarWarsProvider = ({ children }) => {
   const [data, setData] = useState([{ planets: [], sucess: false }]);
 
   useEffect(() => {
     if (data.sucess) return;
     getSWAPI()
-    .then((response) => {
-      setData({ planets: response.results, sucess: true });
-    })
-  }, [])
+      .then((response) => {
+        setData({ planets: response.results, sucess: true });
+      });
+  }, []);
 
-  const context {
+  const context = {
     data,
     setData,
   };
@@ -22,5 +27,7 @@ export const StarWarsProvider = ({ children }) => {
     <StarWarsContext.Provider value={context}>
       {children}
     </StarWarsContext.Provider>
-  )
-}
+  );
+};
+
+export { StarWarsContext, StarWarsProvider as Provider };
