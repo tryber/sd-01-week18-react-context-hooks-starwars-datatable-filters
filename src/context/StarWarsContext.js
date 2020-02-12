@@ -2,6 +2,7 @@ import React, { createContext, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 import getPlanets from '../services/StarWarsApi';
+import Filters from '../components/filters';
 
 const StarWarsContext = createContext();
 
@@ -19,6 +20,10 @@ const StarWarsProvider = ({ children }) => {
     });
   }, []);
 
+  useEffect(() => {
+    setPlanetFiltered(Filters(data, filters, filterPlanetName));
+  }, [data, filterPlanetName]);
+
   const context = {
     data,
     filterPlanetName,
@@ -27,7 +32,6 @@ const StarWarsProvider = ({ children }) => {
     planetFiltered,
     setFilters,
     setFilterPlanetName,
-    setPlanetFiltered,
   };
 
   return (
