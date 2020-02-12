@@ -58,8 +58,7 @@ const Table = (planetFiltered) => {
 
 const Planets = () => {
   const { isFetching, data, filterPlanetName, planetFiltered } = useContext(StarWarsContext);
-
-  console.log(filterPlanetName);
+  console.log(planetFiltered);
 
   if (!isFetching) return <Loading />;
 

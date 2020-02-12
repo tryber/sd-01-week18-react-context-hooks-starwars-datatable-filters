@@ -2,12 +2,18 @@ import { useContext } from "react";
 
 import { StarWarsContext } from "../context/StarWarsContext";
 
-function Filters() {
-    const {data, filterPlanetName, setPlanetFiltered } = useContext(StarWarsContext);
+function filterByPlanetName(data, filterPlanetName, setPlanetFiltered) {
+  const nameFiltered = data.filter(({ name }) => name.toLowerCase().includes(filterPlanetName));
+  return setPlanetFiltered(nameFiltered);
+}
 
-    const nameFiltered = data.filter(({ name }) => name.toLowerCase().includes(filterPlanetName)); 
-    return setPlanetFiltered(nameFiltered);
+function Filters() {
+  const { data, filterPlanetName, setPlanetFiltered } = useContext(StarWarsContext);
+
+  if (filterPlanetName) {
+    return filterByPlanetName(data, filterPlanetName, setPlanetFiltered)
   }
+}
 
 export default Filters;
 
