@@ -9,6 +9,7 @@ function Filter() {
       <input
         placeholder="Digite o nome do planeta aqui"
         onChange={(e) => filterInputName(e.target.value)}
+        data-testid="namePlanetInput"
       />
     </div>
   );

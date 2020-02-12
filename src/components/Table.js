@@ -1,23 +1,25 @@
 import React, { useContext, useEffect } from 'react';
 import Filter from './Filter';
 import '../css/Table.css';
+import { textColumns } from '../service/Comparisons';
 import { StarWarsContext } from '../context/StarWarsContext';
+import FiltersDropDown from './FiltersDropDown';
 
-const textColumns = [
-  'NOME',
-  'POPULAÇÃO',
-  'DURAÇÃO DA ORBITA',
-  'DIÂMENTRO',
-  'CLIMA',
-  'GRAVIDADE',
-  'SOLO',
-  'DURAÇÃO DA ROTAÇÃO',
-  'SUPERFÍCIE DE ÁGUA',
-  'FILMES',
-  'CRIADO',
-  'EDITADO',
-  'URL',
-];
+// const textColumns = [
+//   'NOME',
+//   'POPULAÇÃO',
+//   'DURAÇÃO DA ORBITA',
+//   'DIÂMENTRO',
+//   'CLIMA',
+//   'GRAVIDADE',
+//   'SOLO',
+//   'DURAÇÃO DA ROTAÇÃO',
+//   'SUPERFÍCIE DE ÁGUA',
+//   'FILMES',
+//   'CRIADO',
+//   'EDITADO',
+//   'URL',
+// ];
 
 const bodyTableRow = (planet) => (
   <tr key={planet.name}>
@@ -53,6 +55,7 @@ const creatorOfaTable = (listTh, data) => (
   <div className="table">
     <h1>Tabela de dados StarWars com filtros</h1>
     <Filter />
+    <FiltersDropDown />
     <table>
       <thead>{headColumns(listTh)}</thead>
       <tbody>{data.map((planets) => bodyTableRow(planets))}</tbody>
@@ -61,7 +64,11 @@ const creatorOfaTable = (listTh, data) => (
 );
 
 function Table() {
-  const { resultAPI, starWarsAPI, filter } = useContext(StarWarsContext);
+  const {
+    resultAPI, starWarsAPI, filter, comparition,
+  } = useContext(StarWarsContext);
+  const date = resultAPI.data.results;
+  console.log(date);
 
   useEffect(() => {
     starWarsAPI();
@@ -72,10 +79,11 @@ function Table() {
   }
 
   if (filter) {
-    return creatorOfaTable(textColumns, filter);
+    const dateFilter = date.filter((planet) => planet.name.toUpperCase().includes(filter.toUpperCase()));
+    return creatorOfaTable(textColumns, dateFilter);
   }
 
-  return creatorOfaTable(textColumns, resultAPI.data.results);
+  return creatorOfaTable(textColumns, date);
 }
 
 export default Table;
