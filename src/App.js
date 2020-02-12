@@ -1,12 +1,16 @@
 import React, { Component } from 'react';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
+
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import './App.css';
 
+import Table from './components/Table';
+
 import FilterText from './components/FilterText';
 import FilterNum from './components/FilterNum';
-import Table from './components/Table';
+
 import DisplayFilterNum from './components/DisplayFilterNum';
 import ShortTable from './components/ShortTable';
 
@@ -21,13 +25,11 @@ class App extends Component {
 
   render() {
     return (
-      <div>
-        <FilterText />
-        <ShortTable />
-        <DisplayFilterNum />
-        <FilterNum />
-        <Table />
-      </div>
+      <BrowserRouter>
+        <Switch>
+          <Route exact path="/" component={Table} />
+        </Switch>
+      </BrowserRouter>
     );
   }
 }
