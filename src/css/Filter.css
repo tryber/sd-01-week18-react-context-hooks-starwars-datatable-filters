@@ -1,0 +1,14 @@
+input {
+  -webkit-transition: 0.5s;
+  border: 3px solid #ccc;
+  box-sizing: border-box;
+  margin: 8px 0;
+  outline: none;
+  padding: 12px 20px;
+  transition: 0.5s;
+  width: 100%;
+}
+
+input:focus {
+  border: 3px solid #555;
+}

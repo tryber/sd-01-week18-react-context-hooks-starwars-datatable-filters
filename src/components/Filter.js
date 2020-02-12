@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import '../css/Filter.css';
 import { StarWarsContext } from '../context/StarWarsContext';
 
 function Filter() {

@@ -1,22 +1,27 @@
-import React, { createContext, useState, useEffect } from 'react';
+import React, { createContext, useState } from 'react';
 import PropTypes from 'prop-types';
-import getPlanetFetch from '../service/starWarAPI';
 
 const StarWarsContext = createContext();
 
 const StarWarsProvider = ({ children }) => {
-  const [resultAPI, setResultAPI] = useState([]);
-  const [isFetching, setIsFetching] = useState(false);
+  const [resultAPI, setResultAPI] = useState({ data: [], isFetching: true, sucess: false });
   const [filter, setFilter] = useState('');
 
-  useEffect(() => {
-    getPlanetFetch().then((planets) => setResultAPI(planets));
-    setIsFetching(true);
-  }, []);
+  function starWarsAPI() {
+    fetch('https://swapi.co/api/planets/')
+      .then((data) => data.json())
+      .then((response) => setResultAPI({ data: response, isFetching: false, sucess: true }))
+      .catch((error) => console.log(`Sorry, this is bad →→→ ${error} ←←←`));
+  }
+
   const filterInputName = (e) => setFilter(e);
 
   const context = {
-    resultAPI, isFetching, filter, setFilter, filterInputName,
+    resultAPI,
+    filter,
+    setFilter,
+    filterInputName,
+    starWarsAPI,
   };
   return <StarWarsContext.Provider value={context}>{children}</StarWarsContext.Provider>;
 };
