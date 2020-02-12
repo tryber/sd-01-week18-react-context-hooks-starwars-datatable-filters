@@ -5,8 +5,15 @@ const StarWarsContext = createContext();
 
 const StarWarsProvider = ({ children }) => {
   const [resultAPI, setResultAPI] = useState({ data: [], isFetching: true, sucess: false });
-  const [filter, setFilter] = useState('');
-  const [comparition, setComparition] = useState({ column: '', comparison: '', value: '' });
+  const [filterName, setFilterName] = useState('');
+  const [comparition, setComparition] = useState([
+    {
+      column: '',
+      comparison: '',
+      value: '',
+      isFilter: false,
+    },
+  ]);
 
   function starWarsAPI() {
     fetch('https://swapi.co/api/planets/')
@@ -15,13 +22,10 @@ const StarWarsProvider = ({ children }) => {
       .catch((error) => console.log(`Sorry, this is bad →→→ ${error} ←←←`));
   }
 
-  const filterInputName = (e) => setFilter(e);
-
   const context = {
     resultAPI,
-    filter,
-    setFilter,
-    filterInputName,
+    filterName,
+    setFilterName,
     starWarsAPI,
     comparition,
     setComparition,

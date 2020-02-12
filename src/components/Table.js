@@ -63,12 +63,33 @@ const creatorOfaTable = (listTh, data) => (
   </div>
 );
 
+const switchOfComparition = (data, filter) => {
+  const { column, comparison, value } = filter;
+
+  switch (comparison) {
+    case 'bigger than':
+      return data.filter(
+        (planet) => planet[column] > Number(value) && planet[column] !== 'unknown',
+      );
+    case 'less than':
+      return data.filter(
+        (planet) => planet[column] < Number(value) && planet[column] !== 'unknown',
+      );
+    case 'equal to':
+      return data.filter((planet) => planet[column] === value && planet[column] !== 'unknown');
+    default:
+      return data;
+  }
+};
+
 function Table() {
   const {
-    resultAPI, starWarsAPI, filter, comparition,
+    resultAPI, starWarsAPI, filterName, comparition,
   } = useContext(StarWarsContext);
-  const date = resultAPI.data.results;
-  console.log(date);
+
+  console.log(comparition.column);
+
+  const dataResults = resultAPI.data.results;
 
   useEffect(() => {
     starWarsAPI();
@@ -78,12 +99,17 @@ function Table() {
     return <h1>LOADING...</h1>;
   }
 
-  if (filter) {
-    const dateFilter = date.filter((planet) => planet.name.toUpperCase().includes(filter.toUpperCase()));
+  if (filterName) {
+    const dateFilter = dataResults.filter((planet) => planet.name.toUpperCase().includes(filterName.toUpperCase()));
     return creatorOfaTable(textColumns, dateFilter);
   }
+  if (comparition.isFilter && comparition) {
+    const dataComparition = switchOfComparition(dataResults, comparition);
 
-  return creatorOfaTable(textColumns, date);
+    return creatorOfaTable(textColumns, dataComparition);
+  }
+
+  return creatorOfaTable(textColumns, dataResults);
 }
 
 export default Table;
