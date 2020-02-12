@@ -3,11 +3,10 @@ import { StarWarsContext } from '../context/StarWarsContext';
 
 export default function Filter() {
   const { filterPlanetName, setFilterPlanetName } = useContext(StarWarsContext);
-
   return (
     <div>
       <label htmlFor="input-text-value"> Filter by planet name:
-        <input 
+        <input
           type="text"
           id="input-text-value"
           value={filterPlanetName}

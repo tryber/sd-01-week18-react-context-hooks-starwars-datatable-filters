@@ -3,20 +3,17 @@ import { StarWarsContext } from '../context/StarWarsContext';
 
 function FilterByNumber() {
   const {
-    filterNumberColumn,
-    setFilterNumberColumn,
-    filterNumberComparison,
-    setFilterNumberComparison,
-    filterNumberValue,
-    setFilterNumberValue,
+    filters: { column, comparison, numberValue },
+    filters,
+    setFilters,
   } = useContext(StarWarsContext);
 
   const inputSelectColumn = () => (
     <label htmlFor="select-filter-column">
       <select
         id="select-filter-column"
-        value={filterNumberColumn}
-        onChange={(event) => setFilterNumberColumn(event.target.value)}
+        value={column}
+        onChange={(event) => setFilters({...filters, column: event.target.value})}
       >
         <option value="" disabled>Select the Option</option>
         <option value="population">Population</option>
@@ -32,8 +29,8 @@ function FilterByNumber() {
     <label htmlFor="select-filter-comparison">
       <select
         id="select-filter-comparison"
-        value={filterNumberComparison}
-        onChange={(event) => setFilterNumberComparison(event.target.value)}
+        value={comparison}
+        onChange={(event) => setFilters({...filters, comparison: event.target.value})}
       >
         <option value="" disabled>Select the Option</option>
         <option value="greater-than">Maior que</option>
@@ -48,8 +45,8 @@ function FilterByNumber() {
       <input
         type="number"
         id="filter-number"
-        value={filterNumberValue}
-        onChange={(event) => setFilterNumberValue(event.target.value)}
+        value={numberValue}
+        onChange={(event) => setFilters({...filters, numberValue: event.target.value})}
       />
     </label>
   );

@@ -47,18 +47,26 @@ const generatingTableBody = (data) => (
   </tr>
 );
 
+const Table = (planetFiltered) => {
+  return (
+    <table className="table-formatation">
+      <thead>{generatingTableHeader(planetFiltered)}</thead>
+      <tbody>{planetFiltered.map((planets) => generatingTableBody(planets))}</tbody>
+    </table>
+  );
+}
+
 const Planets = () => {
-  const { data, isFetching, planetFiltered } = useContext(StarWarsContext);
+  const { isFetching, data, filterPlanetName, planetFiltered } = useContext(StarWarsContext);
+
+  console.log(filterPlanetName);
+
   if (!isFetching) return <Loading />;
 
-  return (
-    <div>
-      <table className="table-formatation">
-        <thead>{generatingTableHeader(data)}</thead>
-        <tbody>{planetFiltered.map((planets) => generatingTableBody(planets))}</tbody>
-      </table>
-    </div>
-  );
+  if (filterPlanetName) {
+    return Table(planetFiltered);
+  };
+  return Table(data);
 }
 
 export default Planets;
