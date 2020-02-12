@@ -1,4 +1,4 @@
-import fetchingPlanets from '../services/APIRequest';
+import fetchingPlanets from '../services/';
 
 export const REQUEST_PLANETS = 'REQUEST_PLANETS';
 export const RECEIVE_PLANETS_SUCCESS = 'RECEIVE_PLANETS_SUCCESS';
