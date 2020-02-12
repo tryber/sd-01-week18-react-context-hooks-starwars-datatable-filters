@@ -122,7 +122,7 @@ class Table extends Component {
     const sortedPlanets = this.changeColumnOrder(filteredPlanets);
     return (
       <div className="table">
-        {isFetching && 'Loading...'}
+        {isFetching && <p>Loading...</p>}
         <p>Para ordenar basta clicar em cima do titulo da coluna desejada.</p>
         <table>
           <tbody>
