@@ -1,15 +1,9 @@
 import React from 'react';
-import {
-  cleanup,
-  render,
-  waitForDomChange,
-  fireEvent,
-} from '@testing-library/react';
+import { render, waitForDomChange, fireEvent } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import store from './store';
 import App from './App';
 
-afterEach(cleanup);
 it('renders all filters inputs', () => {
   const { getByPlaceholderText } = render(<Provider store={store}><App /></Provider>);
   const nameFilterInput = getByPlaceholderText(/Filtrar pelo Nome/i);
@@ -67,7 +61,6 @@ it('render filtered planets according to numeric filters', async () => {
   const comparisonFilterInput = valueFilterInput.previousSibling;
   const columnFilterInput = comparisonFilterInput.previousSibling;
   const tableBody = getByText(/Para ordenar basta clicar em cima do titulo da coluna desejada./i).nextSibling.firstChild;
-  await waitForDomChange();
   expect(tableBody.childElementCount).toBe(11);
   fireEvent.click(columnFilterInput);
   fireEvent.click(getByText(/População/i));
