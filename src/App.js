@@ -1,13 +1,17 @@
 import React from 'react';
 import './App.css';
-import Provider from './Context/StarWarsContext';
+import StarWarsProvider from './Provider/StarWarsProvider';
 import Table from './Components/Table';
+import FilteredText from './Components/FilteredText';
+import FilteredNumber from './Components/FilteredNumber';
 
 function App() {
   return (
-    <Provider>
+    <StarWarsProvider>
+      <FilteredText />
+      <FilteredNumber />
       <Table />
-    </Provider>
+    </StarWarsProvider>
   );
 }
 
