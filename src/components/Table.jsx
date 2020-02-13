@@ -36,7 +36,7 @@ function isNumeric(str) {
   return (er.test(str));
 }
 
-class Table extends Component {
+export class Table extends Component {
   constructor(props) {
     super(props);
 
@@ -112,7 +112,7 @@ class Table extends Component {
       <table>
         <thead>
           <tr>
-            {categories.map((category) => <th key={category}>{category}</th>)}
+            {categories.map((category) => <th key={category} data-testid={category}>{category}</th>)}
           </tr>
         </thead>
         {this.renderContent(categories)}
