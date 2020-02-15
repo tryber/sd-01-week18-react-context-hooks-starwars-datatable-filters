@@ -18,7 +18,7 @@ jest.mock('react-router-dom', () => {
 
 BrowserRouter.propTypes = {
   children: PropTypes.node.isRequired,
-}
+};
 
 const renderWithRouter = (ui, { route = '/', history = createMemoryHistory({ initialEntries: [route] }) } = {}) =>
   ({ ...render(<Router history={history}>{ui}</Router>), history });
