@@ -5,7 +5,7 @@ const ReciperContext = createContext();
 
 const ReciperProvider = ({ children }) => {
   const [database, setDatabase] = useState({
-    data: null, isFetch: false, planets: null, categories: []
+    data: null, isFetch: false, planets: null, categories: [],
   });
 
   const context = {
