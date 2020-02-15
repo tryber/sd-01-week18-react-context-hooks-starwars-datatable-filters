@@ -16,11 +16,15 @@ const FilterNum = () => {
   const { column, comparison, value, addFilter } = numericFilter;
   const { planets, data } = database;
   useEffect(() => {
-    setDatabase({ ...database, planets: data })
-    addFilter.map(({ column, comparison, value }) => setDatabase({ ...database, planets: filterNumber(planets, column, comparison, value) }))
+    if (data) {
+      let dados = [...data]
 
+    addFilter.map(({ column, comparison, value }) => dados = filterNumber(dados, column, comparison, value))
+    setDatabase({ ...database, planets: dados })
+    
+    }
   }, [addFilter])
-  console.log(addFilter)
+  console.log(database)
   return (
     <div>
       <h2>Filter Table By Number</h2>
