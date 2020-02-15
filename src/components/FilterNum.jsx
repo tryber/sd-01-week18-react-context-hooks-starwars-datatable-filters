@@ -28,7 +28,8 @@ const FilterNum = () => {
       <h2>Filter Table By Number</h2>
       {addFilter.map((eachFilter) =>
         <DisplayFilterNum
-          key={eachFilter.column} filter={eachFilter} numericFilter={numericFilter} setNumericFilter={setNumericFilter}
+          key={eachFilter.column} filter={eachFilter}
+          numericFilter={numericFilter} setNumericFilter={setNumericFilter}
         />)}
       <ChooseColumn numericFilter={numericFilter} setNumericFilter={setNumericFilter} />
       {column !== '' && <ComparisonSign numericFilter={numericFilter} setNumericFilter={setNumericFilter} />}
