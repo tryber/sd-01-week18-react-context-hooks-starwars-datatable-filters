@@ -23,12 +23,7 @@ RemoveButton.propTypes = {
   column: PropTypes.string.isRequired,
   numericFilter: PropTypes.shape({
     availableCategories: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
-    addFilter: PropTypes.arrayOf(
-      PropTypes.shape({
-        column: PropTypes.string.isRequired,
-        comparison: PropTypes.string.isRequired,
-        value: PropTypes.string.isRequired,
-      })).isRequired,
+    addFilter: PropTypes.arrayOf(PropTypes.object),
   }).isRequired,
   setNumericFilter: PropTypes.func.isRequired,
 };

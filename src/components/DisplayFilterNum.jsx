@@ -23,7 +23,7 @@ DisplayFilterNum.propTypes = {
     comparison: PropTypes.string.isRequired,
     value: PropTypes.string.isRequired,
   }).isRequired,
-  numericFilter: PropTypes.objectOf(PropTypes.object),
+  numericFilter: PropTypes.objectOf(PropTypes.object).isRequired,
   setNumericFilter: PropTypes.func.isRequired,
 };
 
