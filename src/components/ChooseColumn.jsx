@@ -27,9 +27,9 @@ const ChooseColumn = ({ numericFilter, setNumericFilter }) => (
 );
 
 ChooseColumn.propTypes = {
-  numericFilter: PropTypes.objectOf(
+  numericFilter: PropTypes.arrayOf(
     PropTypes.shape({
-      availableCategories: PropTypes.string.isRequired
+      availableCategories: PropTypes.string.isRequired,
     })).isRequired,
   setNumericFilter: PropTypes.func.isRequired,
 };
