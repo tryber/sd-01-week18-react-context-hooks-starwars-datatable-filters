@@ -8,16 +8,14 @@ const handleClick = (column, numericFilter, setNumericFilter) => {
   setNumericFilter({
     ...numericFilter,
     availableCategories: categories.sort(),
-    addFilter: addFilter.filter((eachFilter) => eachFilter.column !== column)
+    addFilter: addFilter.filter((eachFilter) => eachFilter.column !== column),
   });
-}
+};
 
-const RemoveButton = ({ column, numericFilter, setNumericFilter }) => {
-  return (
-    <button type="button" onClick={() => handleClick(column, numericFilter, setNumericFilter)}> X
-      </button>
-  );
-}
+const RemoveButton = ({ column, numericFilter, setNumericFilter }) => (
+  <button type="button" onClick={() => handleClick(column, numericFilter, setNumericFilter)}> X </button>
+);
+
 
 RemoveButton.propTypes = {
   column: PropTypes.string.isRequired,
