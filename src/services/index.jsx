@@ -8,7 +8,7 @@ export const fetchingPlanets = async () => {
 const isNumeric = (str) => {
   const er = /^[0-9]+$/;
   return (er.test(str));
-}
+};
 
 const compareFunction = (A, B) => {
   if (A > B) {
@@ -18,7 +18,7 @@ const compareFunction = (A, B) => {
     return 1;
   }
   return 0;
-}
+};
 
 export const shortingData = (data, { column, order }) => {
   const shortData = [...data];
@@ -32,41 +32,27 @@ export const shortingData = (data, { column, order }) => {
     shortData.reverse();
   }
   return shortData;
-}
+};
 
 const comparisonCase = (ColumnValue, ComparisonSign, Value) => {
-  switch (ComparisonSign) {
-    case 'greater': {
-      const greater = ColumnValue > Value;
-      return greater;
-    }
-    case 'less': {
-      const less = ColumnValue < Value;
-      return less;
-    }
-    case 'iqual': {
-      const iqual = ColumnValue === Value;
-      return iqual;
-    }
-    default:
-      return false;
-  }
-}
+  const comparisson = {
+    greater: ColumnValue > Value,
+    less: ColumnValue < Value,
+    iqual: ColumnValue === Value,
+  };
+  return comparisson[ComparisonSign];
+};
 
 export const comparisonSing = (ComparisonSign) => {
-  switch (ComparisonSign) {
-    case 'greater':
-      return 'maior que';
-    case 'less':
-      return 'menor que';
-    case 'iqual':
-      return 'igual a';
-    default:
-      return null;
-  }
-}
+  const sign = {
+    greater: 'maior que',
+    less: 'menor que',
+    iqual: 'igual a',
+  };
+  return sign[ComparisonSign];
+};
 
-export const filterNumber = (planets, column, comparison, value) => {
-  return planets.filter((planet) => comparisonCase(Number(planet[column]), comparison, Number(value)))
-}
-
+export const filterNumber = (planets, column, comparison, value) => (
+  planets.filter((planet) =>
+    comparisonCase(Number(planet[column]), comparison, Number(value)))
+);

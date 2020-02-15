@@ -12,11 +12,11 @@ export const planetsData = [
     residents: [
       'https://swapi.co/api/people/5/',
       'https://swapi.co/api/people/68/',
-      'https://swapi.co/api/people/81/'
+      'https://swapi.co/api/people/81/',
     ],
     films: [
       'https://swapi.co/api/films/6/',
-      'https://swapi.co/api/films/1/'
+      'https://swapi.co/api/films/1/',
     ],
     created: '2014-12-10T11:35:48.479000Z',
     edited: '2014-12-20T20:58:18.420000Z',
@@ -34,7 +34,7 @@ export const planetsData = [
     population: '1000',
     residents: [],
     films: [
-      'https://swapi.co/api/films/1/'
+      'https://swapi.co/api/films/1/',
     ],
     created: '2014-12-10T11:37:19.144000Z',
     edited: '2014-12-20T20:58:18.421000Z',
@@ -52,7 +52,7 @@ export const planetsData = [
     population: 'unknown',
     residents: [],
     films: [
-      'https://swapi.co/api/films/2/'
+      'https://swapi.co/api/films/2/',
     ],
     created: '2014-12-10T11:39:13.934000Z',
     edited: '2014-12-20T20:58:18.423000Z',
@@ -72,7 +72,7 @@ export const planetsData = [
     films: [
       'https://swapi.co/api/films/2/',
       'https://swapi.co/api/films/6/',
-      'https://swapi.co/api/films/3/'
+      'https://swapi.co/api/films/3/',
     ],
     created: '2014-12-10T11:42:22.590000Z',
     edited: '2014-12-20T20:58:18.425000Z',
@@ -89,7 +89,7 @@ export const planetsData = [
     surface_water: '0',
     population: '6000000',
     residents: [
-      'https://swapi.co/api/people/26/'
+      'https://swapi.co/api/people/26/',
     ],
     films: [
       'https://swapi.co/api/films/2/',
