@@ -19,22 +19,22 @@ const FilterNum = () => {
   useEffect(() => {
     if (data) {
       let dados = [...data]
-      addFilter.map(({ column, comparison, value }) => dados = filterNumber(dados, column, comparison, value))
-      setDatabase({ ...database, planets: dados })
+      addFilter.map((eachFilter) => dados = filterNumber(dados, eachFilter.column, eachFilter.comparison, eachFilter.value));
+      setDatabase({ ...database, planets: dados });
     }
-  }, [addFilter])
+  }, [addFilter]);
 
   return (
     <div>
       <h2>Filter Table By Number</h2>
-      {addFilter.map((eachFilter, index) => <DisplayFilterNum key={eachFilter.column + index} filter={eachFilter} numericFilter={numericFilter} setNumericFilter={setNumericFilter} />)}
+      {addFilter.map((eachFilter) => <DisplayFilterNum key={eachFilter.column} filter={eachFilter} numericFilter={numericFilter} setNumericFilter={setNumericFilter} />)}
       <ChooseColumn numericFilter={numericFilter} setNumericFilter={setNumericFilter} />
       {column !== '' && <ComparisonSign numericFilter={numericFilter} setNumericFilter={setNumericFilter} />}
       {comparison !== '' && <NumberRange numericFilter={numericFilter} setNumericFilter={setNumericFilter} />}
       {value !== '' && <FilterButton numericFilter={numericFilter} setNumericFilter={setNumericFilter} />}
     </div>
   );
-}
+};
 
 // FilterNum.propTypes = {
 //   column: PropTypes.string,
