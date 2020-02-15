@@ -34,7 +34,6 @@ const FilterNum = () => {
       {value !== '' && <FilterButton numericFilter={numericFilter} setNumericFilter={setNumericFilter} />}
     </div>
   );
-
 }
 
 // FilterNum.propTypes = {
