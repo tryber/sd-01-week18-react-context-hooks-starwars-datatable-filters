@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const renderContent = (numericFilter, setNumericFilter) => {
-  if (numericFilter.available_categories.length >= 1) {
+  if (numericFilter.availableCategories.length >= 1) {
     return (
       <select
         key="categories" onChange={(e) => {
@@ -12,7 +12,7 @@ const renderContent = (numericFilter, setNumericFilter) => {
         }}
       >
         <option value="none" >Choose Column</option>
-        {numericFilter.available_categories.sort().map((category) => (
+        {numericFilter.availableCategories.sort().map((category) => (
           <option key={category} value={category} >{category}</option>
         ))}
       </select>
@@ -21,18 +21,13 @@ const renderContent = (numericFilter, setNumericFilter) => {
   return null;
 }
 
-const ChooseColumn = ({ numericFilter, setNumericFilter }) => {
-  return (
-    <div>
-      {renderContent(numericFilter, setNumericFilter)}
-    </div>
-  );
+const ChooseColumn = ({ numericFilter, setNumericFilter }) => (
+  <div>{renderContent(numericFilter, setNumericFilter)}</div>
+);
 
-}
-
-// ChooseColumn.propTypes = {
-//   dispatchSomething: PropTypes.func.isRequired,
-//   available_categories: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
-// };
+ChooseColumn.propTypes = {
+  numericFilter: PropTypes.objectOf(PropTypes.shape({ availableCategories: PropTypes.string.isRequired })).isRequired,
+  setNumericFilter: PropTypes.func.isRequired,
+};
 
 export default ChooseColumn;
