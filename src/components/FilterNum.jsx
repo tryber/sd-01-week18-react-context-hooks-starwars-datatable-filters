@@ -14,21 +14,20 @@ const FilterNum = () => {
   const { database, setDatabase } = useContext(ReciperContext);
   const [numericFilter, setNumericFilter] = useState({ column: '', comparison: '', value: '', available_categories: ['population', 'orbital_period', 'diameter', 'rotation_period', 'surface_water'], addFilter: [] })
   const { column, comparison, value, addFilter } = numericFilter;
-  const { planets, data } = database;
+  const { data } = database;
+
   useEffect(() => {
     if (data) {
       let dados = [...data]
-
-    addFilter.map(({ column, comparison, value }) => dados = filterNumber(dados, column, comparison, value))
-    setDatabase({ ...database, planets: dados })
-    
+      addFilter.map(({ column, comparison, value }) => dados = filterNumber(dados, column, comparison, value))
+      setDatabase({ ...database, planets: dados })
     }
   }, [addFilter])
-  console.log(database)
+
   return (
     <div>
       <h2>Filter Table By Number</h2>
-      {addFilter.map((eachFilter, index) => <DisplayFilterNum key={eachFilter.column + index} filter={eachFilter} index={index} numericFilter={numericFilter} setNumericFilter={setNumericFilter} />)}
+      {addFilter.map((eachFilter, index) => <DisplayFilterNum key={eachFilter.column + index} filter={eachFilter} numericFilter={numericFilter} setNumericFilter={setNumericFilter} />)}
       <ChooseColumn numericFilter={numericFilter} setNumericFilter={setNumericFilter} />
       {column !== '' && <ComparisonSign numericFilter={numericFilter} setNumericFilter={setNumericFilter} />}
       {comparison !== '' && <NumberRange numericFilter={numericFilter} setNumericFilter={setNumericFilter} />}

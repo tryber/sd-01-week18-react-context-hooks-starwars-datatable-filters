@@ -5,7 +5,7 @@ import { comparisonSing } from '../services';
 
 
 
-const DisplayFilterNum = ({ filter, index, numericFilter, setNumericFilter }) => {
+const DisplayFilterNum = ({ filter, numericFilter, setNumericFilter }) => {
   const { column, value, comparison } = filter;
   return (
     <div style={{ display: 'flex' }}>

@@ -19,11 +19,9 @@ const usePlanets = () => {
   useEffect(() => {
     if (planets) {
       const categories = Object.keys(planets.results[0]).filter((category) => category !== 'residents');
-      setDatabase({ ...database, data: planets.results, planets: shortingData(planets.results, { column: 'name', order: 'ASC' }), categories });
-    } else {
-      setDatabase({ ...database });
+      setDatabase({ ...database, data: shortingData(planets.results, { column: 'name', order: 'ASC' }), planets: shortingData(planets.results, { column: 'name', order: 'ASC' }), categories });
     }
-  }, [planets])
+  }, [planets]);
 
 };
 
