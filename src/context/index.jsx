@@ -4,7 +4,9 @@ import PropTypes from 'prop-types';
 const ReciperContext = createContext();
 
 const ReciperProvider = ({ children }) => {
-  const [database, setDatabase] = useState({ data: null, isFetch: false, planets: null, categories: [] });
+  const [database, setDatabase] = useState({
+    data: null, isFetch: false, planets: null, categories: []
+  });
 
   const context = {
     database,

@@ -5,15 +5,14 @@ import FilterNum from './components/FilterNum';
 import Table from './components/Table';
 import ShortTable from './components/ShortTable';
 
-const App = () => {
-  return (
-    <div>
-      <FilterText />
-      <ShortTable />
-      <FilterNum />
-      <Table />
-    </div>
-  );
-};
+const App = () => (
+  <div>
+    <FilterText />
+    <ShortTable />
+    <FilterNum />
+    <Table />
+  </div>
+);
+
 
 export default App;

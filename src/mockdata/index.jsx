@@ -56,7 +56,7 @@ export const planetsData = [
     ],
     created: '2014-12-10T11:39:13.934000Z',
     edited: '2014-12-20T20:58:18.423000Z',
-    url: 'https://swapi.co/api/planets/4/'
+    url: 'https://swapi.co/api/planets/4/',
   },
   {
     name: 'Dagobah',
@@ -98,7 +98,6 @@ export const planetsData = [
     edited: '2014-12-20T20:58:18.427000Z',
     url: 'https://swapi.co/api/planets/6/',
   },
-]
+];
 
-export const shortOrder = {column: name, order: 'ASC' }
-
+export const shortOrder = { column: name, order: 'ASC' };
