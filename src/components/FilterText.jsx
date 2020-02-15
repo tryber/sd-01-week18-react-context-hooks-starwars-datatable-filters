@@ -15,7 +15,7 @@ const handleClick = (database, setDatabase, value) => {
       planets: database.data,
     });
   }
-}
+};
 
 const FilterText = () => {
   const { database, setDatabase } = useContext(ReciperContext);
@@ -25,6 +25,6 @@ const FilterText = () => {
       <input type="text" onChange={(e) => handleClick(database, setDatabase, e.target.value)} />
     </div>
   );
-}
+};
 
 export default FilterText;
