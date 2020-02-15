@@ -8,12 +8,14 @@ const ShortTable = () => {
   const [shortOrder, setShortOrder] = useState({ column: 'name', order: 'ASC' });
 
   useEffect(() => {
-    database.planets && setDatabase({...database, planets: shortingData(database.planets, shortOrder)})
-  }, [])
+    database.planets &&
+      setDatabase({ ...database, planets: shortingData(database.planets, shortOrder) })
+  }, []);
 
   useEffect(() => {
-    database.planets && setDatabase({...database, planets: shortingData(database.planets, shortOrder)})
-  }, [shortOrder])
+    database.planets &&
+      setDatabase({ ...database, planets: shortingData(database.planets, shortOrder) })
+  }, [shortOrder]);
 
   return (
     <div>
@@ -40,6 +42,6 @@ const ShortTable = () => {
       </div>
     </div>
   );
-}
+};
 
 export default ShortTable;
