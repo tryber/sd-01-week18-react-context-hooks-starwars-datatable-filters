@@ -5,7 +5,8 @@ const renderContent = (numericFilter, setNumericFilter) => {
   if (numericFilter.availableCategories.length >= 1) {
     return (
       <select
-        key="categories" onChange={(e) => {
+        key="categories"
+        onChange={(e) => {
           if (e.target.value !== 'none') {
             setNumericFilter({ ...numericFilter, column: e.target.value });
           }
@@ -19,14 +20,17 @@ const renderContent = (numericFilter, setNumericFilter) => {
     );
   }
   return null;
-}
+};
 
 const ChooseColumn = ({ numericFilter, setNumericFilter }) => (
   <div>{renderContent(numericFilter, setNumericFilter)}</div>
 );
 
 ChooseColumn.propTypes = {
-  numericFilter: PropTypes.objectOf(PropTypes.shape({ availableCategories: PropTypes.string.isRequired })).isRequired,
+  numericFilter: PropTypes.objectOf(
+    PropTypes.shape({
+      availableCategories: PropTypes.string.isRequired
+    })).isRequired,
   setNumericFilter: PropTypes.func.isRequired,
 };
 
