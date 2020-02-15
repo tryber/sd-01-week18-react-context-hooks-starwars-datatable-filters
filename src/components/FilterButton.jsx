@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 const handleClick = (numericFilter, setNumericFilter) => {
   const { column, comparison, value, available_categories, addFilter } = numericFilter;
-  const categories = available_categories.filter((eachCategory) => eachCategory != column)
+  const categories = available_categories.filter((eachCategory) => eachCategory !== column);
   const currentFilters = [...addFilter];
   currentFilters.push({ column, comparison, value });
   setNumericFilter({ addFilter: currentFilters, column: '', comparison: '', value: '', available_categories: categories });
