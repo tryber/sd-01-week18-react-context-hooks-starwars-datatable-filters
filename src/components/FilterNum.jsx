@@ -16,7 +16,9 @@ const FilterNum = () => {
   useEffect(() => {
     if (data) {
       let dados = [...data];
-      addFilter.forEach((eachFilter) => dados = filterNumber(dados, eachFilter.column, eachFilter.comparison, eachFilter.value));
+      addFilter.forEach((eachFilter) => {
+        dados = filterNumber(dados, eachFilter.column, eachFilter.comparison, eachFilter.value);
+      });
       setDatabase({ ...database, planets: dados });
     }
   }, [addFilter]);
@@ -25,7 +27,9 @@ const FilterNum = () => {
     <div>
       <h2>Filter Table By Number</h2>
       {addFilter.map((eachFilter) =>
-        <DisplayFilterNum key={eachFilter.column} filter={eachFilter} numericFilter={numericFilter} setNumericFilter={setNumericFilter} />)}
+        <DisplayFilterNum
+          key={eachFilter.column} filter={eachFilter} numericFilter={numericFilter} setNumericFilter={setNumericFilter}
+        />)}
       <ChooseColumn numericFilter={numericFilter} setNumericFilter={setNumericFilter} />
       {column !== '' && <ComparisonSign numericFilter={numericFilter} setNumericFilter={setNumericFilter} />}
       {comparison !== '' && <NumberRange numericFilter={numericFilter} setNumericFilter={setNumericFilter} />}
