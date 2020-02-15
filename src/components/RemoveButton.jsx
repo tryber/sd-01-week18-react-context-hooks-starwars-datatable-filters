@@ -13,9 +13,12 @@ const handleClick = (column, numericFilter, setNumericFilter) => {
 };
 
 const RemoveButton = ({ column, numericFilter, setNumericFilter }) => (
-  <button type="button" onClick={() => handleClick(column, numericFilter, setNumericFilter)}> X </button>
+  <button
+    type="button"
+    onClick={() => handleClick(column, numericFilter, setNumericFilter)}>
+    X
+  </button>
 );
-
 
 RemoveButton.propTypes = {
   column: PropTypes.string.isRequired,
@@ -25,10 +28,10 @@ RemoveButton.propTypes = {
       PropTypes.shape({
         column: PropTypes.string.isRequired,
         comparison: PropTypes.string.isRequired,
-        value: PropTypes.string.isRequired
+        value: PropTypes.string.isRequired,
       })).isRequired,
   }).isRequired,
   setNumericFilter: PropTypes.func.isRequired,
-}
+};
 
 export default RemoveButton;
