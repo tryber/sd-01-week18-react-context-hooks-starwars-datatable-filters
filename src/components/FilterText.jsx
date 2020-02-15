@@ -1,27 +1,30 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import React, { useContext } from 'react';
+import { ReciperContext } from '../context';
 
-import { filterText } from '../actions/filters';
-
-class FilterText extends Component {
-  render() {
-    const { dispatchSomething } = this.props;
-    return (
-      <div>
-        <h2>Filter Table By Text</h2>
-        <input type="text" onChange={(e) => dispatchSomething(filterText, e.target.value)} />
-      </div>
-    );
+const handleClick = (database, setDatabase, value) => {
+  if (value !== '') {
+    setDatabase({
+      ...database,
+      planets: database.data
+        .filter(((planet) => planet.name.toLowerCase()
+          .includes(value.toLowerCase()))),
+    });
+  } else {
+    setDatabase({
+      ...database,
+      planets: database.data,
+    });
   }
 }
 
-const mapDispatchToProps = (dispatch) => ({
-  dispatchSomething: (callback, text) => dispatch(callback(text)),
-});
+const FilterText = () => {
+  const { database, setDatabase } = useContext(ReciperContext);
+  return (
+    <div>
+      <h2>Filter Table By Text</h2>
+      <input type="text" onChange={(e) => handleClick(database, setDatabase, e.target.value)} />
+    </div>
+  );
+}
 
-FilterText.propTypes = {
-  dispatchSomething: PropTypes.func.isRequired,
-};
-
-export default connect(null, mapDispatchToProps)(FilterText);
+export default FilterText;

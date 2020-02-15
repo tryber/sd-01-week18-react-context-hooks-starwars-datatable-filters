@@ -1,49 +1,49 @@
-import React, { Component } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import { ReciperContext } from '../context';
+import ChooseColumn from './ChooseColumn';
+import ComparisonSign from './ComparisonSign';
+import NumberRange from './NumberRange';
+import FilterButton from './FilterButton';
+import DisplayFilterNum from './DisplayFilterNum';
 
-import ChooseColumn from './FilterNum/ChooseColumn';
-import ComparisonSign from './FilterNum/ComparisonSign';
-import NumberRange from './FilterNum/NumberRange';
-import FilterButton from './FilterNum/FilterButton';
+import { filterNumber } from '../services';
 
-class FilterNum extends Component {
-  render() {
-    const { column, comparison, value } = this.props;
-    return (
-      <div>
-        <h2>Filter Table By Number</h2>
-        <ChooseColumn />
-        {column !== '' && <ComparisonSign />}
-        {comparison !== '' && <NumberRange />}
-        {value !== '' && <FilterButton />}
-      </div>
-    );
-  }
+
+const FilterNum = () => {
+  const { database, setDatabase } = useContext(ReciperContext);
+  const [numericFilter, setNumericFilter] = useState({ column: '', comparison: '', value: '', available_categories: ['population', 'orbital_period', 'diameter', 'rotation_period', 'surface_water'], addFilter: [] })
+  const { column, comparison, value, addFilter } = numericFilter;
+  const { planets, data } = database;
+  useEffect(() => {
+    setDatabase({ ...database, planets: data })
+    addFilter.map(({ column, comparison, value }) => setDatabase({ ...database, planets: filterNumber(planets, column, comparison, value) }))
+
+  }, [addFilter])
+  console.log(addFilter)
+  return (
+    <div>
+      <h2>Filter Table By Number</h2>
+      {addFilter.map((eachFilter, index) => <DisplayFilterNum key={eachFilter.column + index} filter={eachFilter} index={index} numericFilter={numericFilter} setNumericFilter={setNumericFilter} />)}
+      <ChooseColumn numericFilter={numericFilter} setNumericFilter={setNumericFilter} />
+      {column !== '' && <ComparisonSign numericFilter={numericFilter} setNumericFilter={setNumericFilter} />}
+      {comparison !== '' && <NumberRange numericFilter={numericFilter} setNumericFilter={setNumericFilter} />}
+      {value !== '' && <FilterButton numericFilter={numericFilter} setNumericFilter={setNumericFilter} />}
+    </div>
+  );
+
 }
 
-const mapStateToProps = ({
-  filters: { numeric_values: {
-    column,
-    comparison,
-    value,
-  } },
-}) => ({
-  column,
-  comparison,
-  value,
-});
+// FilterNum.propTypes = {
+//   column: PropTypes.string,
+//   comparison: PropTypes.string,
+//   value: PropTypes.string,
+// };
 
-FilterNum.propTypes = {
-  column: PropTypes.string,
-  comparison: PropTypes.string,
-  value: PropTypes.string,
-};
+// FilterNum.defaultProps = {
+//   column: '',
+//   comparison: '',
+//   value: '',
+// };
 
-FilterNum.defaultProps = {
-  column: '',
-  comparison: '',
-  value: '',
-};
-
-export default connect(mapStateToProps)(FilterNum);
+export default FilterNum;

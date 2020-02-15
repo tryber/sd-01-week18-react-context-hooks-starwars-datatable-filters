@@ -100,7 +100,5 @@ export const planetsData = [
   },
 ]
 
-export const shortOrder = {
-  column: "name", order: "ASC"
-}
+export const shortOrder = {column: 'name', order: 'ASC' }
 
