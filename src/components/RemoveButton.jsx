@@ -2,10 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const handleClick = (column, numericFilter, setNumericFilter) => {
-  const { addFilter, available_categories } = numericFilter;
-  const categories = [...available_categories];
+  const { addFilter, availableCategories } = numericFilter;
+  const categories = [...availableCategories];
   categories.push(column);
-  setNumericFilter({ ...numericFilter, available_categories: categories.sort(), addFilter: addFilter.filter((eachFilter) => eachFilter.column !== column) });
+  setNumericFilter({
+    ...numericFilter,
+    availableCategories: categories.sort(),
+    addFilter: addFilter.filter((eachFilter) => eachFilter.column !== column)
+  });
 }
 
 const RemoveButton = ({ column, numericFilter, setNumericFilter }) => {
@@ -18,7 +22,7 @@ const RemoveButton = ({ column, numericFilter, setNumericFilter }) => {
 RemoveButton.propTypes = {
   column: PropTypes.string.isRequired,
   numericFilter: PropTypes.shape({
-    available_categories: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
+    availableCategories: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
     addFilter: PropTypes.arrayOf(
       PropTypes.shape({
         column: PropTypes.string.isRequired,
@@ -26,6 +30,7 @@ RemoveButton.propTypes = {
         value: PropTypes.string.isRequired
       })).isRequired,
   }).isRequired,
+  setNumericFilter: PropTypes.func.isRequired,
 }
 
 export default RemoveButton;

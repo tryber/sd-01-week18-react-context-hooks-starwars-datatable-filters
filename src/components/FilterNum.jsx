@@ -12,7 +12,7 @@ import { filterNumber } from '../services';
 
 const FilterNum = () => {
   const { database, setDatabase } = useContext(ReciperContext);
-  const [numericFilter, setNumericFilter] = useState({ column: '', comparison: '', value: '', available_categories: ['population', 'orbital_period', 'diameter', 'rotation_period', 'surface_water'], addFilter: [] })
+  const [numericFilter, setNumericFilter] = useState({ column: '', comparison: '', value: '', availableCategories: ['population', 'orbital_period', 'diameter', 'rotation_period', 'surface_water'], addFilter: [] })
   const { column, comparison, value, addFilter } = numericFilter;
   const { data } = database;
 
