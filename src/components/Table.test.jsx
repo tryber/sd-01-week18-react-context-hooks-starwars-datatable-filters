@@ -20,10 +20,6 @@ jest.mock('react-router-dom', () => {
   };
 });
 
-mockComponent.propTypes = {
-  children: PropTypes.node.isRequired,
-};
-
 const renderWithRouter = (ui, { route = '/', history = createMemoryHistory({ initialEntries: [route] }) } = {}) =>
   ({ ...render(<Router history={history}>{ui}</Router>), history });
 
@@ -50,3 +46,7 @@ describe('Table Page', () => {
     debug();
   });
 });
+
+mockComponent.propTypes = {
+  children: PropTypes.node.isRequired,
+};

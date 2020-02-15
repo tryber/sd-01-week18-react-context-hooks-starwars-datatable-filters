@@ -2,11 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const handleClick = (numericFilter, setNumericFilter) => {
-  const { column, comparison, value, available_categories, addFilter } = numericFilter;
-  const categories = available_categories.filter((eachCategory) => eachCategory !== column);
+  const { column, comparison, value, availableCategories, addFilter } = numericFilter;
+  const categories = availableCategories.filter((eachCategory) => eachCategory !== column);
   const currentFilters = [...addFilter];
   currentFilters.push({ column, comparison, value });
-  setNumericFilter({ addFilter: currentFilters, column: '', comparison: '', value: '', available_categories: categories });
+  setNumericFilter({ addFilter: currentFilters, column: '', comparison: '', value: '', availableCategories: categories });
 };
 
 const FilterButton = ({ numericFilter, setNumericFilter }) => (
