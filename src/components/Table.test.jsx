@@ -8,15 +8,19 @@ import { Table } from '../components/Table';
 
 afterEach(cleanup);
 
+const mockComponent = (children) => (
+  <div> {children} </div>
+);
+
 jest.mock('react-router-dom', () => {
   const originalModule = jest.requireActual('react-router-dom');
   return {
     ...originalModule,
-    BrowserRouter: ({ children }) => (<div> {children} </div>),
+    BrowserRouter: ({ children }) => mockComponent(children),
   };
 });
 
-BrowserRouter.propTypes = {
+mockComponent.propTypes = {
   children: PropTypes.node.isRequired,
 };
 
