@@ -15,9 +15,8 @@ const handleClick = (column, numericFilter, setNumericFilter) => {
 const RemoveButton = ({ column, numericFilter, setNumericFilter }) => (
   <button
     type="button"
-    onClick={() => handleClick(column, numericFilter, setNumericFilter)}>
-    X
-  </button>
+    onClick={() => handleClick(column, numericFilter, setNumericFilter)}
+  > X </button>
 );
 
 RemoveButton.propTypes = {
