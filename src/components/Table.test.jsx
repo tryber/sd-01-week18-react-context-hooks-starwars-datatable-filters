@@ -1,52 +1,147 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { Router } from 'react-router-dom';
-import { createMemoryHistory } from 'history';
-import { render, cleanup } from '@testing-library/react';
-import { planetsData, shortOrder } from '../mockdata';
-import { Table } from '../components/Table';
+// import React from 'react';
+// import { render, cleanup, waitForDomChange } from '@testing-library/react';
+// import { planetsData, shortOrder, categories } from '../mockdata';
+// import Table from './Table';
 
-afterEach(cleanup);
+// beforeEach(() => {
+//   jest.resetModules();
+// });
 
-const mockComponent = (children) => (
-  <div> {children} </div>
-);
+// const getContext = (context = {languages: ['en', 'fr', 'es'], activeLanguage: 'en'}) => {
+  
+//   // Will then mock the LocalizeContext module being used in our LanguageSelector component
+//   jest.doMock('./LocalizeContext', () => {
+//     return {
+//       LocalizeContext: {
+//         Consumer: (props) => props.children(context)
+//       }
+//     }
+//   });
+  
+//   // you need to re-require after calling jest.doMock.
+//   // return the updated LanguageSelector module that now includes the mocked context
+//   return require('./LanguageSelector').LanguageSelector;
+// }; 
 
-jest.mock('react-router-dom', () => {
-  const originalModule = jest.requireActual('react-router-dom');
-  return {
-    ...originalModule,
-    BrowserRouter: ({ children }) => mockComponent(children),
-  };
-});
+// test('should have a table content with those categories', () => {
+//   const { debug } = render(<App />)
+//   debug()
+// })
 
-const renderWithRouter = (ui, { route = '/', history = createMemoryHistory({ initialEntries: [route] }) } = {}) =>
-  ({ ...render(<Router history={history}>{ui}</Router>), history });
 
-const categories = Object.keys(planetsData[0]).filter((category) => category !== 'residents');
+// import React from 'react';
+// import { render, cleanup, waitForDomChange } from '@testing-library/react';
+// import { planetsData, shortOrder, categories } from './mockdata';
+// import App from './App';
 
-describe('Table Page', () => {
-  test('should have a table content with those categories', async () => {
-    const { getByTestId } = renderWithRouter(<Table data={planetsData} shortOrder={shortOrder} />);
-    categories.forEach((eachCategory) => {
-      expect(getByTestId(eachCategory)).toBeInTheDocument();
-    });
-  });
+// // test("mock hook", () => {
+// //   useContextMock.mockReturnValue({ data: null, isFetch: false, planets: null, categories: [] });
+// //   const element = new ShallowRenderer().render(
+// //     <MyComponent />
+// //   );
+// //   expect(element.props.children).toBe('Test Value');
+// // });
 
-  test('should render a table content with an ascending alphabetical order in name category', () => {
-    const { debug, getByTestId } = renderWithRouter(
-      <Table
-        data={planetsData} shortOrder={shortOrder}
-      />);
-    const nameRows = [];
-    for (let index = 0; index < planetsData.length; index += 1) {
-      nameRows.push(getByTestId(`row${shortOrder.column + index}`).innerHTML);
-    }
-    console.log(nameRows);
-    debug();
-  });
-});
+// jest.mock('react', () => {
+//   const ActualReact = require.requireActual('react')
+//   let defaultValues = { data: null, isFetch: false, planets: null, categories: [] }
+//   const setValues = (object) => { defaultValues = { ...object } }
+//   return {
+//     ...ActualReact,
+//     useContext: () => ({ database: defaultValues, setDatabase: setValues }), // what you want to return when useContext get fired goes here
+//   }
+// })
 
-mockComponent.propTypes = {
-  children: PropTypes.node.isRequired,
-};
+
+// describe('Table Page', () => {
+//   test('should have a table content with those categories', async () => {
+
+//     // const defaultValue = { data: null, isFetch: false, planets: null, categories: [] };
+//     // const { debug } = new TestRenderer.create(
+//     //   <NameContext.Provider value={defaultValue} >
+//     //     <MyComponent />
+//     //   </NameContext.Provider>
+//     // );
+//     const { debug } = render(<App />)
+
+//     debug()
+
+//     await waitForDomChange();
+
+//     debug()
+//     // categories.forEach((eachCategory) => {
+//     //   expect(getByTestId(eachCategory)).toBeInTheDocument();
+//     // });
+//   });
+
+//   // test('should render a table content with an ascending alphabetical order in name category', () => {
+//   //   const { debug, getByTestId } = renderWithRouter(
+//   //     <Table
+//   //       data={planetsData} shortOrder={shortOrder}
+//   //     />);
+//   //   const nameRows = [];
+//   //   for (let index = 0; index < planetsData.length; index += 1) {
+//   //     nameRows.push(getByTestId(`row${shortOrder.column + index}`).innerHTML);
+//   //   }
+//   //   console.log(nameRows);
+//   //   debug();
+//   // });
+// });
+// import React from 'react';
+// import { render, cleanup, waitForDomChange } from '@testing-library/react';
+// import { planetsData, shortOrder, categories } from './mockdata';
+// import App from './App';
+
+// // test("mock hook", () => {
+// //   useContextMock.mockReturnValue({ data: null, isFetch: false, planets: null, categories: [] });
+// //   const element = new ShallowRenderer().render(
+// //     <MyComponent />
+// //   );
+// //   expect(element.props.children).toBe('Test Value');
+// // });
+
+// jest.mock('react', () => {
+//   const ActualReact = require.requireActual('react')
+//   let defaultValues = { data: null, isFetch: false, planets: null, categories: [] }
+//   const setValues = (object) => { defaultValues = { ...object } }
+//   return {
+//     ...ActualReact,
+//     useContext: () => ({ database: defaultValues, setDatabase: setValues }), // what you want to return when useContext get fired goes here
+//   }
+// })
+
+
+// describe('Table Page', () => {
+//   test('should have a table content with those categories', async () => {
+
+//     // const defaultValue = { data: null, isFetch: false, planets: null, categories: [] };
+//     // const { debug } = new TestRenderer.create(
+//     //   <NameContext.Provider value={defaultValue} >
+//     //     <MyComponent />
+//     //   </NameContext.Provider>
+//     // );
+//     const { debug } = render(<App />)
+
+//     debug()
+
+//     await waitForDomChange();
+
+//     debug()
+//     // categories.forEach((eachCategory) => {
+//     //   expect(getByTestId(eachCategory)).toBeInTheDocument();
+//     // });
+//   });
+
+//   // test('should render a table content with an ascending alphabetical order in name category', () => {
+//   //   const { debug, getByTestId } = renderWithRouter(
+//   //     <Table
+//   //       data={planetsData} shortOrder={shortOrder}
+//   //     />);
+//   //   const nameRows = [];
+//   //   for (let index = 0; index < planetsData.length; index += 1) {
+//   //     nameRows.push(getByTestId(`row${shortOrder.column + index}`).innerHTML);
+//   //   }
+//   //   console.log(nameRows);
+//   //   debug();
+//   // });
+// });

@@ -29,10 +29,9 @@ const ComparisonSign = ({ numericFilter, setNumericFilter }) => (
 );
 
 ComparisonSign.propTypes = {
-  numericFilter: PropTypes.arrayOf(
-    PropTypes.shape({
-      comparison: PropTypes.string.isRequired,
-    })).isRequired,
+  numericFilter: PropTypes.shape({
+    comparison: PropTypes.string.isRequired,
+  }).isRequired,
   setNumericFilter: PropTypes.func.isRequired,
 };
 
