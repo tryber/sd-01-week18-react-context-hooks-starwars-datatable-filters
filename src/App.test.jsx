@@ -36,33 +36,23 @@ describe('async', () => {
     }
   }
 
-  const testingShearch = (getByTestId, filterPlanets) => {
-    const renderPlanets = [];
-    for (let i = 0; i < filterPlanets.length; i += 1) {
-      renderPlanets.push(getByTestId(`rowname${i}`).innerHTML)
-    };
-    expect(renderPlanets.length).toBe(filterPlanets.length);
-    for (let i = 0; i < filterPlanets.length; i += 1) {
-      expect(filterPlanets.includes(renderPlanets[i])).toBeTruthy()
-    };
-  }
-
   test('shearch bar text', async () => {
     const { getByTestId } = render(<App />);
 
     await waitForDomChange();
 
     fireEvent.change(getByTestId('search-bar'), { target: { value: 'moTher' } });
-    testingShearch(getByTestId, ['Mothership', 'Mothermary']);
+    testingFn(categories[0], getByTestId, ['Mothermary', 'Mothership']);
 
     fireEvent.change(getByTestId('search-bar'), { target: { value: '' } });
-    testingShearch(getByTestId, planetsData.results.map(({ name }) => name));
+    testingFn(categories[0], getByTestId, ['Anticapital', 'Delrey', 'Gaganás',
+      'Hoth', 'Mothermary', 'Mothership', 'Swiftland']);
 
     fireEvent.change(getByTestId('search-bar'), { target: { value: 'aurora' } });
-    testingShearch(getByTestId, []);
+    testingFn(categories[0], getByTestId, []);
 
     fireEvent.change(getByTestId('search-bar'), { target: { value: 'a' } });
-    testingShearch(getByTestId, ['Mothermary', 'Anticapital', 'Gaganás', 'Swiftland']);
+    testingFn(categories[0], getByTestId, ['Anticapital', 'Gaganás', 'Mothermary', 'Swiftland']);
   });
 
 
@@ -107,39 +97,44 @@ describe('async', () => {
     fireEvent.change(getByTestId('number-input'), { target: { value: '24' } });
     fireEvent.click(getByTestId('filter-button'));
 
+    expect(getByTestId(`${categories[1]}iqual24`)).toBeInTheDocument();
     testingFn(categories[0], getByTestId, ['Delrey', 'Mothermary', 'Mothership']);
 
     fireEvent.change(getByTestId('column-dropdown'), { target: { value: categories[3] } });
-    fireEvent.click(getByTestId('less-radio'));
+    fireEvent.click(getByTestId('greater-radio'));
     fireEvent.change(getByTestId('number-input'), { target: { value: '10200' } });
     fireEvent.click(getByTestId('filter-button'));
 
-    // testingFn(categories[0], getByTestId, ['Anticapital', 'Hoth']);
+    expect(getByTestId(`${categories[3]}greater10200`)).toBeInTheDocument();
+    testingFn(categories[0], getByTestId, ['Delrey', 'Mothership']);
 
-    const test = planetsData.results.map(({ [categories[1]]: value, [categories[0]]: name, [categories[3]]: hey }) => `${name}${value}${hey}`)
-    console.log(test)
+    fireEvent.change(getByTestId('column-dropdown'), { target: { value: categories[8] } });
+    fireEvent.click(getByTestId('less-radio'));
+    fireEvent.change(getByTestId('number-input'), { target: { value: '2000000001' } });
+    fireEvent.click(getByTestId('filter-button'));
 
+    expect(getByTestId(`${categories[8]}less2000000001`)).toBeInTheDocument();
+    testingFn(categories[0], getByTestId, ['Mothership']);
 
+    fireEvent.click(getByTestId(`remove-button-${categories[8]}`));
+
+    testingFn(categories[0], getByTestId, ['Delrey', 'Mothership']);
+
+    fireEvent.click(getByTestId(`remove-button-${categories[3]}`));
+
+    testingFn(categories[0], getByTestId, ['Delrey', 'Mothermary', 'Mothership']);
+
+    fireEvent.click(getByTestId(`remove-button-${categories[1]}`));
+
+    testingFn(categories[0], getByTestId, ['Anticapital', 'Delrey', 'Gaganás',
+      'Hoth', 'Mothermary', 'Mothership', 'Swiftland']);
   });
-
-
 
   test('loading testing', () => {
     const { getByText } = render(<App />);
     expect(getByText('Loading...')).toBeInTheDocument();
   });
 
-
 })
 
 
-
-// test('loading testing', () => {
-//   const { getByText } = render(<App />)
-//   expect(getByText('Loading...')).toBeInTheDocument();
-// });
-
-// const pHTMLall = Object.keys(container.querySelectorAll('td')).map(key => container.querySelectorAll('td')[key]);
-    //   const pContainer = pHTMLall.map(pHTMLeach => pHTMLeach.innerHTML);
-
-    //   console.log(pContainer)

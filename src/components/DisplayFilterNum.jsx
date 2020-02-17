@@ -7,7 +7,9 @@ const DisplayFilterNum = ({ filter, numericFilter, setNumericFilter }) => {
   const { column, value, comparison } = filter;
   return (
     <div style={{ display: 'flex' }}>
-      <p>{column} | {comparisonSing(comparison)} | {value}</p>
+      <p data-testid={`${column}${comparison}${value}`}>
+        {column} | {comparisonSing(comparison)} | {value}
+      </p>
       <RemoveButton
         column={column}
         numericFilter={numericFilter}
