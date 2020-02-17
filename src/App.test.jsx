@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, cleanup, waitForDomChange } from '@testing-library/react';
+import { render, cleanup, waitForDomChange, fireEvent } from '@testing-library/react';
 import { planetsData, shortOrder, categories } from './mockdata';
 import App from './App';
 import * as services from './services';
@@ -30,10 +30,24 @@ describe('async', () => {
     }
   });
 
+  test('shearch bar text', async () => {
+    const { debug, getByTestId } = render(<App />);
+
+    await waitForDomChange();
+    
+    fireEvent.change(getByTestId('search-bar'), { target: { value: 'mother' } });
+
+    const filterPlanets = planetsData.results.filter(({ name }) => name.includes('mother'));
+    console.log(filterPlanets)
+    // debug()
+  });
+
   test('loading testing', () => {
-    const { getByText } = render(<App />)
+    const { getByText } = render(<App />);
     expect(getByText('Loading...')).toBeInTheDocument();
   });
+
+  
 })
 
 
