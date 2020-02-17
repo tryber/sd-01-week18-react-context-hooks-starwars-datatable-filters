@@ -23,12 +23,12 @@ const compareFunction = (A, B) => {
 export const shortingData = (data, { column, order }) => {
   const shortData = [...data];
   shortData.sort(({ [column]: A }, { [column]: B }) => {
-    if (isNumeric(A) && isNumeric(B)) {
+    if (isNumeric(A) && isNumeric(B)) { 
       return compareFunction(Number(A), Number(B));
     }
-    return compareFunction(A, B);
+    return A.localeCompare(B);
   });
-  if (order === 'ASC') {
+  if (order === 'DSC') {
     shortData.reverse();
   }
   return shortData;

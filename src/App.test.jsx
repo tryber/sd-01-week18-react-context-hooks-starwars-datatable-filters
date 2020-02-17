@@ -4,41 +4,46 @@ import { planetsData, shortOrder, categories } from './mockdata';
 import App from './App';
 import * as services from './services';
 
-// jest.mock('react', () => {
-//   const ActualReact = require.requireActual('react')
-//   let defaultValues = { data: null, isFetch: false, planets: null, categories: [] }
-//   const setValues = (object) => { defaultValues = { ...object } }
-//   return {
-//     ...ActualReact,
-//     useContext: () => ({ database: defaultValues, setDatabase: setValues }), // what you want to return when useContext get fired goes here
-//   }
-// })
+afterEach(cleanup);
 
-let promise = new Promise(function(resolve, reject) {
-  // the function is executed automatically when the promise is constructed
+services.fetchingPlanets = jest.fn(() =>
+  new Promise((resolve) => setTimeout(() => resolve(planetsData), 3000)));
+  
+describe('async', () => {
+  test('testing receive data by categories', async () => {
+    const { getByTestId } = render(<App />);
 
-  // after 1 second signal that the job is done with the result "done"
-  setTimeout(() => resolve("done"), 1000);
-});
+    await waitForDomChange();
+    categories.forEach((eachCategory) => {
+      expect(getByTestId(eachCategory)).toBeInTheDocument();
+    });
+  });
+
+  test('testing ascending order data', async () => {
+    const { getByTestId } = render(<App />);
+
+    await waitForDomChange();
+
+    const orderPlanets = planetsData.results.map(({ name }) => name).sort();
+    for (let i = 0; i < orderPlanets.length; i += 1) {
+      expect(getByTestId(`rowname${i}`).innerHTML).toBe(orderPlanets[i]);
+    }
+  });
+
+  test('loading testing', () => {
+    const { getByText } = render(<App />)
+    expect(getByText('Loading...')).toBeInTheDocument();
+  });
+})
 
 
-services.fetchingPlanets = jest.fn(() => new Promise((resolve) => setTimeout(() => resolve(planetsData), 3000)))
 
-// jest.doMock('./services', () => (
-//   {
-//     ...(jest.requireActual('./services')),
-//     fetchingPlanets: () => new Promise((resolve) => setTimeout(() => resolve(planetsData), 3000)),
-//   }
-// ))
+// test('loading testing', () => {
+//   const { getByText } = render(<App />)
+//   expect(getByText('Loading...')).toBeInTheDocument();
+// });
 
+// const pHTMLall = Object.keys(container.querySelectorAll('td')).map(key => container.querySelectorAll('td')[key]);
+    //   const pContainer = pHTMLall.map(pHTMLeach => pHTMLeach.innerHTML);
 
-
-
-test('should have a table content with those categories', async () => {
-  const { debug } = render(<App />)
-  // const hey = await services.fetchingPlanets()
-  // console.log(hey)
-  await waitForDomChange();
-  debug()
-});
-
+    //   console.log(pContainer)

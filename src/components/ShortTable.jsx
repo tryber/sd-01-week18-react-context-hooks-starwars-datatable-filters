@@ -19,10 +19,10 @@ const renderContent = (database, shortOrder, setShortOrder) => (
       </div>
       <div>
         <input
-          type="radio" id="DESC" name="order" value="DESC"
+          type="radio" id="DSC" name="order" value="DSC"
           onClick={(e) => setShortOrder({ ...shortOrder, order: e.target.value })}
         />
-        <label htmlFor="DESC">Downward</label>
+        <label htmlFor="DSC">Downward</label>
       </div>
     </div>
   </div>
