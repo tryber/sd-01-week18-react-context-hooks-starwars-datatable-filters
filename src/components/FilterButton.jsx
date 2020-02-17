@@ -11,16 +11,15 @@ const handleClick = (numericFilter, setNumericFilter) => {
 
 const FilterButton = ({ numericFilter, setNumericFilter }) => (
   <button
-    type="button"
+    type="button" data-testid="filter-button"
     onClick={() => handleClick(numericFilter, setNumericFilter)}
   >Add Filter</button>
 );
 
 FilterButton.propTypes = {
-  numericFilter: PropTypes.arrayOf(
-    PropTypes.shape({
-      availableCategories: PropTypes.string.isRequired,
-    })).isRequired,
+  numericFilter: PropTypes.shape({
+    availableCategories: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
+  }).isRequired,
   setNumericFilter: PropTypes.func.isRequired,
 };
 

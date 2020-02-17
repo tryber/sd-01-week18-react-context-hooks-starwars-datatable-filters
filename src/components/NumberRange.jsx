@@ -3,16 +3,15 @@ import PropTypes from 'prop-types';
 
 const NumberRange = ({ numericFilter, setNumericFilter }) => (
   <input
-    type="number"
+    type="number" data-testid="number-input"
     onChange={(e) => setNumericFilter({ ...numericFilter, value: e.target.value })}
   />
 );
 
 NumberRange.propTypes = {
-  numericFilter: PropTypes.arrayOf(
-    PropTypes.shape({
-      value: PropTypes.string.isRequired,
-    })).isRequired,
+  numericFilter: PropTypes.shape({
+    value: PropTypes.string.isRequired,
+  }).isRequired,
   setNumericFilter: PropTypes.func.isRequired,
 };
 

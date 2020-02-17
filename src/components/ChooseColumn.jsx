@@ -5,7 +5,7 @@ const renderContent = (numericFilter, setNumericFilter) => {
   if (numericFilter.availableCategories.length >= 1) {
     return (
       <select
-        key="categories"
+        key="categories" data-testid="column-dropdown"
         onChange={(e) => {
           if (e.target.value !== 'none') {
             setNumericFilter({ ...numericFilter, column: e.target.value });
