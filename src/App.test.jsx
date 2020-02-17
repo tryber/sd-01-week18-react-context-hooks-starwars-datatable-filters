@@ -30,11 +30,16 @@ describe('async', () => {
     }
   });
 
-  const filterPlanets = (string) => (
-    planetsData.results
-      .filter(({ name }) => name.toLowerCase().includes(string.toLowerCase()))
-      .map(({ name }) => name)
-  );
+  const testingShearch = (getByTestId, filterPlanets) => {
+    const renderPlanets = [];
+    for (let i = 0; i < filterPlanets.length; i += 1) {
+      renderPlanets.push(getByTestId(`rowname${i}`).innerHTML)
+    };
+    expect(renderPlanets.length).toBe(filterPlanets.length);
+    for (let i = 0; i < filterPlanets.length; i += 1) {
+      expect(filterPlanets.includes(renderPlanets[i])).toBeTruthy()
+    };
+  }
 
   test('shearch bar text', async () => {
     const { getByTestId } = render(<App />);
@@ -42,40 +47,50 @@ describe('async', () => {
     await waitForDomChange();
 
     fireEvent.change(getByTestId('search-bar'), { target: { value: 'moTher' } });
-
-    const filterPlanetsI = filterPlanets('moTher');
-    const renderPlanetsI = [];
-    for (let i = 0; i < filterPlanetsI.length; i += 1) {
-      renderPlanetsI.push(getByTestId(`rowname${i}`).innerHTML)
-    };
-    expect(renderPlanetsI.length).toBe(filterPlanetsI.length);
-    for (let i = 0; i < filterPlanetsI.length; i += 1) {
-      expect(filterPlanetsI.includes(renderPlanetsI[i])).toBeTruthy()
-    };
+    testingShearch(getByTestId, ['Mothership', 'Mothermary']);
 
     fireEvent.change(getByTestId('search-bar'), { target: { value: '' } });
-
-    const filterPlanetsII = planetsData.results.map(({ name }) => name);
-    const renderPlanetsII = [];
-    for (let i = 0; i < filterPlanetsII.length; i += 1) {
-      renderPlanetsII.push(getByTestId(`rowname${i}`).innerHTML)
-    };
-    expect(renderPlanetsII.length).toBe(filterPlanetsII.length);
-    for (let i = 0; i < filterPlanetsII.length; i += 1) {
-      expect(filterPlanetsII.includes(renderPlanetsII[i])).toBeTruthy()
-    };
+    testingShearch(getByTestId, planetsData.results.map(({ name }) => name));
 
     fireEvent.change(getByTestId('search-bar'), { target: { value: 'aurora' } });
+    testingShearch(getByTestId, []);
 
-    const filterPlanetsIII = filterPlanets('aurora');
-    const renderPlanetsIII = [];
-    for (let i = 0; i < filterPlanetsIII.length; i += 1) {
-      renderPlanetsIII.push(getByTestId(`rowname${i}`).innerHTML)
-    };
-    expect(renderPlanetsIII.length).toBe(filterPlanetsIII.length);
-    for (let i = 0; i < filterPlanetsIII.length; i += 1) {
-      expect(filterPlanetsIII.includes(renderPlanetsIII[i])).toBeTruthy()
-    };
+    fireEvent.change(getByTestId('search-bar'), { target: { value: 'a' } });
+    testingShearch(getByTestId, ['Mothermary', 'Anticapital', 'Gaganás', 'Swiftland']);
+  });
+
+  const testingShort = (key, getByTestId, shortPlanets) => {
+    for (let i = 0; i < shortPlanets.length; i += 1) {
+      expect(getByTestId(`row${key}${i}`).innerHTML).toBe(shortPlanets[i]);
+    }
+  }
+
+  test('short order test', async () => {
+    const { debug, getByTestId } = render(<App />);
+
+    await waitForDomChange();
+
+    fireEvent.click(getByTestId('short-dropdown'), { target: { value: categories[1] } })
+    fireEvent.click(getByTestId('ASC-radio'));
+    testingShort(categories[1], getByTestId, ['18', '23', '24', '24', '24', '26', '100']);
+
+    fireEvent.click(getByTestId('short-dropdown'), { target: { value: categories[1] } })
+    fireEvent.click(getByTestId('DSC-radio'));
+    testingShort(categories[1], getByTestId, ['100', '26', '24', '24', '24', '23', '18']);
+
+    fireEvent.click(getByTestId('short-dropdown'), { target: { value: categories[6] } })
+    fireEvent.click(getByTestId('DSC-radio'));
+    testingShort(categories[6], getByTestId,
+      ['tundra, ice caves, mountain ranges', 'ocean', 'jungle, rainforests',
+        'grassy hills, swamps, forests, mountains', 'grasslands, mountains',
+        'forests, mountains, lakes', 'cityscape, mountains']);
+
+    fireEvent.click(getByTestId('short-dropdown'), { target: { value: categories[6] } })
+    fireEvent.click(getByTestId('ASC-radio'));
+    testingShort(categories[6], getByTestId,
+      ['cityscape, mountains', 'forests, mountains, lakes', 'grasslands, mountains',
+        'grassy hills, swamps, forests, mountains', 'jungle, rainforests', 'ocean',
+        'tundra, ice caves, mountain ranges']);
   });
 
   test('loading testing', () => {

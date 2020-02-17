@@ -10,21 +10,11 @@ const isNumeric = (str) => {
   return (er.test(str));
 };
 
-const compareFunction = (A, B) => {
-  if (A > B) {
-    return -1;
-  }
-  if (B < A) {
-    return 1;
-  }
-  return 0;
-};
-
 export const shortingData = (data, { column, order }) => {
   const shortData = [...data];
   shortData.sort(({ [column]: A }, { [column]: B }) => {
     if (isNumeric(A) && isNumeric(B)) {
-      return compareFunction(Number(A), Number(B));
+      return A - B;
     }
     return A.localeCompare(B);
   });

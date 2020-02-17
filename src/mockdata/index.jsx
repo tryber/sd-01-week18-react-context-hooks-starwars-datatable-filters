@@ -139,7 +139,7 @@ export const planetsData = {
     },
     {
       name: 'Swiftland',
-      rotation_period: '27',
+      rotation_period: '100',
       orbital_period: '463',
       diameter: '19720',
       climate: 'temperate',
