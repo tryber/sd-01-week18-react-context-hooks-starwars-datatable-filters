@@ -35,7 +35,7 @@ export const planetsData = {
       population: '1000',
       residents: [],
       films: [
-        'https://swapi.co/api/films/1/'
+        'https://swapi.co/api/films/1/',
       ],
       created: '2014-12-10T11:37:19.144000Z',
       edited: '2014-12-20T20:58:18.421000Z',
@@ -100,7 +100,7 @@ export const planetsData = {
         'https://swapi.co/api/people/60/',
         'https://swapi.co/api/people/61/',
         'https://swapi.co/api/people/66/',
-        'https://swapi.co/api/people/35/'
+        'https://swapi.co/api/people/35/',
       ],
       films: [
         'https://swapi.co/api/films/5/',
@@ -110,7 +110,7 @@ export const planetsData = {
       ],
       created: '2014-12-10T11:52:31.066000Z',
       edited: '2014-12-20T20:58:18.430000Z',
-      url: 'https://swapi.co/api/planets/8/'
+      url: 'https://swapi.co/api/planets/8/',
     },
     {
       name: 'Delrey',
@@ -159,8 +159,8 @@ export const planetsData = {
       edited: '2014-12-20T20:58:18.434000Z',
       url: 'https://swapi.co/api/planets/10/',
     },
-  ]
-}
+  ],
+};
 
 export const categories = Object.keys(planetsData.results[0]).filter((category) => category !== 'residents');
 

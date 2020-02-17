@@ -22,7 +22,11 @@ const FilterText = () => {
   return (
     <div>
       <h2>Filter Table By Text</h2>
-      <input type="text" data-testid="search-bar" onChange={(e) => handleClick(database, setDatabase, e.target.value)} />
+      <input
+        type="text"
+        data-testid="search-bar"
+        onChange={(e) => handleClick(database, setDatabase, e.target.value)}
+      />
     </div>
   );
 };
