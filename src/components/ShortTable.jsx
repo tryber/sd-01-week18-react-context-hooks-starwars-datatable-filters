@@ -38,12 +38,6 @@ const ShortTable = () => {
     if (database.planets) {
       setDatabase({ ...database, planets: shortingData(database.planets, shortOrder) });
     }
-  }, []);
-
-  useEffect(() => {
-    if (database.planets) {
-      setDatabase({ ...database, planets: shortingData(database.planets, shortOrder) });
-    }
   }, [shortOrder]);
 
   return renderContent(database, shortOrder, setShortOrder);

@@ -163,5 +163,3 @@ export const planetsData = {
 };
 
 export const categories = Object.keys(planetsData.results[0]).filter((category) => category !== 'residents');
-
-export const shortOrder = { column: name, order: 'ASC' };

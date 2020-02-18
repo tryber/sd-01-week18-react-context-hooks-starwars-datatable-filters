@@ -25,12 +25,8 @@ DisplayFilterNum.propTypes = {
     comparison: PropTypes.string.isRequired,
     value: PropTypes.string.isRequired,
   }).isRequired,
-  numericFilter: PropTypes.shape(PropTypes.object),
+  numericFilter: PropTypes.shape(PropTypes.object).isRequired,
   setNumericFilter: PropTypes.func.isRequired,
 };
-
-DisplayFilterNum.defaultProps = {
-  numericFilter: {},
-}
 
 export default DisplayFilterNum;

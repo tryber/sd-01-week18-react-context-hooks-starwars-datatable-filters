@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, cleanup, waitForDomChange, fireEvent, wait } from '@testing-library/react';
-import { planetsData, shortOrder, categories } from './mockdata';
+import { planetsData, categories } from './mockdata';
 import App from './App';
 import * as services from './services';
 
@@ -9,8 +9,14 @@ afterEach(cleanup);
 services.fetchingPlanets = jest.fn(() =>
   new Promise((resolve) => setTimeout(() => resolve(planetsData), 3000)));
 
-describe('async', () => {
-  test('testing receive data by categories', async () => {
+const testingFn = (key, getByTestId, planets) => {
+  for (let i = 0; i < planets.length; i += 1) {
+    expect(getByTestId(`row${key}${i}`).innerHTML).toBe(planets[i]);
+  }
+}
+
+describe('App', () => {
+  test('render table categories', async () => {
     const { getByTestId } = render(<App />);
 
     await waitForDomChange();
@@ -19,7 +25,7 @@ describe('async', () => {
     });
   });
 
-  test('testing ascending order data', async () => {
+  test('render table ascending order data', async () => {
     const { getByTestId } = render(<App />);
 
     await waitForDomChange();
@@ -30,13 +36,7 @@ describe('async', () => {
     }
   });
 
-  const testingFn = (key, getByTestId, planets) => {
-    for (let i = 0; i < planets.length; i += 1) {
-      expect(getByTestId(`row${key}${i}`).innerHTML).toBe(planets[i]);
-    }
-  }
-
-  test('shearch bar text', async () => {
+  test('shearch bar', async () => {
     const { getByTestId } = render(<App />);
 
     await waitForDomChange();
@@ -57,7 +57,7 @@ describe('async', () => {
 
 
 
-  test('short order test', async () => {
+  test('short order', async () => {
     const { getByTestId, getByText } = render(<App />);
 
     expect(getByText(/Short Table/i)).toBeInTheDocument();
@@ -87,8 +87,8 @@ describe('async', () => {
         'tundra, ice caves, mountain ranges']);
   });
 
-  test('filter num test', async () => {
-    const { debug, getByTestId, getByText, container } = render(<App />);
+  test('filter number', async () => {
+    const { getByTestId } = render(<App />);
 
     await waitForDomChange();
 
@@ -130,11 +130,49 @@ describe('async', () => {
       'Hoth', 'Mothermary', 'Mothership', 'Swiftland']);
   });
 
-  test('loading testing', () => {
+
+  test('filter num desapear', async () => {
+    const { getByTestId, queryByTestId } = render(<App />);
+
+    await waitForDomChange();
+
+    fireEvent.change(getByTestId('column-dropdown'), { target: { value: 'none' } });
+    fireEvent.change(getByTestId('column-dropdown'), { target: { value: categories[3] } });
+    fireEvent.click(getByTestId('iqual-radio'));
+    fireEvent.change(getByTestId('number-input'), { target: { value: '1' } });
+    fireEvent.click(getByTestId('filter-button'));
+
+    expect(getByTestId('column-dropdown')).toBeInTheDocument();
+
+    fireEvent.change(getByTestId('column-dropdown'), { target: { value: categories[2] } });
+    fireEvent.click(getByTestId('greater-radio'));
+    fireEvent.change(getByTestId('number-input'), { target: { value: '1' } });
+    fireEvent.click(getByTestId('filter-button'));
+
+    expect(getByTestId('column-dropdown')).toBeInTheDocument();
+
+    fireEvent.change(getByTestId('column-dropdown'), { target: { value: categories[8] } });
+    fireEvent.click(getByTestId('less-radio'));
+    fireEvent.change(getByTestId('number-input'), { target: { value: '1' } });
+    fireEvent.click(getByTestId('filter-button'));
+    expect(getByTestId('column-dropdown')).toBeInTheDocument();
+
+    fireEvent.change(getByTestId('column-dropdown'), { target: { value: categories[1] } });
+    fireEvent.click(getByTestId('less-radio'));
+    fireEvent.change(getByTestId('number-input'), { target: { value: '1' } });
+    fireEvent.click(getByTestId('filter-button'));
+
+    expect(getByTestId('column-dropdown')).toBeInTheDocument();
+    fireEvent.change(getByTestId('column-dropdown'), { target: { value: categories[7] } });
+    fireEvent.click(getByTestId('less-radio'));
+    fireEvent.change(getByTestId('number-input'), { target: { value: '1' } });
+    fireEvent.click(getByTestId('filter-button'));
+
+    expect(queryByTestId('column-dropdown')).toBeNull();
+  });
+
+  test('loading', () => {
     const { getByText } = render(<App />);
     expect(getByText('Loading...')).toBeInTheDocument();
   });
-
-})
-
-
+});
