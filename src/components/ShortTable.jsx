@@ -7,7 +7,8 @@ const renderContent = (database, shortOrder, setShortOrder) => (
     <h2>Short Table</h2>
     <select
       key="order" data-testid="short-dropdown"
-      onClick={(e) => setShortOrder({ ...shortOrder, column: e.target.value })}>
+      onClick={(e) => setShortOrder({ ...shortOrder, column: e.target.value })}
+    >
       {database.categories.map((EachCategory) =>
         <option key={EachCategory} value={EachCategory} >{EachCategory}</option>)}
     </select>

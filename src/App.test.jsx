@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, cleanup, waitForDomChange, fireEvent, wait } from '@testing-library/react';
+import { render, cleanup, waitForDomChange, fireEvent } from '@testing-library/react';
 import { planetsData, categories } from './mockdata';
 import App from './App';
 import * as services from './services';
@@ -13,7 +13,7 @@ const testingFn = (key, getByTestId, planets) => {
   for (let i = 0; i < planets.length; i += 1) {
     expect(getByTestId(`row${key}${i}`).innerHTML).toBe(planets[i]);
   }
-}
+};
 
 describe('App', () => {
   test('render table categories', async () => {
@@ -54,8 +54,6 @@ describe('App', () => {
     fireEvent.change(getByTestId('search-bar'), { target: { value: 'a' } });
     testingFn(categories[0], getByTestId, ['Anticapital', 'Gaganás', 'Mothermary', 'Swiftland']);
   });
-
-
 
   test('short order', async () => {
     const { getByTestId, getByText } = render(<App />);
