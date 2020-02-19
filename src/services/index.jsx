@@ -16,7 +16,7 @@ export const shortingData = (data, { column, order }) => {
     if (isNumeric(A) && isNumeric(B)) {
       return A - B;
     }
-    return A.localeCompare(B);
+    return A.toString().localeCompare(B);
   });
   if (order === 'DSC') {
     shortData.reverse();
