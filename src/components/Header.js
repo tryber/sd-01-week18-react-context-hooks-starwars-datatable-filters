@@ -17,12 +17,4 @@ const Header = () => {
   );
 };
 
-// const mapDispatchToProps = (dispatch) => ({
-//   getPlanets: () => dispatch(fetchStarWarsAPI()),
-// });
-
-// Header.propTypes = {
-//   getPlanets: PropTypes.func.isRequired,
-// };
-
 export default Header;

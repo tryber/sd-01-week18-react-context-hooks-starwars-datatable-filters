@@ -1,11 +1,8 @@
 import React, { useContext } from 'react';
-import PropTypes from 'prop-types';
 
 import context from '../store/context';
 import FilterName from './FilterName';
 import ButtonSort from './ButtonSort';
-
-
 
 // const comparisonCase = (filters, data) => {
 //   return filters.reduce((previousList, filter, index) => {
@@ -46,20 +43,12 @@ const tableStarWars = (data) => {
 
 const filterPlanetByName = (data, textInput) => {
   if (textInput) {
-    return data.filter(({ name: planetName }) => planetName.toLowerCase().includes(textInput.toLowerCase()));
+    return data.filter(({ name }) => name.toLowerCase().includes(textInput.toLowerCase()));
   }
   return data;
 };
 
-const sortAscending = (planetsData, isNumeric, column) => {
-  // const { filters: { column } } = useContext(context);
-  if (!isNumeric) {
-    return planetsData.sort((a, b) => {
-      if (a[column] > b[column]) return 1;
-      if (b[column] > a[column]) return -1;
-      return 0;
-    });
-  }
+const ascending = (planetsData, column) => {
   return planetsData.sort((a, b) => {
     if (a[column] === 'unknown') return 1;
     if (b[column] === 'unknown') return -1;
@@ -67,15 +56,23 @@ const sortAscending = (planetsData, isNumeric, column) => {
   });
 };
 
-const sortDescending = (planetsData, isNumeric, column) => {
-  // const { filters: { column } } = useContext(context);
+const sortAscending = (planetsData, isNumeric, column) => {
   if (!isNumeric) {
     return planetsData.sort((a, b) => {
-      if (a[column] > b[column]) return -1;
-      if (b[column] > a[column]) return 1;
+      if (a[column] > b[column]) return 1;
+      if (b[column] > a[column]) return -1;
       return 0;
     });
   }
+  return ascending(planetsData, column);
+  // return planetsData.sort((a, b) => {
+  //   if (a[column] === 'unknown') return 1;
+  //   if (b[column] === 'unknown') return -1;
+  //   return Number(a[column]) - Number(b[column]);
+  // });
+};
+
+const descending = (planetsData, column) => {
   return planetsData.sort((a, b) => {
     if (a[column] === 'unknown') return -1;
     if (b[column] === 'unknown') return 1;
@@ -83,8 +80,19 @@ const sortDescending = (planetsData, isNumeric, column) => {
   });
 };
 
+
+const sortDescending = (planetsData, isNumeric, column) => {
+  if (!isNumeric) {
+    return planetsData.sort((a, b) => {
+      if (a[column] > b[column]) return -1;
+      if (b[column] > a[column]) return 1;
+      return 0;
+    });
+  }
+  return descending(planetsData, column);
+};
+
 const changeColumnOrder = (planetsData, column, order) => {
-  // const { filters: { column, order } } = useContext(context);
   const numericColumns = [
     'population',
     'orbital_period',
@@ -109,7 +117,6 @@ const changeColumnOrder = (planetsData, column, order) => {
 
 const Table = () => {
   const { data, filters: { name, column, order } } = useContext(context);
-  console.log(order)
   const planetsFiltered = name ? filterPlanetByName(data, name) : data;
   // const filterNumber = filterNumericNumber(planetsFiltered);
   // const sortedPlanets = changeColumnOrder(filterNumber);
