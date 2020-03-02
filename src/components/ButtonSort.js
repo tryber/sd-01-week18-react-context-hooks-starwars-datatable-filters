@@ -1,16 +1,14 @@
 import React, { useContext } from 'react';
 
 import context from '../store/context';
-// import PropTypes from 'prop-types';
-// import { sortTable } from '../store/actions/buttonSort';
 
-// function changeOrder(event, orderTable) {
-//   const title = event.target.innerHTML;
-//   orderTable(title);
-// }
+function changeOrder(event) {
+  if (event === 'ASC') return 'DESC';
+  return 'ASC';
+}
 
 const TableHeader = () => {
-  const { setFilters } = useContext(context);
+  const { setFilters, filters: { order } } = useContext(context);
   const titles = [
     'name',
     'rotation_period',
@@ -32,20 +30,12 @@ const TableHeader = () => {
       <tr>
         {titles.map((title) => (
           <th key={title}>
-            <button type="button" onClick={(e) => setFilters({ column: e.target.innerHTML })}>{title}</button>
+            <button type="button" onClick={(e) => setFilters({ column: e.target.innerHTML, order: changeOrder(order) })}>{title}</button>
           </th>
         ))}
       </tr>
     </thead>
   );
 };
-
-// TableHeader.propTypes = {
-//   orderTable: PropTypes.func.isRequired,
-// };
-
-// const mapDispatchToProps = (dispatch) => ({
-//   orderTable: (value) => dispatch(sortTable(value)),
-// });
 
 export default TableHeader;
