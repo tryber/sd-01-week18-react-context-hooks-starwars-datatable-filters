@@ -60,8 +60,8 @@ const sortAscending = (planetsData, isNumeric, column) => {
   if (!isNumeric) {
     return planetsData.sort((a, b) => {
       if (a[column] > b[column]) return 1;
-      if (b[column] > a[column]) return -1;
-      return 0;
+      // if (b[column] > a[column]) return -1;
+      return -1;
     });
   }
   return ascending(planetsData, column);
@@ -80,13 +80,12 @@ const descending = (planetsData, column) => {
   });
 };
 
-
 const sortDescending = (planetsData, isNumeric, column) => {
   if (!isNumeric) {
     return planetsData.sort((a, b) => {
       if (a[column] > b[column]) return -1;
-      if (b[column] > a[column]) return 1;
-      return 0;
+      // if (b[column] > a[column]) return 1;
+      return 1;
     });
   }
   return descending(planetsData, column);
