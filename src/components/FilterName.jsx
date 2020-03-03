@@ -8,7 +8,7 @@ export default function FilterName() {
     <div>
       <input
         placeholder="Digite o nome do planeta aqui"
-        onChange={(e) => setFilter(e.target.value)}
+        onChange={(e) => setFilter({name: e.target.value})}
         data-testid="namePlanetInput"
       />
     </div>

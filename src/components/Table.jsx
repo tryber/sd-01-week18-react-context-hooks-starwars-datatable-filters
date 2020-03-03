@@ -4,39 +4,28 @@ import '../css/Table.css';
 import {
   textColumns,
   creatorOfaTable,
-  //comparisonCase,
+  // comparisonCase,
 } from '../service/functions';
 import { StarWarsContext } from '../context/StarWarsContext';
 
-
 export default function Table() {
-  const {
-    resultAPI, starWarsAPI, filter,
-  } = useContext(StarWarsContext);
-console.log('o que é isso? → ', filter);
+  const { resultAPI, starWarsAPI, filter } = useContext(StarWarsContext);
+  console.log('o que é isso? → ', filter);
   useEffect(() => {
     starWarsAPI();
   }, []);
 
-  const dataResults = resultAPI.data.results ? resultAPI.data.results : []
+  const dataResults = resultAPI.data.results ? resultAPI.data.results : [];
 
-  const teste = () => 
-   ( <h1>
-    teste
-    {/* {dataResults && <Filter /> } */}
-  </h1>)
-  
-  
+  const teste = () => <FilterName />
+
   if (resultAPI.isFetching) {
     return <h1>LOADING...</h1>;
   }
 
-  
-
   if (filter.name) {
     const dateFilter = dataResults.filter((planet) => planet.name.toUpperCase().includes(filter.name.toUpperCase()));
-    teste()
-    return creatorOfaTable(textColumns, dateFilter);
+    return creatorOfaTable(textColumns, dateFilter, teste());
   }
   // if (filter.isFilter && filter) {
   //   const datafilter = comparisonCase(dataResults, filter);
@@ -44,5 +33,5 @@ console.log('o que é isso? → ', filter);
   //   return creatorOfaTable(textColumns, datafilter);
   // }
 
-  return creatorOfaTable(textColumns, dataResults);
+  return creatorOfaTable(textColumns, dataResults, teste());
 }
