@@ -18,7 +18,7 @@ const StarWarsProvider = ({ children }) => {
     fetch('https://swapi.co/api/planets/')
       .then((data) => data.json())
       .then((response) => setResultAPI({ data: response, isFetching: false, sucess: true }))
-      .catch((error) => console.log(`Sorry, this is bad →→→ ${error} ←←←`));
+      .catch((error) => alert(`Sorry, this is bad →→→ ${error} ←←←`));
   };
 
   const context = {

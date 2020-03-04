@@ -1,85 +1,104 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, {useContext} from 'react';
+//import SelectOfComparison from './SelectOfComparison';
+import { StarWarsContext } from '../context/StarWarsContext';
+// import {
+//   selectIsTrueOrFalse,
+//   handleColumn,
+//   handleComparison,
+//   handleInput,
+// } from '../service/functions';
+// import PropTypes from 'prop-types';
 
+// const sendValueForStore = ({ column, comparison, value }) => {
+//   const { setFilter } = useContext(StarWarsContext);
+//   const value = e.target.value;
+//   setFilter({ column, comparison, value });
+// };
 
-const sendValueForStore =() =>{
-  const { column, comparison, value } = this.state;
-  const { addPlanetFilters } = this.props;
-  addPlanetFilters({ column, comparison, value });
-  this.setState({
-    column: '',
-  });
-}
+// const selectOfComparison = () => {
+//   const { setFilter, filter } = useContext(StarWarsContext);
+//   return (
+//     <select
+//       name="comparison"
+//       value={filter.comparison}
+//       onChange={(e) => setFilter({ comparison: e.target.value })}
+//       required
+//     >
+//       <option value="" disabled>
+//         SELECIONE
+//       </option>
+//       <option value="bigger">MAIOR QUE</option>
+//       <option value="smaller">MENOR QUE</option>
+//       <option value="equal">IGUAL Á</option>
+//     </select>
+//   );
+// };
 
-const selectOfComparison =() =>{
-  const { comparison } = this.state;
+const SelectOfColunm = () => {
+  const { setFilter, filter } = useContext(StarWarsContext);
+  return (
+    <select
+      name="column"
+      value={filter.column}
+      onChange={(e) => setFilter([{ column: e.target.value }])}
+      required
+    >
+      <option value="" disabled>
+        Selecionar Opção
+      </option>
+      <option value="population">População</option>
+      <option value="orbital_period">Duração Orbital</option>
+      <option value="diameter">Diâmetro</option>
+      <option value="rotation_period">Duração da Rotação</option>
+      <option value="surface_water">Superfície da Água</option>
+    </select>
+  );
+};
+
+const SelectOfComparison = () => {
+  const { setFilter, filter } = useContext(StarWarsContext);
   return (
     <select
       name="comparison"
-      value={comparison}
-      onChange={this.handleComparison}
+      value={filter.comparison}
+      onChange={(e) => setFilter([{ comparison: e.target.value }])}
       required
     >
-      <option value="" disabled> SELECIONE </option>
+      <option value="" disabled>
+        SELECIONE
+      </option>
       <option value="bigger">MAIOR QUE</option>
       <option value="smaller">MENOR QUE</option>
       <option value="equal">IGUAL Á</option>
     </select>
   );
-}
+};
 
-const selectOfColunm=(numeric) =>{
-  const { column } = this.state;
+const InputNumeric = () => {
+  const { setFilter, filter } = useContext(StarWarsContext);
   return (
-    <select name="column" value={column} onChange={this.handleColumn} required>
-      <option value="" disabled> Selecionar Opção </option>
-      {selectIsTrueOrFalse(numeric, 'population') && (
-        <option value="population">População</option>
-      )}
-      {selectIsTrueOrFalse(numeric, 'orbital_period') && (
-        <option value="orbital_period">Duração Orbital</option>
-      )}
-      {selectIsTrueOrFalse(numeric, 'diameter') && (
-        <option value="diameter">Diâmetro</option>
-      )}
-      {selectIsTrueOrFalse(numeric, 'rotation_period') && (
-        <option value="rotation_period">Duração da Rotação</option>
-      )}
-      {selectIsTrueOrFalse(numeric, 'surface_water') && (
-        <option value="surface_water">Superfície da Água</option>
-      )}
-    </select>
+    <input
+      type="number"
+      value={filter.value}
+      placeholder="Valor numérico"
+      onChange={(e) => setFilter([{ value: e.target.value }])}
+    />
   );
-}
-
-
-
-
-function FilterSelect(params) {
-
+};
+function FilterSelect() {
+  const { filter } = useContext(StarWarsContext);
+  console.log('os filtros → ', filter.column);
   return (
     <form>
       <fieldset>
         <legend>Campos de Filtro</legend>
-        {this.selectOfColunm(numeric_values)}
-        {this.selectOfComparison()}
-        <input
-          type="number"
-          value={value}
-          placeholder="Valor numérico"
-          onChange={this.handleInput}
-        />
-        {column && comparison && value && (
-          <button type="submit" onClick={() => this.sendValueForStore()}>
-            {' '}
-            Enviar Filtro
-            {' '}
-          </button>
-        )}
+        <SelectOfColunm/>
+        <SelectOfComparison />
+        <InputNumeric/>
+        <button type="submit">Enviar Filtro</button>
       </fieldset>
     </form>
   );
-  
 }
 // class NumberInputDropDown extends Component {
 //   constructor(props) {
@@ -187,8 +206,6 @@ function FilterSelect(params) {
 //     );
 //   }
 // }
-
-
 
 // FilterSelect.propTypes = {
 //   addPlanetFilters: PropTypes.func.isRequired,

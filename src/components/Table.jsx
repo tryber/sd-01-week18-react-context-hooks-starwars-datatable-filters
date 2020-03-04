@@ -1,12 +1,13 @@
 import React, { useContext, useEffect } from 'react';
 import FilterName from './FilterName';
-import '../css/Table.css';
+import FilterSelect from './FilterSelect';
 import {
   textColumns,
   creatorOfaTable,
   // comparisonCase,
 } from '../service/functions';
 import { StarWarsContext } from '../context/StarWarsContext';
+import '../css/Table.css';
 
 export default function Table() {
   const { resultAPI, starWarsAPI, filter } = useContext(StarWarsContext);
@@ -17,7 +18,8 @@ export default function Table() {
 
   const dataResults = resultAPI.data.results ? resultAPI.data.results : [];
 
-  const teste = () => <FilterName />
+  const filterName = () => <FilterName />;
+  const filterSelect = () => <FilterSelect />;
 
   if (resultAPI.isFetching) {
     return <h1>LOADING...</h1>;
@@ -25,7 +27,7 @@ export default function Table() {
 
   if (filter.name) {
     const dateFilter = dataResults.filter((planet) => planet.name.toUpperCase().includes(filter.name.toUpperCase()));
-    return creatorOfaTable(textColumns, dateFilter, teste());
+    return creatorOfaTable(textColumns, dateFilter, filterName(), filterSelect());
   }
   // if (filter.isFilter && filter) {
   //   const datafilter = comparisonCase(dataResults, filter);
@@ -33,5 +35,5 @@ export default function Table() {
   //   return creatorOfaTable(textColumns, datafilter);
   // }
 
-  return creatorOfaTable(textColumns, dataResults, teste());
+  return creatorOfaTable(textColumns, dataResults, filterName(), filterSelect());
 }

@@ -44,17 +44,16 @@ export const selectIsTrueOrFalse = (filters, valueis) => {
   return true;
 };
 
-export const handleColumn = (event) => {
-  this.setState({ column: event.target.value });
+export const handleColumn = (event, set) => {
+  set({ column: event.target.value });
 };
 
-export const handleComparison = (event) => {
-  this.setState({ comparison: event.target.value });
+export const handleComparison = (event, set) => {
+  set({ comparison: event.target.value });
 };
 
-export const handleInput = (event) => {
-  this.setState({ value: event.target.value });
-  event.preventDefault();
+export const handleInput = (event,set) => {
+  set({ value: event.target.value });
 };
 
 export const bodyTableRow = (planet) => (
@@ -87,10 +86,11 @@ export const headColumns = (textColumns) => (
   </tr>
 );
 
-export const creatorOfaTable = (listTh, data, filter) => (
+export const creatorOfaTable = (listTh, data, filterN, filterS) => (
   <div className="table">
     <h1>Tabela de dados StarWars com filtros</h1>
-    {filter}
+    {filterN}
+    {filterS}
     <table>
       <thead>{headColumns(listTh)}</thead>
       <tbody>{data.map((planets) => bodyTableRow(planets))}</tbody>
