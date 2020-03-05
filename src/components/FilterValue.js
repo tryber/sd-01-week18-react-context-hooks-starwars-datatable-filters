@@ -1,18 +1,16 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { useContext } from 'react';
 
-function FilterValue({ handleChange }) {
+import context from '../store/context';
+
+const FilterValue = () => {
+  const { setValue } = useContext(context);
   return (
     <input
       type="number"
       placeholder="Filtrar por Valor"
-      onChange={(e) => handleChange(e.target.value)}
+      onChange={(e) => setValue(e.target.value)}
     />
   );
-}
-
-FilterValue.propTypes = {
-  handleChange: PropTypes.func.isRequired,
 };
 
 export default FilterValue;

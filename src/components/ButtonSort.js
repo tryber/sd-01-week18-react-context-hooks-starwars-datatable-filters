@@ -8,7 +8,7 @@ function changeOrder(event) {
 }
 
 const TableHeader = () => {
-  const { setFilters, filters: { order } } = useContext(context);
+  const { setSortColumns, sortColumns: { order } } = useContext(context);
   const titles = [
     'name',
     'rotation_period',
@@ -30,7 +30,7 @@ const TableHeader = () => {
       <tr>
         {titles.map((title) => (
           <th key={title}>
-            <button type="button" onClick={(e) => setFilters({ column: e.target.innerHTML, order: changeOrder(order) })}>{title}</button>
+            <button type="button" onClick={(e) => setSortColumns({ column: e.target.innerHTML, order: changeOrder(order) })}>{title}</button>
           </th>
         ))}
       </tr>

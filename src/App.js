@@ -9,7 +9,7 @@ function App() {
   return (
     <div className="App">
       <Header />
-      {/* <FiltersAll /> */}
+      <FiltersAll />
       <p>Clique nos botões para ordenar a coluna por ordem crescente ou decrescente</p>
       <Table />
     </div>

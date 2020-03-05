@@ -4,16 +4,28 @@ import context from './context';
 
 const Provider = ({ children }) => {
   const [data, setData] = useState();
-  const [filters, setFilters] = useState({ name: '', column: 'name', order: 'ASC' });
-  // const [sort, setSort] = useState('ASC');
+  const [filterName, setFilterName] = useState('');
+  const [sortColumns, setSortColumns] = useState({ column: 'name', order: 'ASC' });
+  const [value, setValue] = useState('');
+  const [column, setColumn] = useState('');
+  const [comparison, setComparison] = useState('');
+  const [filters, setFilters] = useState([]);
 
   const storeContext = {
     data,
     setData,
+    filterName,
+    setFilterName,
+    sortColumns,
+    setSortColumns,
+    value,
+    setValue,
+    column,
+    setColumn,
+    comparison,
+    setComparison,
     filters,
     setFilters,
-    // sort,
-    // setSort,
   };
 
   return <context.Provider value={storeContext}>{children}</context.Provider>;

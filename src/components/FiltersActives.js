@@ -1,52 +1,32 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { removeFilter } from '../store/actions/filterNumber';
+import React, { useContext } from 'react';
 
-class FilterActives extends Component {
-  constructor(props) {
-    super(props);
-    this.showActiveFilters = this.showActiveFilters.bind(this);
-    this.createFilter = this.createFilter.bind(this);
-  }
+import context from '../store/context';
 
-  createFilter(filterObj) {
-    const { removePlanetFilters } = this.props;
-    return (
-      <p key={filterObj.column} className="active-filters">
-        {`${filterObj.column} | ${filterObj.comparison} | ${filterObj.value}`}
-        <button type="button" onClick={() => removePlanetFilters(filterObj)}>X</button>
-      </p>
-    );
-  }
-
-  showActiveFilters(filters) {
-    return filters.map((filter) => this.createFilter(filter));
-  }
-
-  render() {
-    const { numeric_values: numericValues } = this.props;
-    return (
-      <div className="active-filters">
-        <h3>Filtros Ativos</h3>
-        {numericValues && this.showActiveFilters(numericValues)}
-      </div>
-    );
-  }
-}
-
-const mapStateToProps = ({ filters: { numeric_values } }) => ({ numeric_values });
-
-const mapDispatchToProps = (dispatch) => ({
-  removePlanetFilters: (value) => dispatch(removeFilter(value)),
-});
-
-FilterActives.propTypes = {
-  numeric_values: PropTypes.arrayOf(PropTypes.shape({})),
-  removePlanetFilters: PropTypes.func.isRequired,
+const removePlanetFilters = (filterObj, setFilters, filters) => {
+  const newFilters = filters.filter((filter) => filter.numeric_values.column !== filterObj.column);
+  return setFilters(newFilters);
 };
 
-FilterActives.defaultProps = {
-  numeric_values: [],
+const createFilter = (filterObj, setFilters, filters) => (
+  <p key={filterObj.column} className="active-filters">
+    {`${filterObj.column} | ${filterObj.comparison} | ${filterObj.value}`}
+    <button type="button" onClick={() => removePlanetFilters(filterObj, setFilters, filters)}>X</button>
+  </p>
+);
+
+const showActiveFilters = (filters, setFilters) => (
+  filters.map((filter) => createFilter(filter.numeric_values, setFilters, filters))
+);
+
+const FilterActives = () => {
+  const { filters, setFilters } = useContext(context);
+
+  return (
+    <div className="active-filters">
+      <h3>Filtros Ativos</h3>
+      {filters && showActiveFilters(filters, setFilters)}
+    </div>
+  );
 };
 
 export default FilterActives;

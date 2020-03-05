@@ -1,73 +1,35 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { filterNumber } from '../store/actions/filterNumber';
+import React, { useContext } from 'react';
+
 import FilterSelect from './FilterSelect';
 import FilterCompare from './FilterCompare';
 import FilterValue from './FilterValue';
 import FiltersActives from './FiltersActives';
+import context from '../store/context';
 
-class FilterAll extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      column: '',
-      comparison: '',
-      value: '',
-    };
-    this.filterColumn = this.filterColumn.bind(this);
-    this.filterCompare = this.filterCompare.bind(this);
-    this.filterValue = this.filterValue.bind(this);
-    this.sendValues = this.sendValues.bind(this);
-  }
+const FilterAll = () => {
+  const {
+    column,
+    comparison,
+    value,
+    filters,
+    setFilters,
+  } = useContext(context);
 
-  filterColumn(value) {
-    this.setState({
-      column: value,
-    });
-  }
+  const sendValues = () => {
+    const newFilters = [...filters, { numeric_values: { column, comparison, value } }];
+    return setFilters(newFilters);
+  };
 
-  filterCompare(value) {
-    this.setState({
-      comparison: value,
-    });
-  }
-
-  filterValue(value) {
-    this.setState({
-      value,
-    });
-  }
-
-  sendValues() {
-    const { column, comparison, value } = this.state;
-    const { addPlanetFilters } = this.props;
-    addPlanetFilters({ column, comparison, value });
-    this.setState({
-      column: '',
-    });
-  }
-
-  render() {
-    const { column, comparison, value } = this.state;
-    return (
-      <div>
-        <FiltersActives />
-        <FilterSelect handleChange={this.filterColumn} />
-        <FilterCompare handleChange={this.filterCompare} />
-        <FilterValue handleChange={this.filterValue} />
-        {column && comparison && value
-        && <button type="button" onClick={() => this.sendValues()}>Adicionar Filtro</button>}
-      </div>
-    );
-  }
-}
-
-const mapDispatchToProps = (dispatch) => ({
-  addPlanetFilters: (value) => dispatch(filterNumber(value)),
-});
-
-FilterAll.propTypes = {
-  addPlanetFilters: PropTypes.func.isRequired,
+  return (
+    <div>
+      <FiltersActives />
+      <FilterSelect />
+      <FilterCompare />
+      <FilterValue />
+      {column && comparison && value
+        && <button type="button" onClick={sendValues}>Adicionar Filtro</button>}
+    </div>
+  );
 };
 
 export default FilterAll;

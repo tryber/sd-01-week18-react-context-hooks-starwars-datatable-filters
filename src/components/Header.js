@@ -7,7 +7,7 @@ const Header = () => {
   const { setData } = useContext(context);
 
   useEffect(() => {
-    getStarWarsPlanets(setData);
+    getStarWarsPlanets().then((result) => setData(result));
   }, []);
 
   return (
