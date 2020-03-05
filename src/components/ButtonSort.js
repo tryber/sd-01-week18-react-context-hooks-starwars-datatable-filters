@@ -30,7 +30,14 @@ const TableHeader = () => {
       <tr>
         {titles.map((title) => (
           <th key={title}>
-            <button type="button" onClick={(e) => setSortColumns({ column: e.target.innerHTML, order: changeOrder(order) })}>{title}</button>
+            <button
+              type="button"
+              onClick={(e) => setSortColumns(
+                { column: e.target.innerHTML, order: changeOrder(order) },
+              )}
+            >
+              {title}
+            </button>
           </th>
         ))}
       </tr>

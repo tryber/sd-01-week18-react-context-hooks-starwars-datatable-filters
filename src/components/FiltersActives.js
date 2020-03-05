@@ -10,7 +10,12 @@ const removePlanetFilters = (filterObj, setFilters, filters) => {
 const createFilter = (filterObj, setFilters, filters) => (
   <p key={filterObj.column} className="active-filters">
     {`${filterObj.column} | ${filterObj.comparison} | ${filterObj.value}`}
-    <button type="button" onClick={() => removePlanetFilters(filterObj, setFilters, filters)}>X</button>
+    <button
+      type="button"
+      onClick={() => removePlanetFilters(filterObj, setFilters, filters)}
+    >
+      X
+    </button>
   </p>
 );
 
