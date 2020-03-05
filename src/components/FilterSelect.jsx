@@ -1,5 +1,5 @@
-import React, {useContext} from 'react';
-//import SelectOfComparison from './SelectOfComparison';
+import React, { useContext, useEffect } from 'react';
+// import SelectOfComparison from './SelectOfComparison';
 import { StarWarsContext } from '../context/StarWarsContext';
 // import {
 //   selectIsTrueOrFalse,
@@ -35,12 +35,12 @@ import { StarWarsContext } from '../context/StarWarsContext';
 // };
 
 const SelectOfColunm = () => {
-  const { setFilter, filter } = useContext(StarWarsContext);
+  const { setFilterColunm, filterColunm } = useContext(StarWarsContext);
   return (
     <select
       name="column"
-      value={filter.column}
-      onChange={(e) => setFilter([{ column: e.target.value }])}
+      value={filterColunm}
+      onChange={(e) => setFilterColunm(e.target.value)}
       required
     >
       <option value="" disabled>
@@ -56,12 +56,12 @@ const SelectOfColunm = () => {
 };
 
 const SelectOfComparison = () => {
-  const { setFilter, filter } = useContext(StarWarsContext);
+  const { setFilterComparison, filterComparison } = useContext(StarWarsContext);
   return (
     <select
       name="comparison"
-      value={filter.comparison}
-      onChange={(e) => setFilter([{ comparison: e.target.value }])}
+      value={filterComparison}
+      onChange={(e) => setFilterComparison(e.target.value)}
       required
     >
       <option value="" disabled>
@@ -75,27 +75,41 @@ const SelectOfComparison = () => {
 };
 
 const InputNumeric = () => {
-  const { setFilter, filter } = useContext(StarWarsContext);
+  const { setFilterValue, filtervalue } = useContext(StarWarsContext);
   return (
     <input
       type="number"
-      value={filter.value}
+      value={filtervalue}
       placeholder="Valor numérico"
-      onChange={(e) => setFilter([{ value: e.target.value }])}
+      onChange={(e) => setFilterValue(e.target.value)}
     />
   );
 };
+
 function FilterSelect() {
-  const { filter } = useContext(StarWarsContext);
-  console.log('os filtros → ', filter.column);
+  const {
+    filter, setFilter, filterColunm, filterComparison, filtervalue,
+  } = useContext(
+    StarWarsContext,
+  );
+
+  console.log('os filtros → ', filter);
   return (
     <form>
       <fieldset>
         <legend>Campos de Filtro</legend>
-        <SelectOfColunm/>
+        <SelectOfColunm />
         <SelectOfComparison />
-        <InputNumeric/>
-        <button type="submit">Enviar Filtro</button>
+        <InputNumeric />
+        <button
+          type="submit"
+          onClick={setFilter([
+            
+            { column: filterColunm, comparison: filterComparison, value: filtervalue },
+          ])}
+        >
+          Enviar Filtro
+        </button>
       </fieldset>
     </form>
   );

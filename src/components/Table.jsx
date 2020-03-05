@@ -12,6 +12,7 @@ import '../css/Table.css';
 export default function Table() {
   const { resultAPI, starWarsAPI, filter } = useContext(StarWarsContext);
   console.log('o que é isso? → ', filter);
+  
   useEffect(() => {
     starWarsAPI();
   }, []);
