@@ -10,18 +10,12 @@ function changeOrder(event) {
 const TableHeader = () => {
   const { setSortColumns, sortColumns: { order } } = useContext(context);
   const titles = [
-    'name',
-    'rotation_period',
-    'orbital_period',
-    'diameter',
-    'climate',
-    'gravity',
-    'terrain',
-    'surface_water',
-    'population',
-    'films',
-    'created',
-    'edited',
+    'name', 'rotation_period',
+    'orbital_period', 'diameter',
+    'climate', 'gravity',
+    'terrain', 'surface_water',
+    'population', 'films',
+    'created', 'edited',
     'url',
   ];
 
