@@ -87,11 +87,8 @@ const InputNumeric = () => {
 };
 
 function FilterSelect() {
-  const {
-    filter, setFilter, filterColunm, filterComparison, filtervalue,
-  } = useContext(
-    StarWarsContext,
-  );
+  const { filter, setFilter } = useContext(StarWarsContext, );
+  const [state, setState] = useState({ name: '' });
 
   console.log('os filtros → ', filter);
   return (
@@ -103,8 +100,7 @@ function FilterSelect() {
         <InputNumeric />
         <button
           type="submit"
-          onClick={setFilter([
-            
+          onClick={()=> setFilter([
             { column: filterColunm, comparison: filterComparison, value: filtervalue },
           ])}
         >

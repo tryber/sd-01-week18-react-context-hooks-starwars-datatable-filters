@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 
 export const textColumns = [
   'NOME',
@@ -52,7 +52,7 @@ export const handleComparison = (event, set) => {
   set({ comparison: event.target.value });
 };
 
-export const handleInput = (event,set) => {
+export const handleInput = (event, set) => {
   set({ value: event.target.value });
 };
 
@@ -65,7 +65,10 @@ export const bodyTableRow = (planet) => (
     <td>{planet.climate}</td>
     <td>{planet.gravity}</td>
     <td>{planet.terrain}</td>
-    <td>{planet.rotation_period} </td>
+    <td>
+      {planet.rotation_period}
+      {' '}
+    </td>
     <td>{planet.surface_water}</td>
     <td>
       {planet.films.map((film) => (
@@ -73,8 +76,14 @@ export const bodyTableRow = (planet) => (
       ))}
     </td>
     <td>{planet.created}</td>
-    <td>{planet.edited} </td>
-    <td>{planet.url} </td>
+    <td>
+      {planet.edited}
+      {' '}
+    </td>
+    <td>
+      {planet.url}
+      {' '}
+    </td>
   </tr>
 );
 
@@ -86,11 +95,9 @@ export const headColumns = (textColumns) => (
   </tr>
 );
 
-export const creatorOfaTable = (listTh, data, filterN, filterS) => (
+export const creatorOfaTable = (listTh, data) => (
   <div className="table">
     <h1>Tabela de dados StarWars com filtros</h1>
-    {filterN}
-    {filterS}
     <table>
       <thead>{headColumns(listTh)}</thead>
       <tbody>{data.map((planets) => bodyTableRow(planets))}</tbody>

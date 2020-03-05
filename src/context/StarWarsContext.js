@@ -5,9 +5,9 @@ const StarWarsContext = createContext();
 
 const StarWarsProvider = ({ children }) => {
   const [resultAPI, setResultAPI] = useState({ data: [], isFetching: true, sucess: false });
-  const [filterColunm, setFilterColunm] = useState();
-  const [filterComparison, setFilterComparison] = useState();
-  const [filtervalue, setFilterValue] = useState();
+  // const [filterColunm, setFilterColunm] = useState();
+  // const [filterComparison, setFilterComparison] = useState();
+  // const [filtervalue, setFilterValue] = useState();
   const [filtername, setFilterName] = useState({ name: '' });
 
   const [filter, setFilter] = useState([]);
@@ -22,12 +22,12 @@ const StarWarsProvider = ({ children }) => {
   const context = {
     filtername,
     setFilterName,
-    filterColunm,
-    setFilterColunm,
-    filterComparison,
-    setFilterComparison,
-    filtervalue,
-    setFilterValue,
+    // filterColunm,
+    // setFilterColunm,
+    // filterComparison,
+    // setFilterComparison,
+    // filtervalue,
+    // setFilterValue,
     resultAPI,
     filter,
     setFilter,
