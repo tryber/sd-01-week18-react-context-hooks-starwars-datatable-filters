@@ -23,7 +23,7 @@ const tableStarWars = (data) => {
     <tbody>
       {data.map((planets) => (
         <tr key={`Planeta: ${planets.name}`}>
-          <td key={planets.name}>{planets.name}</td>
+          <td data-testid="planets-name" key={planets.name}>{planets.name}</td>
           <td key={planets.rotation_period}>{planets.rotation_period}</td>
           <td key={planets.orbital_period}>{planets.orbital_period}</td>
           <td key={planets.diameter}>{planets.diameter}</td>

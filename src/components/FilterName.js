@@ -9,6 +9,7 @@ const FilterName = () => {
     <div>
       <input
         type="text"
+        placeholder="Filtrar por nome"
         value={filterName}
         data-testid="planet-name-input"
         onChange={(event) => setFilterName(event.target.value)}
