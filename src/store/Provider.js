@@ -11,9 +11,16 @@ const Provider = ({ children }) => {
   const [comparison, setComparison] = useState('');
   const [filters, setFilters] = useState([]);
 
+  const STAR_WARS_API = 'https://swapi.co/api/planets/';
+
+  const getStarWarsPlanets = () => fetch(STAR_WARS_API)
+    .then((response) => response.json())
+    .then((result) => setData(result.results));
+
   const storeContext = {
     data,
     setData,
+    getStarWarsPlanets,
     filterName,
     setFilterName,
     sortColumns,

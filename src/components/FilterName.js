@@ -10,6 +10,7 @@ const FilterName = () => {
       <input
         type="text"
         value={filterName}
+        data-testid="planet-name-input"
         onChange={(event) => setFilterName(event.target.value)}
       />
       Pesquise através do nome do Planeta

@@ -22,15 +22,4 @@ const FilterSelect = () => {
   );
 };
 
-// FilterSelect.propTypes = {
-//   handleChange: PropTypes.func.isRequired,
-//   numeric_values: PropTypes.arrayOf(PropTypes.shape({})),
-// };
-
-// FilterSelect.defaultProps = {
-//   numeric_values: [],
-// };
-
-// const mapStateToProps = ({ filters: { numeric_values } }) => ({ numeric_values });
-
 export default FilterSelect;
