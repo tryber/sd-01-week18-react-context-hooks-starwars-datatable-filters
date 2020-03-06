@@ -7,7 +7,7 @@ const Header = () => {
 
   useEffect(() => {
     getStarWarsPlanets();
-  });
+  }, []);
 
   return (
     <h1>

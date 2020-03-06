@@ -25,13 +25,13 @@ const tableStarWars = (data) => {
         <tr key={`Planeta: ${planets.name}`}>
           <td data-testid="planets-name" key={planets.name}>{planets.name}</td>
           <td key={planets.rotation_period}>{planets.rotation_period}</td>
-          <td key={planets.orbital_period}>{planets.orbital_period}</td>
+          <td data-testid="orbital-period" key={planets.orbital_period}>{planets.orbital_period}</td>
           <td key={planets.diameter}>{planets.diameter}</td>
           <td key={planets.climate}>{planets.climate}</td>
           <td key={planets.gravity}>{planets.gravity}</td>
           <td key={planets.terrain}>{planets.terrain}</td>
-          <td key={planets.surface_water}>{planets.surface_water}</td>
-          <td key={planets.population}>{planets.population}</td>
+          <td data-testid="surface-water" key={planets.surface_water}>{planets.surface_water}</td>
+          <td data-testid="population" key={planets.population}>{planets.population}</td>
           <td key={planets.films}>{planets.films.map((films) => <p key={films}>{films}</p>)}</td>
           <td key={planets.created}>{planets.created}</td>
           <td key={planets.edited}>{planets.edited}</td>

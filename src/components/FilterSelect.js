@@ -11,7 +11,7 @@ const verifySelect = (filters, value) => {
 const FilterSelect = () => {
   const { setColumn, filters } = useContext(context);
   return (
-    <select name="column" onChange={(e) => setColumn(e.target.value)}>
+    <select data-testid="select-column" name="column" onChange={(e) => setColumn(e.target.value)}>
       <option value="">Selecionar Opção</option>
       {verifySelect(filters, 'population') && <option value="population">População</option>}
       {verifySelect(filters, 'orbital_period') && <option value="orbital_period">Duração Orbital</option>}

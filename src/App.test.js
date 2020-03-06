@@ -26,8 +26,7 @@ const planetsName = ['Alderaan', 'Bespin', 'Coruscant', 'Dagobah', 'Endor', 'Geo
 describe('filter name', () => {
   afterEach(cleanup);
 
-  test('test elements before dom change', async () => {
-    afterEach(cleanup);
+  test('test elements before dom change', () => {
     const { getByText, queryByPlaceholderText } = render(<Provider><App /></Provider>);
     expect(getByText(/StarWars Datatable with Filters/i)).toBeInTheDocument();
     expect(getByText(/Filtros Ativos/i)).toBeInTheDocument();
@@ -49,7 +48,13 @@ describe('filter name', () => {
 
   test('filter the name with the input', async () => {
     afterEach(cleanup);
-    const { getByText, queryByPlaceholderText } = render(<Provider><App /></Provider>);
+    const {
+      getByText,
+      queryByPlaceholderText,
+      queryByText,
+      queryByTestId,
+      queryAllByTestId,
+    } = render(<Provider><App /></Provider>);
     await waitForDomChange();
     expect(getByText(/Pesquise através do nome do Planeta/i)).toBeInTheDocument();
     titlesColumns.forEach((title) => {
@@ -66,22 +71,28 @@ describe('filter name', () => {
 
     fireEvent.change(inputName, { target: { value: 'aa' } });
     expect(getByText(`${planetsName[0]}`)).toBeInTheDocument();
-    // expect(getByText(`${planetsName[1]}`)).not.toBeInTheDocument();
-    // expect(getByText(`${planetsName[2]}`)).not.toBeInTheDocument();
-    // expect(getByText(`${planetsName[3]}`)).not.toBeInTheDocument();
+    expect(queryByText(`${planetsName[1]}`)).not.toBeInTheDocument();
+    expect(queryByText(`${planetsName[2]}`)).not.toBeInTheDocument();
+    expect(queryByText(`${planetsName[3]}`)).not.toBeInTheDocument();
     fireEvent.change(inputName, { target: { value: 'AA' } });
     expect(getByText('Alderaan')).toBeInTheDocument();
 
     fireEvent.change(inputName, { target: { value: 'h' } });
     expect(getByText('Dagobah')).toBeInTheDocument();
     expect(getByText('Hoth')).toBeInTheDocument();
+
+    fireEvent.change(inputName, { target: { value: 'hfff' } });
+    expect(queryByTestId(/planets-name/i)).toBeNull();
+
+    fireEvent.change(inputName, { target: { value: '' } });
+    expect(queryAllByTestId(/planets-name/i).length).toBe(10);
   });
 });
 
 describe('ascending order and descending order', () => {
   afterEach(cleanup);
 
-  test('column with ascending and descending order', async () => {
+  test('column name with initial ascending and descending order', async () => {
     const { getByText, queryAllByTestId } = render(<Provider><App /></Provider>);
     await waitForDomChange();
 
@@ -109,5 +120,108 @@ describe('ascending order and descending order', () => {
     expect(planetsDescendingOrder[2].innerHTML).toBe('Kamino');
     expect(planetsDescendingOrder[1].innerHTML).toBe('Naboo');
     expect(planetsDescendingOrder[0].innerHTML).toBe('Yavin IV');
+  });
+
+  test('columns surface-water, population and orbital-period', async () => {
+    afterEach(cleanup);
+    const { getByText, queryAllByTestId } = render(<Provider><App /></Provider>);
+    await waitForDomChange();
+
+    const buttonPopulation = getByText(/population/i);
+    const buttonSurfaceWater = getByText(/surface_water/i);
+    const buttonOrbitalPeriod = getByText(/orbital_period/i);
+
+    fireEvent.click(buttonPopulation);
+    const populationDesc = queryAllByTestId(/population/i);
+    expect(populationDesc[0].innerHTML).toBe('unknown');
+    expect(populationDesc[9].innerHTML).toBe('1000');
+
+    fireEvent.click(buttonPopulation);
+    const populationAsc = queryAllByTestId(/population/i);
+    expect(populationAsc[9].innerHTML).toBe('unknown');
+    expect(populationAsc[0].innerHTML).toBe('1000');
+
+    fireEvent.click(buttonSurfaceWater);
+    const surfaceWaterDesc = queryAllByTestId(/surface-water/i);
+    expect(surfaceWaterDesc[0].innerHTML).toBe('unknown');
+    expect(surfaceWaterDesc[9].innerHTML).toBe('0');
+
+    fireEvent.click(buttonSurfaceWater);
+    const surfaceWaterAsc = queryAllByTestId(/surface-water/i);
+    expect(surfaceWaterAsc[9].innerHTML).toBe('unknown');
+    expect(surfaceWaterAsc[0].innerHTML).toBe('0');
+
+    fireEvent.click(buttonOrbitalPeriod);
+    const orbitalPeriodDesc = queryAllByTestId(/orbital-period/i);
+    expect(orbitalPeriodDesc[0].innerHTML).toBe('5110');
+    expect(orbitalPeriodDesc[9].innerHTML).toBe('256');
+
+    fireEvent.click(buttonOrbitalPeriod);
+    const orbitalPeriodAsc = queryAllByTestId(/orbital-period/i);
+    expect(orbitalPeriodAsc[9].innerHTML).toBe('5110');
+    expect(orbitalPeriodAsc[0].innerHTML).toBe('256');
+  });
+});
+
+describe('filter number', () => {
+  afterEach(cleanup);
+
+  test('select dropdown column, comparison and filter with input', async () => {
+    const {
+      getByText,
+      queryByPlaceholderText,
+      getByTestId,
+      queryAllByTestId,
+    } = render(<Provider><App /></Provider>);
+    await waitForDomChange();
+
+    const dropdownColumn = getByTestId(/select-column/i);
+    const dropdownComparison = getByTestId(/select-comparison/i);
+
+    fireEvent.change(dropdownColumn, { target: { value: 'rotation_period' } });
+    fireEvent.change(dropdownComparison, { target: { value: 'bigger' } });
+
+    const inputNumberFilter = queryByPlaceholderText(/Filtrar por valor/i);
+    fireEvent.change(inputNumberFilter, { target: { value: 26 } });
+
+    const buttonIncludeFilter = getByText(/Adicionar Filtro/i);
+    expect(buttonIncludeFilter).toBeInTheDocument();
+
+    fireEvent.click(buttonIncludeFilter);
+    expect(getByText(/Geonosis/i)).toBeInTheDocument();
+    expect(getByText(/Kamino/i)).toBeInTheDocument();
+    expect(queryAllByTestId(/planets-name/i).length).toBe(2);
+
+    const activesFiltersRotation = getByText('rotation_period | bigger | 26');
+    expect(activesFiltersRotation).toBeInTheDocument();
+
+    fireEvent.change(dropdownColumn, { target: { value: 'orbital_period' } });
+    fireEvent.change(inputNumberFilter, { target: { value: 300 } });
+    fireEvent.click(buttonIncludeFilter);
+    expect(queryAllByTestId(/planets-name/i).length).toBe(1);
+    const activesFiltersPopulation = getByText('orbital_period | bigger | 300');
+    expect(activesFiltersPopulation).toBeInTheDocument();
+
+    const excludeFilter = queryAllByTestId(/exclude-filter/i);
+    fireEvent.click(excludeFilter[1]);
+    expect(queryAllByTestId(/planets-name/i).length).toBe(2);
+    fireEvent.click(excludeFilter[0]);
+    expect(queryAllByTestId(/planets-name/i).length).toBe(10);
+
+    fireEvent.change(dropdownColumn, { target: { value: 'rotation_period' } });
+    fireEvent.click(buttonIncludeFilter);
+
+    fireEvent.change(dropdownColumn, { target: { value: 'orbital_period' } });
+    fireEvent.click(buttonIncludeFilter);
+
+    fireEvent.change(dropdownColumn, { target: { value: 'population' } });
+    fireEvent.click(buttonIncludeFilter);
+
+    fireEvent.change(dropdownColumn, { target: { value: 'diameter' } });
+    fireEvent.click(buttonIncludeFilter);
+
+    fireEvent.change(dropdownColumn, { target: { value: 'surface_water' } });
+    fireEvent.click(buttonIncludeFilter);
+    expect(getByText(/Todos os Filtros já foram selecionados/i)).toBeInTheDocument();
   });
 });

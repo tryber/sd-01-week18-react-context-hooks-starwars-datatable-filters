@@ -11,6 +11,7 @@ const createFilter = (filterObj, setFilters, filters) => (
   <p key={filterObj.column} className="active-filters">
     {`${filterObj.column} | ${filterObj.comparison} | ${filterObj.value}`}
     <button
+      data-testid="exclude-filter"
       type="button"
       onClick={() => removePlanetFilters(filterObj, setFilters, filters)}
     >
