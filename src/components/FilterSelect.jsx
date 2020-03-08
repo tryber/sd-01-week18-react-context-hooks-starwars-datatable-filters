@@ -1,96 +1,23 @@
-import React, { useContext, useEffect } from 'react';
-// import SelectOfComparison from './SelectOfComparison';
+import React, { useContext } from 'react';
 import { StarWarsContext } from '../context/StarWarsContext';
-// import {
-//   selectIsTrueOrFalse,
-//   handleColumn,
-//   handleComparison,
-//   handleInput,
-// } from '../service/functions';
-// import PropTypes from 'prop-types';
+import SelectOfColunm from './SelectOfColunm';
+import SelectOfComparison from './SelectOfComparison';
+import InputNumeric from './InputNumeric';
 
-// const sendValueForStore = ({ column, comparison, value }) => {
-//   const { setFilter } = useContext(StarWarsContext);
-//   const value = e.target.value;
-//   setFilter({ column, comparison, value });
-// };
 
-// const selectOfComparison = () => {
-//   const { setFilter, filter } = useContext(StarWarsContext);
-//   return (
-//     <select
-//       name="comparison"
-//       value={filter.comparison}
-//       onChange={(e) => setFilter({ comparison: e.target.value })}
-//       required
-//     >
-//       <option value="" disabled>
-//         SELECIONE
-//       </option>
-//       <option value="bigger">MAIOR QUE</option>
-//       <option value="smaller">MENOR QUE</option>
-//       <option value="equal">IGUAL Á</option>
-//     </select>
-//   );
-// };
+export default function FilterSelect() {
+  const {
+    filterComparison,
+    filterColunm,
+    filtervalue,
+    filters,
+    setFilters,
+  } = useContext(StarWarsContext);
 
-const SelectOfColunm = () => {
-  const { setFilterColunm, filterColunm } = useContext(StarWarsContext);
-  return (
-    <select
-      name="column"
-      value={filterColunm}
-      onChange={(e) => setFilterColunm(e.target.value)}
-      required
-    >
-      <option value="" disabled>
-        Selecionar Opção
-      </option>
-      <option value="population">População</option>
-      <option value="orbital_period">Duração Orbital</option>
-      <option value="diameter">Diâmetro</option>
-      <option value="rotation_period">Duração da Rotação</option>
-      <option value="surface_water">Superfície da Água</option>
-    </select>
-  );
-};
-
-const SelectOfComparison = () => {
-  const { setFilterComparison, filterComparison } = useContext(StarWarsContext);
-  return (
-    <select
-      name="comparison"
-      value={filterComparison}
-      onChange={(e) => setFilterComparison(e.target.value)}
-      required
-    >
-      <option value="" disabled>
-        SELECIONE
-      </option>
-      <option value="bigger">MAIOR QUE</option>
-      <option value="smaller">MENOR QUE</option>
-      <option value="equal">IGUAL Á</option>
-    </select>
-  );
-};
-
-const InputNumeric = () => {
-  const { setFilterValue, filtervalue } = useContext(StarWarsContext);
-  return (
-    <input
-      type="number"
-      value={filtervalue}
-      placeholder="Valor numérico"
-      onChange={(e) => setFilterValue(e.target.value)}
-    />
-  );
-};
-
-function FilterSelect() {
-  const { filter, setFilter } = useContext(StarWarsContext, );
-  const [state, setState] = useState({ name: '' });
-
-  console.log('os filtros → ', filter);
+  const sendValues = (event) => {
+    event.preventDefault()
+    const filter = [...filters, { numeric_values: { filterComparison, filterColunm, filtervalue } }]
+    setFilters( filter)};
   return (
     <form>
       <fieldset>
@@ -98,14 +25,12 @@ function FilterSelect() {
         <SelectOfColunm />
         <SelectOfComparison />
         <InputNumeric />
-        <button
+        {filterComparison && filterColunm && filtervalue && <button
           type="submit"
-          onClick={()=> setFilter([
-            { column: filterColunm, comparison: filterComparison, value: filtervalue },
-          ])}
+          onClick={(e)=> sendValues(e)}
         >
           Enviar Filtro
-        </button>
+        </button>}
       </fieldset>
     </form>
   );
@@ -225,4 +150,3 @@ function FilterSelect() {
 // FilterSelect.defaultProps = {
 //   numeric_values: [],
 // };
-export default FilterSelect;
