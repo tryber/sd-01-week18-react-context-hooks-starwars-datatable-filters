@@ -1,26 +1,20 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { Provider } from './context';
+import FilterText from './components/FilterText';
+import FilterNum from './components/FilterNum';
+import Table from './components/Table';
+import ShortTable from './components/ShortTable';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+const App = () => (
+  <div>
+    <Provider>
+      <FilterText />
+      <ShortTable />
+      <FilterNum />
+      <Table />
+    </Provider>
+  </div>
+);
+
 
 export default App;
