@@ -44,18 +44,6 @@ export const selectIsTrueOrFalse = (filters, valueis) => {
   return true;
 };
 
-export const handleColumn = (event, set) => {
-  set({ column: event.target.value });
-};
-
-export const handleComparison = (event, set) => {
-  set({ comparison: event.target.value });
-};
-
-export const handleInput = (event, set) => {
-  set({ value: event.target.value });
-};
-
 export const bodyTableRow = (planet) => (
   <tr key={planet.name}>
     <td>{planet.name}</td>
@@ -112,7 +100,9 @@ export const chooseSmallest = (planets, filterOfForm) => planets.filter((data) =
 export const chooseEqual = (planets, filterOfForm) => planets.filter((data) => data[filterOfForm.column] === filterOfForm.value);
 
 export const comparisonCase = (filters, data) => filters.reduce((previous, filter, index) => {
-  const dataComparison = index === 0 ? data : previous;
+  console.log('index', index);
+  const dataComparison = index === 0 ? data.numeric_values : previous;
+  console.log('o que é isso? → ', dataComparison);
   switch (filter.comparison) {
     case 'bigger':
       return chooseBiggest(dataComparison, filter);
