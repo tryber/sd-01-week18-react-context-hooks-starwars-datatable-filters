@@ -4,34 +4,36 @@ import PropTypes from 'prop-types';
 const StarWarsContext = createContext();
 
 const StarWarsProvider = ({ children }) => {
-  const [resultAPI, setResultAPI] = useState({ data: [], isFetching: true, sucess: false });
-  const [filterColunm, setFilterColunm] = useState('');
-  const [filterComparison, setFilterComparison] = useState('');
-  const [filtervalue, setFilterValue] = useState('');
-  const [filtername, setFilterName] = useState('' );
-
+  const [data, setData] = useState();
+  const [filterName, setFilterName] = useState('');
+  const [sortColumns, setSortColumns] = useState({ column: 'name', order: 'ASC' });
+  const [value, setValue] = useState('');
+  const [column, setColumn] = useState('');
+  const [comparison, setComparison] = useState('');
   const [filters, setFilters] = useState([]);
 
-  const starWarsAPI = () => {
-    fetch('https://swapi.co/api/planets/')
-      .then((data) => data.json())
-      .then((response) => setResultAPI({ data: response, isFetching: false, sucess: true }))
-      .catch((error) => alert(`Sorry, this is bad →→→ ${error} ←←←`));
-  };
+  const STAR_WARS_API = 'https://swapi.co/api/planets/';
+
+  const getStarWarsPlanets = () => fetch(STAR_WARS_API)
+    .then((response) => response.json())
+    .then((result) => setData(result.results));
 
   const context = {
-    filtername,
+    data,
+    setData,
+    getStarWarsPlanets,
+    filterName,
     setFilterName,
-    filterColunm,
-    setFilterColunm,
-    filterComparison,
-    setFilterComparison,
-    filtervalue,
-    setFilterValue,
-    resultAPI,
+    sortColumns,
+    setSortColumns,
+    value,
+    setValue,
+    column,
+    setColumn,
+    comparison,
+    setComparison,
     filters,
     setFilters,
-    starWarsAPI,
   };
 
   return <StarWarsContext.Provider value={context}>{children}</StarWarsContext.Provider>;

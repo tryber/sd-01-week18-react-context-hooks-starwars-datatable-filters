@@ -2,20 +2,18 @@ import React, { useContext } from 'react';
 import { StarWarsContext } from '../context/StarWarsContext';
 
 const SelectOfComparison = () => {
-  const { setFilterComparison, filterComparison } = useContext(StarWarsContext);
+  const { setComparison } = useContext(StarWarsContext);
   return (
     <select
-      name="comparison"
-      value={filterComparison}
-      onChange={(e) => setFilterComparison(e.target.value)}
-      required
+      data-testid="select-comparison"
+      name="type"
+      defaultValue=""
+      onChange={(e) => setComparison(e.target.value)}
     >
-      <option value="" disabled>
-        SELECIONE
-      </option>
-      <option value="bigger">MAIOR QUE</option>
-      <option value="smaller">MENOR QUE</option>
-      <option value="equal">IGUAL Á</option>
+      <option value="" disabled>Selecionar Opção</option>
+      <option value="bigger">Maior que</option>
+      <option value="less">Menor que</option>
+      <option value="equal">Igual a</option>
     </select>
   );
 };

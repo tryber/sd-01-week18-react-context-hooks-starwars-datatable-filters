@@ -1,33 +1,35 @@
-import React, { useContext, useEffect } from 'react';
-import { textColumns, creatorOfaTable, comparisonCase } from '../service/functions';
+import React, { useContext } from 'react';
+import { tablePrincipal, filterForName, filterForNumber } from '../service/functions';
 import { StarWarsContext } from '../context/StarWarsContext';
-import '../css/Table.css';
+import HeaderOfStart from './HeaderOfStart';
+import Loading from './Loading';
+import FilterAll from './FilterAll';
+import FilterName from './FilterName';
+import OrderTable from './OrderTable';
 
 export default function Table() {
   const {
-    resultAPI, starWarsAPI, filters, filtername,
+    data,
+    sortColumns,
+    filters,
+    filterName,
   } = useContext(StarWarsContext);
-
-  useEffect(() => {
-    starWarsAPI();
-  }, []);
-
-  const dataResults = resultAPI.data.results ? resultAPI.data.results : [];
-
-  if (resultAPI.isFetching) {
-    return <h1>LOADING...</h1>;
-  }
-
-  if (filtername) {
-    const dateFilter = dataResults.filter((planet) => planet.name.toUpperCase().includes(filtername.toUpperCase()));
-    return creatorOfaTable(textColumns, dateFilter);
-  }
-  
-
-  if (filters.length !== 0) {
-    const datafilter = comparisonCase(dataResults, filters);
-    return creatorOfaTable(textColumns, datafilter);
-  }
-
-  return creatorOfaTable(textColumns, dataResults);
+  // console.log('aqui tem coragem ', sortColumns);
+  const planetsFiltered = filterName ? filterForName(data, filterName) : data;
+  // if (data) return <Loading />;
+  const filterNumber = filterForNumber(planetsFiltered, filters);
+  // const sortedPlanets = changeColumnOrder(filterNumber, column, order);
+  return (
+    <div>
+      <HeaderOfStart />
+      <br/>
+      <OrderTable/>
+      <br/>
+      <FilterName />
+      <section>
+        <FilterAll />
+        <div>{data && tablePrincipal(filterNumber)}</div>
+      </section>
+    </div>
+  );
 }

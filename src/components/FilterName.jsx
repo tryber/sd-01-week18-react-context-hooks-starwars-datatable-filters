@@ -3,13 +3,16 @@ import '../css/Filter.css';
 import { StarWarsContext } from '../context/StarWarsContext';
 
 export default function FilterName() {
-  const { setFilterName } = useContext(StarWarsContext);
+  const { filterName, setFilterName } = useContext(StarWarsContext);
+
   return (
     <div>
       <input
-        placeholder="Digite o nome do planeta aqui"
-        onChange={(e) => setFilterName( e.target.value)}
-        data-testid="namePlanetInput"
+        type="text"
+        placeholder="Filtrar por nome"
+        value={filterName}
+        data-testid="planet-name-input"
+        onChange={(event) => setFilterName(event.target.value)}
       />
     </div>
   );
