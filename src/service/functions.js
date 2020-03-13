@@ -1,4 +1,5 @@
 import React from 'react';
+import Loading from '../components/Loading'
 
 export const textColumns = [
   'NOME',
@@ -75,7 +76,7 @@ function sortDesc(data, key, isUnder) {
   return results;
 }
 
-const ascOrDescAlphabeticalOrder = (planets, condition, key, isTrust) => {
+export const ascOrDescAlphabeticalOrder = (planets, condition, key, isTrust) => {
   switch (condition) {
     case 'ASC':
       return sortAsc(planets, key, isTrust);
@@ -137,36 +138,41 @@ const headColumns = (textColumns) => (
 );
 
 
-export const tablePrincipal = (data) =>
-
-  (
-    <table>
-      <thead>{headColumns(textColumns)}</thead>
-      <tbody>
-        {data.map((planet) => (
-          <tr key={`Planeta: ${planet.name}`}>
-            <td>{planet.name}</td>
-            <td>{planet.population}</td>
-            <td>{planet.orbital_period}</td>
-            <td>{planet.diameter}</td>
-            <td>{planet.climate}</td>
-            <td>{planet.gravity}</td>
-            <td>{planet.terrain}</td>
-            <td>{planet.rotation_period}</td>
-            <td>{planet.surface_water}</td>
-            <td>
-              {planet.films.map((films) => (
-                <p key={films}>{films}</p>
-              ))}
-            </td>
-            <td>{planet.created}</td>
-            <td>{planet.edited}</td>
-            <td>{planet.url}</td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
-  );
+export const tablePrincipal = (data) => {
+  if (data) {
+    return (
+      <table>
+        <thead>{headColumns(textColumns)}</thead>
+        <tbody>
+          {data.map((planet) => (
+            <tr key={`Planeta: ${planet.name}`}>
+              <td>{planet.name}</td>
+              <td>{planet.population}</td>
+              <td>{planet.orbital_period}</td>
+              <td>{planet.diameter}</td>
+              <td>{planet.climate}</td>
+              <td>{planet.gravity}</td>
+              <td>{planet.terrain}</td>
+              <td>{planet.rotation_period}</td>
+              <td>{planet.surface_water}</td>
+              <td>
+                {planet.films.map((films) => (
+                  <p key={films}>{films}</p>
+                ))}
+              </td>
+              <td>{planet.created}</td>
+              <td>{planet.edited}</td>
+              <td>{planet.url}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    );
+  } else {
+    return <Loading />
+  }
+}
+  
 
 export const removePlanetFilters = (filterObj, setFilters, filters) => {
   const newFilters = filters.filter((filter) => filter.numeric_values.column !== filterObj.column);
@@ -186,4 +192,6 @@ export const createFilter = (filterObj, setFilters, filters) => (
   </p>
 );
 
-export const showActiveFilters = (filters, setFilters) => filters.map((filter) => createFilter(filter.numeric_values, setFilters, filters));
+export const showActiveFilters = (filters, setFilters) =>
+  filters.map((filter) => 
+  createFilter(filter.numeric_values, setFilters, filters));

@@ -3,14 +3,12 @@ import './App.css';
 import Table from './components/Table';
 import { Provider } from './context/StarWarsContext';
 
-const componentMajor = (
+const componentMajor = () => (
   <div className="conteiner">
-    <Provider>
-      <Table />
-    </Provider>
+    <Table />
   </div>
 );
 
-const App = () => componentMajor;
+const App = () => <Provider>{componentMajor()}</Provider>;
 
 export default App;

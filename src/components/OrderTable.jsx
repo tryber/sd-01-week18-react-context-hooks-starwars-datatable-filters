@@ -3,22 +3,23 @@ import { StarWarsContext } from '../context/StarWarsContext';
 import { selectOfOrder } from '../service/functions';
 
 
-// perguntar o Caciquinho porque o valor está setando no meu hook state para indefinido quando uso ele
 
 const OrderTable = () => {
   const [valuesSend, setValuesSend] = useState({ column: 'name', order: 'ASC' });
-  console.log( valuesSend.column, valuesSend.order );
+ 
   const { setSortColumns } = useContext(StarWarsContext);
+  
   const handleColumn = (event) => {
-    setValuesSend({ column: event.target.value});
+    setValuesSend( { ...valuesSend, column: event.target.value});
   }
 
   const handleClick = (event) =>{
-    setValuesSend({ order: event.target.value });
+    setValuesSend( { ...valuesSend, order: event.target.value });
   }
 
   const sendValueForStore = (event)=> {
     event.preventDefault();
+    setValuesSend( {  column: 'name', order: 'ASC' });
     setSortColumns(valuesSend);
   }
 
