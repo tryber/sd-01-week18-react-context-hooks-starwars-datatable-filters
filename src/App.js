@@ -11,6 +11,7 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
+        <h3>Filtros</h3>
         <Provider>
           <FilterByName />
           <Filters />

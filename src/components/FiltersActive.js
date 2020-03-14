@@ -29,7 +29,6 @@ const FilterActives = () => {
 
   return (
     <div className="active-filters">
-      <h3>Filtros Ativos</h3>
       {filters && showActiveFilters(filters, setFilters)}
     </div>
   );
