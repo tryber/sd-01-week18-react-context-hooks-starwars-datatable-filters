@@ -3,24 +3,30 @@ import { StarWarsContext } from '../context/StarWarsContext';
 
 function FilterByNumber() {
   const {
-    filters: { column, comparison, numberValue },
+    comparison,
+    value,
+    setColumn,
+    setComparison,
+    setValue,
     filters,
-    setFilters,
+
   } = useContext(StarWarsContext);
+
+  const verifySelect = (filters, valueChoice) => {
+    const exists = filters.find((filterObj) => filterObj.numeric_values.column === valueChoice);
+    if (exists) return false;
+    return true;
+  };
 
   const inputSelectColumn = () => (
     <label htmlFor="select-filter-column">
-      <select
-        id="select-filter-column"
-        value={column}
-        onChange={(event) => setFilters({...filters, column: event.target.value})}
-      >
-        <option value="" disabled>Select the Option</option>
-        <option value="population">Population</option>
-        <option value="orbital_period">Orbital Period</option>
-        <option value="diameter">Diameter</option>
-        <option value="rotation_period">Rotation Period</option>
-        <option value="surface_water">Surface Water</option>
+      <select data-testid="select-column" name="column" onChange={(e) => setColumn(e.target.value)}>
+        <option value="">Selecionar Opção</option>
+        {verifySelect(filters, 'population') && <option value="population">População</option>}
+        {verifySelect(filters, 'orbital_period') && <option value="orbital_period">Duração Orbital</option>}
+        {verifySelect(filters, 'diameter') && <option value="diameter">Diâmetro</option>}
+        {verifySelect(filters, 'rotation_period') && <option value="rotation_period">Duração da Rotação</option>}
+        {verifySelect(filters, 'surface_water') && <option value="surface_water">Superfície da Água</option>}
       </select>
     </label>
   );
@@ -30,7 +36,7 @@ function FilterByNumber() {
       <select
         id="select-filter-comparison"
         value={comparison}
-        onChange={(event) => setFilters({...filters, comparison: event.target.value})}
+        onChange={(event) => setComparison(event.target.value)}
       >
         <option value="" disabled>Select the Option</option>
         <option value="greater-than">Maior que</option>
@@ -45,8 +51,8 @@ function FilterByNumber() {
       <input
         type="number"
         id="filter-number"
-        value={numberValue}
-        onChange={(event) => setFilters({...filters, numberValue: event.target.value})}
+        value={value}
+        onChange={(event) => setValue(event.target.value)}
       />
     </label>
   );

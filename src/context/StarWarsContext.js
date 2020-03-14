@@ -2,16 +2,18 @@ import React, { createContext, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 import getPlanets from '../services/StarWarsApi';
-import Filters from '../components/filters';
 
 const StarWarsContext = createContext();
 
 const StarWarsProvider = ({ children }) => {
   const [data, setData] = useState([]);
-  const [filters, setFilters] = useState({ column: [], comparison: [], numberValue: []});
   const [filterPlanetName, setFilterPlanetName] = useState('');
+  const [column, setColumn] = useState('');
+  const [comparison, setComparison] = useState('');
+  const [value, setValue] = useState('');
   const [isFetching, setIsFetching] = useState(false);
-  const [planetFiltered, setPlanetFiltered] = useState([]);
+  const [filters, setFilters] = useState([]);
+  const [sortColumns, setSortColumns] = useState({ column: 'name', order: 'ASC' });
 
   useEffect(() => {
     getPlanets().then((planets) => {
@@ -20,18 +22,21 @@ const StarWarsProvider = ({ children }) => {
     });
   }, []);
 
-  useEffect(() => {
-    setPlanetFiltered(Filters(data, filters, filterPlanetName));
-  }, [data, filterPlanetName]);
-
   const context = {
+    column,
+    comparison,
     data,
     filterPlanetName,
     filters,
     isFetching,
-    planetFiltered,
-    setFilters,
+    value,
+    setColumn,
+    setComparison,
+    sortColumns,
+    setValue,
     setFilterPlanetName,
+    setFilters,
+    setSortColumns,
   };
 
   return (
