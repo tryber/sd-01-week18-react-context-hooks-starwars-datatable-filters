@@ -20,7 +20,7 @@ describe('Test inicial para ver o jest funcionando', () => {
 describe('Começando os testes', () => {
   clear();
   test('Verificando se o table ta renderizado', () => {
-    const { getByText } = render(
+    const { getByText, getByTestId } = render(
       <Provider>
         <App />
       </Provider>,
@@ -30,6 +30,7 @@ describe('Começando os testes', () => {
     expect(getByText(/Ordem Crescente/i)).toBeInTheDocument();
     expect(getByText(/Ordem Decrescente/i)).toBeInTheDocument();
     expect(getByText(/Enviar Filtro/i)).toBeInTheDocument();
+    expect(getByTestId(/btn-enviar-filtro/i)).not.toBeInTheDocument();
     clear();
   });
 });
@@ -76,6 +77,7 @@ describe('Input de tex', () => {
       </Provider>,
     );
     await waitForDomChange();
+    
     fireEvent.change(getByTestId('planet-name-input'), { target: { value: 'Be' } });
     expect(queryByText(/Alderaan/i)).not.toBeInTheDocument();
     expect(getByText(/Bespin/i)).toBeInTheDocument();
@@ -96,9 +98,11 @@ describe('Teste de filtro', () => {
       </Provider>,
     );
     await waitForDomChange();
-
+    
+    
     fireEvent.change(getByTestId('SelectOfColunm'), { target: { value: 'population' } });
     fireEvent.change(getByTestId('SelectOfComparison'), { target: { value: 'bigger' } });
+
     fireEvent.change(getByTestId('SelectOfInput'), { target: { value: '1000' } });
     fireEvent.click(getByText(/Adicionar Filtro/i));
 

@@ -28,7 +28,7 @@ const FilterAll = () => {
       <SelectOfComparison />
       <SelectOfInput />
       {column && comparison && value
-        && <button type="button" onClick={sendValues}>Adicionar Filtro</button>}
+        && <button type="button" onClick={sendValues} data-testid="btn-enviar-filtro" >Adicionar Filtro</button>}
       {filters.length === 5 && sendValues()}
     </div>
   );
