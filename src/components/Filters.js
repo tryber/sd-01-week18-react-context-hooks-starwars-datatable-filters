@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 
 import FormsFilterByNumber from './FormsFilterByNumber';
-import FiltersActive from './FiltersActive';
+import FilterActive from './FiltersActive';
 import { StarWarsContext } from '../context/StarWarsContext';
 
 const FilterAll = () => {
@@ -23,7 +23,7 @@ const FilterAll = () => {
 
   return (
     <div>
-      <FiltersActive />
+      <FilterActive />
       <FormsFilterByNumber />
       {column && comparison && value
         && <button type="button" onClick={sendValues}>Adicionar Filtro</button>}

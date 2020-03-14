@@ -56,11 +56,12 @@ function filterPlanetByName(data, filterPlanetName) {
 const comparisonCase = (filters, data) => (
   filters.reduce((previousList, filter, index) => {
     const { numeric_values: { column, value, comparison } } = filter;
+    console.log('Teste =>', column, value, comparison);
     const planetList = (index === 0) ? data : previousList;
     const obj = {
-      bigger: planetList.filter((planet) => Number(planet[column]) > value),
-      less: planetList.filter((planet) => Number(planet[column]) < value),
-      equal: planetList.filter((planet) => planet[column] === value),
+      'greater-than': planetList.filter((planet) => Number(planet[column]) > value),
+      'less-than': planetList.filter((planet) => Number(planet[column]) < value),
+      'equal-to': planetList.filter((planet) => planet[column] === value),
     };
     return obj[comparison];
   }, [])

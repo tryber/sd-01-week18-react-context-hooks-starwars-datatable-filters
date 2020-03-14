@@ -1,6 +1,12 @@
 import React, { useContext } from 'react';
 import { StarWarsContext } from '../context/StarWarsContext';
 
+const verifySelect = (filters, valueChoice) => {
+  const exists = filters.find((filterObj) => filterObj.numeric_values.column === valueChoice);
+  if (exists) return false;
+  return true;
+};
+
 function FilterByNumber() {
   const {
     comparison,
@@ -12,11 +18,6 @@ function FilterByNumber() {
 
   } = useContext(StarWarsContext);
 
-  const verifySelect = (filters, valueChoice) => {
-    const exists = filters.find((filterObj) => filterObj.numeric_values.column === valueChoice);
-    if (exists) return false;
-    return true;
-  };
 
   const inputSelectColumn = () => (
     <label htmlFor="select-filter-column">
