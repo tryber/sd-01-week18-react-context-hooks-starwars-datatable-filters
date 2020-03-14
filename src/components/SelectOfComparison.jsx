@@ -5,7 +5,7 @@ const SelectOfComparison = () => {
   const { setComparison } = useContext(StarWarsContext);
   return (
     <select
-      data-testid="select-comparison"
+      data-testid="SelectOfComparison"
       name="type"
       defaultValue=""
       onChange={(e) => setComparison(e.target.value)}

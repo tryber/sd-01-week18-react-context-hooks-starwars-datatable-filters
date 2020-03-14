@@ -5,7 +5,7 @@ import { selectIsTrueOrFalse } from '../service/functions';
 const SelectOfColunm = () => {
   const { setColumn, filters } = useContext(StarWarsContext);
   return (
-    <select name="column" onChange={(e) => setColumn(e.target.value)}>
+    <select data-testid="SelectOfColunm" name="column" onChange={(e) => setColumn(e.target.value)}>
       <option value="">Selecionar Opção</option>
       {selectIsTrueOrFalse(filters, 'population') && <option value="population">População</option>}
       {selectIsTrueOrFalse(filters, 'orbital_period') && <option value="orbital_period">Duração Orbital</option>}

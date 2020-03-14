@@ -7,6 +7,7 @@ const SelectOfInput = () => {
     <input
       type="number"
       placeholder="Filtrar por Valor"
+      data-testid="SelectOfInput"
       onChange={(e) => setValue(e.target.value)}
     />
   );

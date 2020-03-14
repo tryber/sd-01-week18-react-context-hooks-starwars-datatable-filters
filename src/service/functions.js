@@ -109,8 +109,8 @@ export const comparisonCase = (filters, data) => filters.reduce((previous, filte
       return chooseSmallest(dataComparison, column, value);
     case 'equal':
       return chooseEqual(dataComparison, column, value);
-    default:
-      return [];
+    // default:
+    //   return [];
   }
 }, []);
 
@@ -132,37 +132,37 @@ export const filterForNumber = (planetsData, filters) => {
 const headColumns = (textColumns) => (
   <tr>
     {textColumns.map((textName) => (
-      <th key={textName}>{textName}</th>
+      <th data-testid="tagsTH" key={textName}>{textName}</th>
     ))}
   </tr>
 );
 
 
 export const tablePrincipal = (data) => {
-  if (data) {
+  if (data.length > 0) {
     return (
       <table>
         <thead>{headColumns(textColumns)}</thead>
         <tbody>
-          {data.map((planet) => (
-            <tr key={`Planeta: ${planet.name}`}>
-              <td>{planet.name}</td>
-              <td>{planet.population}</td>
-              <td>{planet.orbital_period}</td>
-              <td>{planet.diameter}</td>
-              <td>{planet.climate}</td>
-              <td>{planet.gravity}</td>
-              <td>{planet.terrain}</td>
-              <td>{planet.rotation_period}</td>
-              <td>{planet.surface_water}</td>
-              <td>
+          {data.map((planet, index ) => (
+            <tr data-testid={index} key={`Planeta: ${planet.name}`}>
+              <td data-testid="tagsTD">{planet.name}</td>
+              <td data-testid="tagsTD">{planet.population}</td>
+              <td data-testid="tagsTD">{planet.orbital_period}</td>
+              <td data-testid="tagsTD">{planet.diameter}</td>
+              <td data-testid="tagsTD">{planet.climate}</td>
+              <td data-testid="tagsTD">{planet.gravity}</td>
+              <td data-testid="tagsTD">{planet.terrain}</td>
+              <td data-testid="tagsTD">{planet.rotation_period}</td>
+              <td data-testid="tagsTD">{planet.surface_water}</td>
+              <td data-testid="tagsTD">
                 {planet.films.map((films) => (
                   <p key={films}>{films}</p>
                 ))}
               </td>
-              <td>{planet.created}</td>
-              <td>{planet.edited}</td>
-              <td>{planet.url}</td>
+              <td data-testid="tagsTD">{planet.created}</td>
+              <td data-testid="tagsTD">{planet.edited}</td>
+              <td data-testid="tagsTD">{planet.url}</td>
             </tr>
           ))}
         </tbody>
