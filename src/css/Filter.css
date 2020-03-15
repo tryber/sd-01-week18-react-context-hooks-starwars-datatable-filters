@@ -1,0 +1,11 @@
+input {
+  border: 2px solid #ccc;
+  box-sizing: border-box;
+  margin: 8px 0;
+  padding: 12px 20px;
+  width: 50%;
+}
+
+input:focus {
+  border: 3px solid rgb(149, 149, 149);
+}
