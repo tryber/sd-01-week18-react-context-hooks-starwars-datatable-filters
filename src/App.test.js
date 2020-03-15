@@ -20,7 +20,7 @@ describe('Test inicial para ver o jest funcionando', () => {
 describe('Começando os testes', () => {
   clear();
   test('Verificando se o table ta renderizado', () => {
-    const { getByText, getByTestId } = render(
+    const { getByText, queryByText } = render(
       <Provider>
         <App />
       </Provider>,
@@ -30,7 +30,7 @@ describe('Começando os testes', () => {
     expect(getByText(/Ordem Crescente/i)).toBeInTheDocument();
     expect(getByText(/Ordem Decrescente/i)).toBeInTheDocument();
     expect(getByText(/Enviar Filtro/i)).toBeInTheDocument();
-    expect(getByTestId(/btn-enviar-filtro/i)).not.toBeInTheDocument();
+    expect(queryByText(/Adicionar Filtro/i)).not.toBeInTheDocument();
     clear();
   });
 });
@@ -99,11 +99,15 @@ describe('Teste de filtro', () => {
     );
     await waitForDomChange();
     
+    expect(queryByText(/Adicionar Filtro/i)).not.toBeInTheDocument();
     
     fireEvent.change(getByTestId('SelectOfColunm'), { target: { value: 'population' } });
     fireEvent.change(getByTestId('SelectOfComparison'), { target: { value: 'bigger' } });
 
     fireEvent.change(getByTestId('SelectOfInput'), { target: { value: '1000' } });
+
+    expect(queryByText(/Adicionar Filtro/i)).toBeInTheDocument();
+
     fireEvent.click(getByText(/Adicionar Filtro/i));
 
     expect(queryByText(/Alderaan/i)).toBeInTheDocument();

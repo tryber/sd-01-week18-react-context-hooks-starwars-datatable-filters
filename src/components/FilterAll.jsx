@@ -6,14 +6,9 @@ import SelectOfComparison from './SelectOfComparison';
 import SelectOfInput from './SelectOfInput';
 import FiltersIsActive from './FiltersIsActive';
 
-
 const FilterAll = () => {
   const {
-    column,
-    comparison,
-    value,
-    filters,
-    setFilters,
+    column, comparison, value, filters, setFilters,
   } = useContext(StarWarsContext);
 
   const sendValues = () => {
@@ -27,9 +22,12 @@ const FilterAll = () => {
       <SelectOfColunm />
       <SelectOfComparison />
       <SelectOfInput />
-      {column && comparison && value
-        && <button type="button" onClick={sendValues} data-testid="btn-enviar-filtro" >Adicionar Filtro</button>}
-      {filters.length === 5 && sendValues()}
+      {column && comparison && value && (
+        <button type="button" onClick={sendValues} data-testid="btn-enviar-filtro">
+          Adicionar Filtro
+        </button>
+      )}
+      {sendValues}
     </div>
   );
 };
