@@ -110,7 +110,7 @@ function Table() {
 
   useEffect(() => {
     fetchPlanets();
-  }, []);
+  });
 
   return (
     <div className="table">

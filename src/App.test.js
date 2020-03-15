@@ -1,18 +1,11 @@
 import React from 'react';
-import {
-  render,
-  waitForDomChange,
-  fireEvent,
-  cleanup,
-} from '@testing-library/react';
-import { Provider } from 'react-redux';
-import store from './store';
+import { render, waitForDomChange, fireEvent, cleanup } from '@testing-library/react';
 import App from './App';
 
 afterEach(cleanup);
 
 test('renders all filters inputs', () => {
-  const { getByPlaceholderText } = render(<Provider store={store}><App /></Provider>);
+  const { getByPlaceholderText } = render(<App />);
   const nameFilterInput = getByPlaceholderText(/Filtrar pelo Nome/i);
   const valueFilterInput = getByPlaceholderText(/Filtrar por Valor/i);
   const comparisonFilterInput = valueFilterInput.previousSibling;
@@ -25,14 +18,14 @@ test('renders all filters inputs', () => {
 });
 
 test('render all table header titles', () => {
-  const { getByText } = render(<Provider store={store}><App /></Provider>);
+  const { getByText } = render(<App />);
   const tableBody = getByText(/Para ordenar basta clicar em cima do titulo da coluna desejada./i).nextSibling.firstChild;
   const tableTitles = tableBody.firstChild;
   expect(tableTitles.childElementCount).toBe(13);
 });
 
 test('render loading text while planets loads', async () => {
-  const { getByText } = render(<Provider store={store}><App /></Provider>);
+  const { getByText } = render(<App />);
   const loading = getByText(/Para ordenar basta clicar em cima do titulo da coluna desejada./i).previousSibling;
   expect(loading).toBeInTheDocument();
   await waitForDomChange();
@@ -40,14 +33,14 @@ test('render loading text while planets loads', async () => {
 });
 
 test('render all planets', async () => {
-  const { getByText } = render(<Provider store={store}><App /></Provider>);
+  const { getByText } = render(<App />);
   await waitForDomChange();
   const tableBody = getByText(/Para ordenar basta clicar em cima do titulo da coluna desejada./i).nextSibling.firstChild;
   expect(tableBody.childElementCount).toBe(11);
 });
 
 test('render filtered planets according to name filter', async () => {
-  const { getByText, getByPlaceholderText } = render(<Provider store={store}><App /></Provider>);
+  const { getByText, getByPlaceholderText } = render(<App />);
   await waitForDomChange();
 
   const nameFilterInput = getByPlaceholderText(/Filtrar pelo Nome/i);
@@ -64,7 +57,7 @@ test('render filtered planets according to name filter', async () => {
 });
 
 test('render filtered planets according to numeric filters', async () => {
-  const { getByText, getByPlaceholderText } = render(<Provider store={store}><App /></Provider>);
+  const { getByText, getByPlaceholderText } = render(<App />);
   await waitForDomChange();
 
   const valueFilterInput = getByPlaceholderText(/Filtrar por Valor/i);
@@ -88,7 +81,7 @@ test('render filtered planets according to numeric filters', async () => {
 });
 
 test('shows the actives numeric filters', async () => {
-  const { getByText, getByPlaceholderText } = render(<Provider store={store}><App /></Provider>);
+  const { getByText, getByPlaceholderText } = render(<App />);
   await waitForDomChange();
 
   const valueFilterInput = getByPlaceholderText(/Filtrar por Valor/i);
