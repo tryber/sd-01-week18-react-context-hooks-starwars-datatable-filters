@@ -18,16 +18,24 @@ const StarWarsProvider = ({ children }) => {
       setData(result.results);
       setfetchis(false);
     });
-
   const context = {
-    fetchis, setfetchis,
-    data, setData, setFilters,
-    getStarWarsPlanets, filterName,
-    setFilterName, sortColumns,
-    setSortColumns, value,
-    setValue, column,
-    setColumn, comparison,
-    setComparison, filters,
+    fetchis,
+    setfetchis,
+    data,
+    setData,
+    setFilters,
+    getStarWarsPlanets,
+    filterName,
+    setFilterName,
+    sortColumns,
+    setSortColumns,
+    value,
+    setValue,
+    column,
+    setColumn,
+    comparison,
+    setComparison,
+    filters,
   };
   return <StarWarsContext.Provider value={context}>{children}</StarWarsContext.Provider>;
 };

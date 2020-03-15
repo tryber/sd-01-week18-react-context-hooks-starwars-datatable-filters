@@ -111,7 +111,7 @@ export const comparisonCase = (filters, data) => filters.reduce((previous, filte
     case 'equal':
       return chooseEqual(dataComparison, column, value);
     default:
-      return []
+      return [];
   }
 }, []);
 
@@ -129,9 +129,9 @@ export const filterForNumber = (planetsData, filters) => {
   return planetsData;
 };
 
-const headColumns = (columns) => (
+const headColumns = (coll) => (
   <tr>
-    {columns.map((textName) => (
+    {coll.map((textName) => (
       <th data-testid="tagsTH" key={textName}>
         {textName}
       </th>
@@ -155,7 +155,7 @@ export const tablePrincipal = (data) => (
           <td data-testid="tagsTD">{planet.rotation_period}</td>
           <td data-testid="tagsTD">{planet.surface_water}</td>
           <td data-testid="tagsTD">{planet.films.map((films) => (
-              <p key={films}>{films}</p>))}
+            <p key={films}>{films}</p>))}
           </td>
           <td data-testid="tagsTD">{planet.created}</td>
           <td data-testid="tagsTD">{planet.edited}</td>
@@ -167,7 +167,7 @@ export const tablePrincipal = (data) => (
 );
 
 export const removePlanetFilters = (filterObj, setFilters, filters) => {
-  const newFilters = filters.filter((filter) =>(
+  const newFilters = filters.filter((filter) => (
     filter.numeric_values.column !== filterObj.column));
   return setFilters(newFilters);
 };

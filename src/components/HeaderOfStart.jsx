@@ -8,12 +8,8 @@ const HeaderOfStart = () => {
   useEffect(() => {
     getStarWarsPlanets();
   }, []);
-  if (fetchis) return <Loading />
-  return (
-    <h1>
-      StarWars Datatable with Filters
-    </h1>
-  );
+  if (fetchis) return <Loading />;
+  return <h1>StarWars Datatable with Filters</h1>;
 };
 
 export default HeaderOfStart;
