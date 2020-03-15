@@ -110,6 +110,8 @@ export const comparisonCase = (filters, data) => filters.reduce((previous, filte
       return chooseSmallest(dataComparison, column, value);
     case 'equal':
       return chooseEqual(dataComparison, column, value);
+    default:
+      return []
   }
 }, []);
 
@@ -127,9 +129,9 @@ export const filterForNumber = (planetsData, filters) => {
   return planetsData;
 };
 
-const headColumns = (textColumns) => (
+const headColumns = (columns) => (
   <tr>
-    {textColumns.map((textName) => (
+    {columns.map((textName) => (
       <th data-testid="tagsTH" key={textName}>
         {textName}
       </th>
@@ -152,10 +154,8 @@ export const tablePrincipal = (data) => (
           <td data-testid="tagsTD">{planet.terrain}</td>
           <td data-testid="tagsTD">{planet.rotation_period}</td>
           <td data-testid="tagsTD">{planet.surface_water}</td>
-          <td data-testid="tagsTD">
-            {planet.films.map((films) => (
-              <p key={films}>{films}</p>
-            ))}
+          <td data-testid="tagsTD">{planet.films.map((films) => (
+              <p key={films}>{films}</p>))}
           </td>
           <td data-testid="tagsTD">{planet.created}</td>
           <td data-testid="tagsTD">{planet.edited}</td>
