@@ -1,3 +1,7 @@
+input:focus {
+  border: 3px solid rgb(149, 149, 149);
+}
+
 input {
   border: 2px solid #ccc;
   box-sizing: border-box;
@@ -6,8 +10,4 @@ input {
   padding: 12px 20px;
   transition: 0.5s;
   width: 50%;
-}
-
-input:focus {
-  border: 3px solid rgb(149, 149, 149);
 }
