@@ -4,19 +4,13 @@ import { PlanetsContext } from '../context/StarWarsContext';
 function TableHeader() {
   const { setSort, sortColumn } = useContext(PlanetsContext);
   const titles = [
-    'name',
-    'population',
-    'orbital_period',
-    'diameter',
-    'climate',
-    'gravity',
-    'terrain',
-    'rotation_period',
+    'name', 'population',
+    'orbital_period', 'diameter',
+    'climate', 'gravity',
+    'terrain', 'rotation_period',
     'surface_water',
-    'films',
-    'created',
-    'edited',
-    'url',
+    'films', 'created',
+    'edited', 'url',
   ];
 
   const setColumnSort = (column) => {
