@@ -14,7 +14,7 @@ function ColumnFilterSelect() {
     numericFilterObj: { comparison, value },
   } = useContext(PlanetsContext);
   return (
-    <select name="column" onChange={(e) => setFilterObj({ column: e.target.value, comparison, value })}>
+    <select name="cl" onChange={(e) => setFilterObj({ column: e.target.value, comparison, value })}>
       <option value="">Selecionar Opção</option>
       {verifySelect(numericFilters, 'population') && <option value="population">População</option>}
       {verifySelect(numericFilters, 'orbital_period') && <option value="orbital_period">Duração Orbital</option>}

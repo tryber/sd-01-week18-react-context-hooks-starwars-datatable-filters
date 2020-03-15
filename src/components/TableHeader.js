@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { PlanetsContext } from '../context/StarWarsContext';
 
 function TableHeader() {
-  const { setColumnSort } = useContext(PlanetsContext);
+  const { setSort, sortColumn } = useContext(PlanetsContext);
   const titles = [
     'name',
     'population',
@@ -18,6 +18,14 @@ function TableHeader() {
     'edited',
     'url',
   ];
+
+  const setColumnSort = (column) => {
+    let columnOrder = 'ASC';
+    if (column === sortColumn.column) {
+      columnOrder = (sortColumn.order === 'ASC') ? 'DESC' : 'ASC';
+    }
+    setSort({ column, order: columnOrder });
+  };
 
   return (
     <tr>

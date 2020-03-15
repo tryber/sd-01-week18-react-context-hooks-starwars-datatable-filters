@@ -27,14 +27,6 @@ const PlanetsProvider = ({ children }) => {
     setFilters([...numericFilters.filter((filter) => filter !== numericFilter)]);
   };
 
-  const setColumnSort = (column) => {
-    let columnOrder = 'ASC';
-    if (column === sortColumn.column) {
-      columnOrder = (sortColumn.order === 'ASC') ? 'DESC' : 'ASC';
-    }
-    setSort({ column, order: columnOrder });
-  };
-
   const context = {
     planetsData,
     setData,
@@ -46,7 +38,7 @@ const PlanetsProvider = ({ children }) => {
     setNumericFilters,
     removeNumericFilter,
     sortColumn,
-    setColumnSort,
+    setSort,
     fetchPlanets,
   };
 

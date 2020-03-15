@@ -9,8 +9,7 @@ import ValueFilterInput from './ValueFilterInput';
 function Filters() {
   const {
     numericFilterObj: { column, comparison, value },
-    setFilterObj,
-    setNumericFilters,
+    setFilterObj, setNumericFilters,
   } = useContext(PlanetsContext);
   return (
     <div>
