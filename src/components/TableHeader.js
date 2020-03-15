@@ -1,14 +1,8 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
-import { sortColumn } from '../actions';
+import React, { useContext } from 'react';
+import { PlanetsContext } from '../context/StarWarsContext';
 
-function changeOrder(event, orderColumn) {
-  const title = event.target.innerHTML;
-  orderColumn(title);
-}
-
-function TableHeader({ orderColumn }) {
+function TableHeader() {
+  const { setColumnSort } = useContext(PlanetsContext);
   const titles = [
     'name',
     'population',
@@ -29,19 +23,11 @@ function TableHeader({ orderColumn }) {
     <tr>
       {titles.map((title) => (
         <th key={title}>
-          <button type="button" onClick={(e) => changeOrder(e, orderColumn)}>{title}</button>
+          <button type="button" onClick={(e) => setColumnSort(e.target.innerHTML)}>{title}</button>
         </th>
       ))}
     </tr>
   );
 }
 
-TableHeader.propTypes = {
-  orderColumn: PropTypes.func.isRequired,
-};
-
-const mapDispatchToProps = (dispatch) => ({
-  orderColumn: (value) => dispatch(sortColumn(value)),
-});
-
-export default connect(null, mapDispatchToProps)(TableHeader);
+export default TableHeader;

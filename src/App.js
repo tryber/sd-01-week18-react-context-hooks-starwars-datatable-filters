@@ -1,15 +1,17 @@
 import React from 'react';
-import './App.css';
-
+import { Provider } from './context/StarWarsContext';
 import Table from './components/Table';
 import Filters from './components/Filters';
+import './App.css';
 
 function App() {
   return (
-    <div className="App">
-      <Filters />
-      <Table />
-    </div>
+    <Provider>
+      <div className="App">
+        <Filters />
+        <Table />
+      </div>
+    </Provider>
   );
 }
 
