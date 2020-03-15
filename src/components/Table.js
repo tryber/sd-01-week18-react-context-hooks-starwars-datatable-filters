@@ -6,8 +6,7 @@ function sortAscending(planetsData, isNumeric, column) {
   if (!isNumeric) {
     return planetsData.sort((a, b) => {
       if (a[column] > b[column]) return 1;
-      if (b[column] > a[column]) return -1;
-      return 0;
+      return -1;
     });
   }
   return planetsData.sort((a, b) => {
@@ -20,9 +19,8 @@ function sortAscending(planetsData, isNumeric, column) {
 function sortDescending(planetsData, isNumeric, column) {
   if (!isNumeric) {
     return planetsData.sort((a, b) => {
-      if (a[column] > b[column]) return -1;
       if (b[column] > a[column]) return 1;
-      return 0;
+      return -1;
     });
   }
   return planetsData.sort((a, b) => {
@@ -42,8 +40,6 @@ function changeColumnOrder(planetsData, sortColumn) {
     'surface_water',
   ];
   const isNumeric = numericColumns.includes(column);
-
-  if (!column) return planetsData;
 
   if (order === 'ASC') return sortAscending(planetsData, isNumeric, column);
   return sortDescending(planetsData, isNumeric, column);
@@ -103,9 +99,7 @@ function Table() {
     fetchPlanets,
     sortColumn,
   } = useContext(PlanetsContext);
-  const filteredPlanets = (data)
-    ? filterNumericNumber(filterPlanetsName(data, nameFilter), numericFilters)
-    : false;
+  const filteredPlanets = filterNumericNumber(filterPlanetsName(data, nameFilter), numericFilters);
   const sortedPlanets = changeColumnOrder(filteredPlanets, sortColumn);
 
   useEffect(() => {
