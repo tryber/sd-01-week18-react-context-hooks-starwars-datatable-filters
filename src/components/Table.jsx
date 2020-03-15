@@ -12,9 +12,10 @@ export default function Table() {
     sortColumns,
     filters,
     filterName,
+    
   } = useContext(StarWarsContext);
   const planetsFiltered = filterName ? filterForName(data, filterName) : data;
-  
+    
   const filterNumber = filterForNumber(planetsFiltered, filters);
   const sortedPlanets = ascOrDescAlphabeticalOrder(filterNumber, sortColumns.order, sortColumns.column, data);
   

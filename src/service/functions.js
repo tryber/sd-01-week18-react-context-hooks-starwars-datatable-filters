@@ -1,5 +1,4 @@
 import React from 'react';
-import Loading from '../components/Loading'
 
 export const textColumns = [
   'NOME',
@@ -85,17 +84,19 @@ export const ascOrDescAlphabeticalOrder = (planets, condition, key, isTrust) => 
   }
 };
 
-
 export const selectIsTrueOrFalse = (filters, values) => {
   if (filters.find((filterObj) => filterObj.numeric_values.column === values)) return false;
   return true;
 };
 
-export const chooseBiggest = (planets, fcolumn, value) => planets.filter((data) => parseInt(data[fcolumn], 10) > value);
+export const chooseBiggest = (planets, fcolumn, value) => (
+  planets.filter((data) => parseInt(data[fcolumn], 10) > value));
 
-export const chooseSmallest = (planets, fcolumn, value) => planets.filter((data) => parseInt(data[fcolumn], 10) < value);
+export const chooseSmallest = (planets, fcolumn, value) => (
+  planets.filter((data) => parseInt(data[fcolumn], 10) < value));
 
-export const chooseEqual = (planets, fcolumn, value) => planets.filter((data) => data[fcolumn] === value);
+export const chooseEqual = (planets, fcolumn, value) => (
+  planets.filter((data) => data[fcolumn] === value));
 
 export const comparisonCase = (filters, data) => filters.reduce((previous, filter, index) => {
   const {
@@ -109,11 +110,8 @@ export const comparisonCase = (filters, data) => filters.reduce((previous, filte
       return chooseSmallest(dataComparison, column, value);
     case 'equal':
       return chooseEqual(dataComparison, column, value);
-    // default:
-    //   return [];
   }
 }, []);
-
 
 export const filterForName = (data, textInput) => {
   if (textInput) {
@@ -132,50 +130,45 @@ export const filterForNumber = (planetsData, filters) => {
 const headColumns = (textColumns) => (
   <tr>
     {textColumns.map((textName) => (
-      <th data-testid="tagsTH" key={textName}>{textName}</th>
+      <th data-testid="tagsTH" key={textName}>
+        {textName}
+      </th>
     ))}
   </tr>
 );
 
-
-export const tablePrincipal = (data) => {
-  if (data.length > 0) {
-    return (
-      <table>
-        <thead>{headColumns(textColumns)}</thead>
-        <tbody>
-          {data.map((planet, index ) => (
-            <tr data-testid={index} key={`Planeta: ${planet.name}`}>
-              <td data-testid="tagsTD">{planet.name}</td>
-              <td data-testid="tagsTD">{planet.population}</td>
-              <td data-testid="tagsTD">{planet.orbital_period}</td>
-              <td data-testid="tagsTD">{planet.diameter}</td>
-              <td data-testid="tagsTD">{planet.climate}</td>
-              <td data-testid="tagsTD">{planet.gravity}</td>
-              <td data-testid="tagsTD">{planet.terrain}</td>
-              <td data-testid="tagsTD">{planet.rotation_period}</td>
-              <td data-testid="tagsTD">{planet.surface_water}</td>
-              <td data-testid="tagsTD">
-                {planet.films.map((films) => (
-                  <p key={films}>{films}</p>
-                ))}
-              </td>
-              <td data-testid="tagsTD">{planet.created}</td>
-              <td data-testid="tagsTD">{planet.edited}</td>
-              <td data-testid="tagsTD">{planet.url}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    );
-  } else {
-    return <Loading />
-  }
-}
-  
+export const tablePrincipal = (data) => (
+  <table>
+    <thead>{headColumns(textColumns)}</thead>
+    <tbody>
+      {data.map((planet, index) => (
+        <tr data-testid={index} key={`Planeta: ${planet.name}`}>
+          <td data-testid="tagsTD">{planet.name}</td>
+          <td data-testid="tagsTD">{planet.population}</td>
+          <td data-testid="tagsTD">{planet.orbital_period}</td>
+          <td data-testid="tagsTD">{planet.diameter}</td>
+          <td data-testid="tagsTD">{planet.climate}</td>
+          <td data-testid="tagsTD">{planet.gravity}</td>
+          <td data-testid="tagsTD">{planet.terrain}</td>
+          <td data-testid="tagsTD">{planet.rotation_period}</td>
+          <td data-testid="tagsTD">{planet.surface_water}</td>
+          <td data-testid="tagsTD">
+            {planet.films.map((films) => (
+              <p key={films}>{films}</p>
+            ))}
+          </td>
+          <td data-testid="tagsTD">{planet.created}</td>
+          <td data-testid="tagsTD">{planet.edited}</td>
+          <td data-testid="tagsTD">{planet.url}</td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+);
 
 export const removePlanetFilters = (filterObj, setFilters, filters) => {
-  const newFilters = filters.filter((filter) => filter.numeric_values.column !== filterObj.column);
+  const newFilters = filters.filter((filter) =>(
+    filter.numeric_values.column !== filterObj.column));
   return setFilters(newFilters);
 };
 
@@ -192,6 +185,5 @@ export const createFilter = (filterObj, setFilters, filters) => (
   </p>
 );
 
-export const showActiveFilters = (filters, setFilters) =>
-  filters.map((filter) => 
-  createFilter(filter.numeric_values, setFilters, filters));
+export const showActiveFilters = (filters, setFilters) => (
+  filters.map((filter) => createFilter(filter.numeric_values, setFilters, filters)));
