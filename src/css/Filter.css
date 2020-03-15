@@ -1,7 +1,3 @@
-input:focus {
-  border: 3px solid rgb(149, 149, 149);
-}
-
 input {
   border: 2px solid #ccc;
   box-sizing: border-box;
