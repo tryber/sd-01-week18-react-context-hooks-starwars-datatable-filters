@@ -25,7 +25,7 @@ describe('Começando os testes', () => {
         <App />
       </Provider>,
     );
-    expect(getByText(/StarWars Datatable with Filters/i)).toBeInTheDocument();
+    
     expect(getByText(/Escolha para ordenar/i)).toBeInTheDocument();
     expect(getByText(/Ordem Crescente/i)).toBeInTheDocument();
     expect(getByText(/Ordem Decrescente/i)).toBeInTheDocument();
@@ -38,12 +38,13 @@ describe('Começando os testes', () => {
 describe('Vê se tem a table com os valores lá', () => {
   clear();
   test('Verificar se tem todas as th e td no table', async () => {
-    const { queryAllByTestId } = render(
+    const { queryAllByTestId, queryByText } = render(
       <Provider>
         <App />
       </Provider>,
     );
     await waitForDomChange();
+    expect(queryByText(/StarWars Datatable with Filters/i)).toBeInTheDocument();
     expect(queryAllByTestId('tagsTD').length).toBe(130);
     expect(queryAllByTestId('tagsTH').length).toBe(13);
     clear();
@@ -100,7 +101,7 @@ describe('Teste de filtro', () => {
     await waitForDomChange();
     
     expect(queryByText(/Adicionar Filtro/i)).not.toBeInTheDocument();
-    
+
     fireEvent.change(getByTestId('SelectOfColunm'), { target: { value: 'population' } });
     fireEvent.change(getByTestId('SelectOfComparison'), { target: { value: 'bigger' } });
 
