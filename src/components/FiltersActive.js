@@ -8,7 +8,7 @@ const removePlanetFilters = (filterObj, setFilters, filters) => {
 };
 
 const createFilter = (filterObj, setFilters, filters) => (
-  <p key={filterObj.column} className="active-filters">
+  <p key={filterObj.column}>
     {`${filterObj.column} | ${filterObj.comparison} | ${filterObj.value}`}
     <button
       data-testid="exclude-filter"
@@ -28,7 +28,7 @@ const FilterActives = () => {
   const { filters, setFilters } = useContext(StarWarsContext);
 
   return (
-    <div className="active-filters">
+    <div>
       {filters && showActiveFilters(filters, setFilters)}
     </div>
   );

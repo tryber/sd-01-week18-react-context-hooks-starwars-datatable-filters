@@ -5,43 +5,20 @@ import Loading from './Loading';
 import './Table.css';
 import ButtonSort from './ButtonSort';
 
-const generatingTableHeader = () => {
-  const titleHeader = [
-    'Name',
-    'Rotation Period',
-    'Orbital Period',
-    'Diamater',
-    'Climate',
-    'Gravity',
-    'Terrain',
-    'Surface Water',
-    'Population',
-    'Films',
-    'Created',
-    'Edited',
-    'url',
-  ];
-  return (
-    <tr>
-      {titleHeader.map((textName) => (
-        <th key={textName}>{textName}</th>
-      ))}
-    </tr>
-  );
-};
-
 const generatingTableBody = (data) => (
   <tr key={data.name}>
-    <td>{data.name}</td>
+    <td data-testid="planets-name">
+      {data.name}
+    </td>
     <td>{data.rotation_period}</td>
     <td>{data.orbital_period}</td>
     <td>{data.diameter}</td>
     <td>{data.climate}</td>
     <td>{data.gravity}</td>
     <td>{data.terrain}</td>
-    <td>{data.surface_water}</td>
-    <td>{data.population}</td>
-    <td>{data.films.map((film) => <div key={film}>{film}</div>)}</td>
+    <td data-testid="surface-water">{data.surface_water}</td>
+    <td data-testid="population">{data.population}</td>
+    <td>{data.films.map((film) => <p key={film}>{film}</p>)}</td>
     <td>{data.created}</td>
     <td>{data.edited}</td>
     <td>{data.url}</td>
@@ -141,7 +118,6 @@ const Table = () => {
   return (
     <table className="table-formatation">
       <ButtonSort />
-      <thead>{generatingTableHeader(sortedPlanets)}</thead>
       <tbody>{sortedPlanets.map((planets) => generatingTableBody(planets))}</tbody>
     </table>
   );

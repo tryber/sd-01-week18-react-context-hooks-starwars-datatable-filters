@@ -9,8 +9,8 @@ const verifySelect = (filters, valueChoice) => {
 
 const inputSelectColumn = (setColumn, filters) => (
   <label htmlFor="select-filter-column">
-    <select data-testid="select-column" name="column" onChange={(e) => setColumn(e.target.value)}>
-      <option value="">Selecionar Opção</option>
+    <select data-testid="filter-column" name="column" onChange={(e) => setColumn(e.target.value)}>
+      <option value="">Selecione</option>
       {verifySelect(filters, 'population') && <option value="population">População</option>}
       {verifySelect(filters, 'orbital_period') && <option value="orbital_period">Duração Orbital</option>}
       {verifySelect(filters, 'diameter') && <option value="diameter">Diâmetro</option>}
@@ -21,13 +21,14 @@ const inputSelectColumn = (setColumn, filters) => (
 );
 
 const inputSelectComparison = (comparison, setComparison) => (
-  <label htmlFor="select-filter-comparison">
+  <label htmlFor="filter-comparison">
     <select
-      id="select-filter-comparison"
+      data-testid="filter-comparison"
+      id="filter-comparison"
       value={comparison}
       onChange={(event) => setComparison(event.target.value)}
     >
-      <option value="" disabled>Select the Option</option>
+      <option value="" disabled>Selecione uma Opção</option>
       <option value="greater-than">Maior que</option>
       <option value="less-than">Menor que</option>
       <option value="equal-to">Igual a</option>
@@ -41,6 +42,7 @@ const inputNumber = (value, setValue) => (
       type="number"
       id="filter-number"
       value={value}
+      placeholder="Insira o número"
       onChange={(event) => setValue(event.target.value)}
     />
   </label>
