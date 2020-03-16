@@ -36,10 +36,13 @@ const createFilter = (filter, removeFilter, setNewData, comparison, value, selec
   return (
     <ul key={filter.select}>
       <ol>{`${filter.select} | ${filter.comparison} | ${filter.value}  `}</ol>
-      <button 
+      <button
         type="button"
         onClick={
-          () => removeFilter(filter, setNewData(setNewData(filterMain(comparison, value, select, data.planets))))
+          () => removeFilter(
+            filter,
+            setNewData(setNewData(filterMain(comparison, value, select, data.planets))),
+          )
         }
       >
       x
@@ -117,7 +120,15 @@ const generateButtonSearch = (setNumericColumns, select, comparison, value, setN
 };
 
 const showFilters = (filters, removeFilters, setNewData, comparison, value, select, data) => {
-  return filters.map((filter) => createFilter(filter, removeFilters, setNewData, comparison, value, select, data));
+  return filters.map((filter) => createFilter(
+    filter,
+    removeFilters,
+    setNewData,
+    comparison,
+    value,
+    select,
+    data,
+  ));
 };
 
 const FilteredNumber = () => {
@@ -135,17 +146,17 @@ const FilteredNumber = () => {
     setFilters([...numericColumns, numericFilter]);
   };
   const removeNumericColumns = (numericFilter) => {
-    const newFilters = ([...numericColumns.filter((filter) => filter !== numericFilter)]);
+    const newFilters = ([...numericColumns.filter((filter) => {
+      return filter !== numericFilter;
+    })]);
     return setFilters(newFilters);
   };
   return (
     <div className="content-filters">
-      <div className="content-filter">
-        {generateSelect(numericColumns, setSelect)}
-        {generateRadio(setComparison)}
-        {generetaInputNumber(setValue)}
-        {generateButtonSearch(setNumericColumns, select, comparison, value, setNewData, data)}
-      </div>
+      {generateSelect(numericColumns, setSelect)}
+      {generateRadio(setComparison)}
+      {generetaInputNumber(setValue)}
+      {generateButtonSearch(setNumericColumns, select, comparison, value, setNewData, data)}
       <h3>{showFilters(numericColumns, removeNumericColumns, setNewData, comparison, value, select, data)}</h3>
     </div>
   );

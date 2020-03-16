@@ -15,7 +15,6 @@ const FilteredText = () => {
       />
     </div>
   );
-
 };
 
 export default FilteredText;
