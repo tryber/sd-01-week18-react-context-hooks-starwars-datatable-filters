@@ -39,12 +39,8 @@ const changeOrderDESC = (orderColumn, planet) => {
     const b = z[orderColumn.column];
     if (a === 'unknown') return -1;
     if (b === 'unknown') return 1;
-    if (Number(a) > Number(b)) {
-      return -1;
-    }
-    if (Number(b) > Number(a)) {
-      return 1;
-    }
+    if (Number(a) > Number(b)) return -1;
+    if (Number(b) > Number(a)) return 1;
   });
 };
 
