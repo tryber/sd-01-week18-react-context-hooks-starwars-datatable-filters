@@ -8,8 +8,10 @@ import FilteredNumber from './Components/FilteredNumber';
 function App() {
   return (
     <StarWarsProvider>
-      <FilteredText />
-      <FilteredNumber />
+      <header className="content-header">
+        <FilteredText />
+        <FilteredNumber />
+      </header>
       <Table />
     </StarWarsProvider>
   );

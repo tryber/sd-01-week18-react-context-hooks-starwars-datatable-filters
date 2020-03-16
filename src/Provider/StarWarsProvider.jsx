@@ -5,8 +5,8 @@ import StarWarsContext from '../Context/StarWarsContext';
 
 const StarWarsProvider = ({ children }) => {
   const [data, setData] = useState({ planets: [], sucess: false });
+  const [newData, setNewData] = useState();
   const [filterText, setfilterText] = useState('');
-  const [select, setSelect] = useState('');
 
   const fetchStarWars = () => {
     if (data.sucess) return;
@@ -14,16 +14,6 @@ const StarWarsProvider = ({ children }) => {
       .then((planets) => {
         setData({ planets: planets.results, sucess: true });
       });
-  }
-
-  const selectOfTag = (data, select) => {
-    data.map((planets) => {
-      return Object.entries(planets).map((value) => {
-        return value.filter((tag) => {
-          return tag === select;
-        });
-      });
-    });
   };
 
   const context = {
@@ -31,9 +21,8 @@ const StarWarsProvider = ({ children }) => {
     fetchStarWars,
     filterText,
     setfilterText,
-    select,
-    setSelect,
-    selectOfTag,
+    newData,
+    setNewData,
   };
 
   return (
