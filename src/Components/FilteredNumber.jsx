@@ -1,4 +1,4 @@
-import React, { useContext, useState} from 'react';
+import React, { useContext } from 'react';
 import StarWarsContext from '../Context/StarWarsContext';
 import '../Style/FilteredNumber.css';
 
@@ -8,23 +8,7 @@ const verifyFilter = (filters, value) => {
   return true;
 };
 
-const createFilter = (filter, removeFilter) => {
-  return (
-    <ul key={filter.select}>
-      <ol>{`${filter.select} | ${filter.comparison} | ${filter.value}  `}</ol>
-      <button type="button" onClick={() => removeFilter(filter)}>X</button>
-    </ul>
-  );
-}
-const showFilters = (filters, removeFilters) => {
-  return filters.map((filter) => createFilter(filter, removeFilters));
-}
 const filterMain = (comparison, value, select, data) => {
-  console.log('comparison', comparison);
-  console.log('value', value);
-  console.log('select', select);
-  console.log('filterMain', data);
-
   if (comparison === '' || value === '' || select === '') {
     return alert('tá faltando dado aí!');
   }
@@ -48,14 +32,37 @@ const filterMain = (comparison, value, select, data) => {
   }
 };
 
-const FilteredNumber = () => {
-  const [comparison, setComparison] = useState('');
-  const [value, setValue] = useState('0');
-  const [select, setSelect] = useState('');
-  const [numericColumns, setFilters] = useState([]);
-  const { data, fetchStarWars, setNewData } = useContext(StarWarsContext);
+const createFilter = (filter, removeFilter, setNewData, comparison, value, select, data) => {
+  return (
+    <ul key={filter.select}>
+      <ol>{`${filter.select} | ${filter.comparison} | ${filter.value}  `}</ol>
+      <button 
+        type="button"
+        onClick={
+          () => removeFilter(filter, setNewData(setNewData(filterMain(comparison, value, select, data.planets))))
+        }
+      >
+      x
+      </button>
+    </ul>
+  );
+};
 
-  console.log('data FilteredNumber', data);
+const showFilters = (filters, removeFilters, setNewData, comparison, value, select, data) => {
+  return filters.map((filter) => createFilter(filter, removeFilters, setNewData, comparison, value, select, data));
+};
+const FilteredNumber = () => {
+  const { data, fetchStarWars, setNewData,
+    comparison,
+    setComparison,
+    value,
+    setValue,
+    select,
+    setSelect,
+    numericColumns,
+    setFilters,
+  } = useContext(StarWarsContext);
+
   fetchStarWars();
 
   const setNumericColumns = (numericFilter) => {
@@ -66,7 +73,6 @@ const FilteredNumber = () => {
     const newFilters = ([...numericColumns.filter((filter) => filter !== numericFilter)]);
     return setFilters(newFilters);
   };
-
   return (
     <div className="content-filters">
       <div className="content-filter">
@@ -121,7 +127,7 @@ const FilteredNumber = () => {
         filtrar
         </button>
       </div>
-      <h3>{showFilters(numericColumns, removeNumericColumns)}</h3>
+      <h3>{showFilters(numericColumns, removeNumericColumns, setNewData, comparison, value, select, data)}</h3>
     </div>
   );
 };
