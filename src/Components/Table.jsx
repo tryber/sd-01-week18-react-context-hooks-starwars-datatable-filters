@@ -18,27 +18,25 @@ const bodyOfTag = (data) => {
   });
 };
 
-const changeOrder = (orderColumn, planet) => {
-  const asc = 'ASC';
-  if (orderColumn.order === asc) {
-    return planet.sort(function compareASC(y, w) {
-      const a = y[orderColumn.column];
-      const b = w[orderColumn.column];
-      if (a === 'unknown') return 1;
-      if (b === 'unknown') return -1;
-      if (Number(a) > Number(b)) {
-        console.log('a>', a);
-        console.log('b>', b);
-        return 1;
-      }
-      if (Number(b) > Number(a)) {
-        return -1;
-      }
-    });
-  }
+const changeOrderASC = (orderColumn, planet) => {
+  return planet.sort(function compareASC(y, w) {
+    const a = y[orderColumn.column];
+    const b = w[orderColumn.column];
+    if (a === 'unknown') return 1;
+    if (b === 'unknown') return -1;
+    if (Number(a) > Number(b)) {
+      return 1;
+    }
+    if (Number(b) > Number(a)) {
+      return -1;
+    }
+  });
+};
+
+const changeOrderDESC = (orderColumn, planet) => {
   return planet.sort(function compareDESC(x, z) {
-    const a = x[orderColumn.column].toUpperCase();
-    const b = z[orderColumn.column].toUpperCase();
+    const a = x[orderColumn.column];
+    const b = z[orderColumn.column];
     if (a === 'unknown') return -1;
     if (b === 'unknown') return 1;
     if (Number(a) > Number(b)) {
@@ -48,6 +46,13 @@ const changeOrder = (orderColumn, planet) => {
       return 1;
     }
   });
+};
+
+const changeOrder = (orderColumn, planet) => {
+  const asc = 'ASC';
+  if (orderColumn.order === asc) {
+    changeOrderASC(orderColumn, planet);
+  } else changeOrderDESC(orderColumn, planet);
 };
 
 const bodyTable = (data, filterText) => {
