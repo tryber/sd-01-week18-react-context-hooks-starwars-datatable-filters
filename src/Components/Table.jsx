@@ -25,13 +25,6 @@ const isStringASC = (a, b) => {
   return -1;
 };
 
-// const isNumericASC = (a, b) => {
-//   if (a === 'unknown') return 1;
-//   if (b === 'unknown') return -1;
-//   if (Number(a) > Number(b)) return 1;
-//   if (Number(b) > Number(a)) return -1;
-// };
-
 const isUndefinedASC = (a, b, isNumeric) => {
   switch (isNumeric) {
     case a === 'unknown':
@@ -95,16 +88,24 @@ const changeOrder = (orderColumn, planet) => {
   return changeOrderDESC(orderColumn, planet, isNumeric);
 };
 
-const bodyTable = (data, filterText) => bodyOfTag(data).map((planet) => {
-  (planet[0].includes(filterText));
-  return (
-    <tr key={planet[0]}>
-      {planet.map((tag) => (
-        <td key={tag}>{tag}</td>
-      ))}
-    </tr>
+const filterName = (planet, filterText) => {
+  if (planet[0].toLowerCase().includes(filterText)) {
+    return (
+      <tr key={planet[0]}>
+        {planet.map((tag) => (
+          <td key={tag}>{tag}</td>
+        ))}
+      </tr>
+    );
+  }
+};
+
+const bodyTable = (data, filterText) => {
+  console.log('bodyTable', data);
+  return bodyOfTag(data).map(
+    (planet) => filterName(planet, filterText),
   );
-});
+};
 
 const generateTable = (data, filterText, setOrderColumn, orderColumn) => {
   console.log('generateTable', data);

@@ -110,7 +110,7 @@ const generetaInputNumber = (
 ) => (
   <input
     className="input-number-comparison"
-    type="text"
+    type="number"
     onChange={(e) => setValue(e.target.value)}
     placeholder="Coloque a quantidade aqui"
   />
