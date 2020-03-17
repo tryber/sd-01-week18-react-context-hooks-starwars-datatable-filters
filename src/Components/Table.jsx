@@ -39,19 +39,25 @@ const changeOrderASC = (orderColumn, planet, isNumeric) => {
     } return isNumericASC(a, b);
   });
 };
+const isStringDESC = (a, b) => {
+  if (a > b) return -1;
+  return 1;
+};
+
+const isNumericDESC = (a, b) => {
+  if (a === 'unknown') return -1;
+  if (b === 'unknown') return 1;
+  if (Number(a) > Number(b)) return -1;
+  if (Number(b) > Number(a)) return 1;
+};
 
 const changeOrderDESC = (orderColumn, planet, isNumeric) => {
   return planet.sort(function compareDESC(x, z) {
     const a = x[orderColumn.column];
     const b = z[orderColumn.column];
     if (!isNumeric) {
-      if (a > b) return -1;
-      return 1;
-    }
-    if (a === 'unknown') return -1;
-    if (b === 'unknown') return 1;
-    if (Number(a) > Number(b)) return -1;
-    if (Number(b) > Number(a)) return 1;
+      return isStringDESC(a, b);
+    } return isNumericDESC(a, b);
   });
 };
 
@@ -70,15 +76,14 @@ const changeOrder = (orderColumn, planet) => {
 
 const bodyTable = (data, filterText) => {
   return bodyOfTag(data).map((planet) => {
-    if (planet[0].includes(filterText)) {
-      return (
-        <tr key={planet[0]}>
-          {planet.map((tag) => (
-            <td key={tag}>{tag}</td>
-          ))}
-        </tr>
-      );
-    }
+    (planet[0].includes(filterText));
+    return (
+      <tr key={planet[0]}>
+        {planet.map((tag) => (
+          <td key={tag}>{tag}</td>
+        ))}
+      </tr>
+    );
   });
 };
 
