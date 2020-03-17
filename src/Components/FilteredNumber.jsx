@@ -132,14 +132,9 @@ const showFilters = (filters, removeFilters, setNewData, comparison, value, sele
 };
 
 const FilteredNumber = () => {
-  const { data, fetchStarWars, setNewData, comparison,
-    setComparison,
-    value,
-    setValue,
-    select,
-    setSelect,
-    numericColumns,
-    setFilters,
+  const {
+    data, fetchStarWars, setNewData, comparison, setComparison,
+    value, setValue, select, setSelect, numericColumns, setFilters,
   } = useContext(StarWarsContext);
   fetchStarWars();
   const setNumericColumns = (numericFilter) => {
@@ -153,11 +148,17 @@ const FilteredNumber = () => {
   };
   return (
     <div className="content-filters">
-      {generateSelect(numericColumns, setSelect)}
-      {generateRadio(setComparison)}
-      {generetaInputNumber(setValue)}
-      {generateButtonSearch(setNumericColumns, select, comparison, value, setNewData, data)}
-      <h3>{showFilters(numericColumns, removeNumericColumns, setNewData, comparison, value, select, data)}</h3>
+      <div className="content-filter">
+        {generateSelect(numericColumns, setSelect)}
+        {generateRadio(setComparison)}
+        {generetaInputNumber(setValue)}
+        {generateButtonSearch(setNumericColumns, select, comparison, value, setNewData, data)}
+      </div>
+      <h3>
+        {showFilters(
+          numericColumns, removeNumericColumns, setNewData, comparison, value, select, data,
+        )}
+      </h3>
     </div>
   );
 };

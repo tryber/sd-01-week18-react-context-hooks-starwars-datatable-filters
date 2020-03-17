@@ -18,10 +18,14 @@ const bodyOfTag = (data) => {
   });
 };
 
-const changeOrderASC = (orderColumn, planet) => {
-  return planet.sort(function compareASC(y, w) {
-    const a = y[orderColumn.column];
-    const b = w[orderColumn.column];
+const changeOrderASC = (orderColumn, planet, isNumeric) => {
+  return planet.sort(function compareASC(w, y) {
+    const a = w[orderColumn.column];
+    const b = y[orderColumn.column];
+    if (!isNumeric) {
+      if (a > b) return 1;
+      return -1;
+    }
     if (a === 'unknown') return 1;
     if (b === 'unknown') return -1;
     if (Number(a) > Number(b)) return 1;
@@ -29,10 +33,14 @@ const changeOrderASC = (orderColumn, planet) => {
   });
 };
 
-const changeOrderDESC = (orderColumn, planet) => {
+const changeOrderDESC = (orderColumn, planet, isNumeric) => {
   return planet.sort(function compareDESC(x, z) {
     const a = x[orderColumn.column];
     const b = z[orderColumn.column];
+    if (!isNumeric) {
+      if (a > b) return -1;
+      return 1;
+    }
     if (a === 'unknown') return -1;
     if (b === 'unknown') return 1;
     if (Number(a) > Number(b)) return -1;
@@ -41,10 +49,16 @@ const changeOrderDESC = (orderColumn, planet) => {
 };
 
 const changeOrder = (orderColumn, planet) => {
-  const asc = 'ASC';
-  if (orderColumn.order === asc) {
-    changeOrderASC(orderColumn, planet);
-  } else changeOrderDESC(orderColumn, planet);
+  const numericColumns = [
+    'population',
+    'orbital_period',
+    'diameter',
+    'rotation_period',
+    'surface_water',
+  ];
+  const isNumeric = numericColumns.includes(orderColumn.column);
+  if (orderColumn.order === 'ASC') return changeOrderASC(orderColumn, planet, isNumeric);
+  return changeOrderDESC(orderColumn, planet, isNumeric);
 };
 
 const bodyTable = (data, filterText) => {
