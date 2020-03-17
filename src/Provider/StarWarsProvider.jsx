@@ -11,7 +11,7 @@ const StarWarsProvider = ({ children }) => {
   const [value, setValue] = useState('0');
   const [select, setSelect] = useState('');
   const [numericColumns, setFilters] = useState([]);
-  const [orderColumn, setOrderColumn] = useState({ column: '', order: '' });
+  const [orderColumn, setOrderColumn] = useState({ column: 'name', order: 'ASC' });
 
   const fetchStarWars = () => {
     if (data.sucess) return;

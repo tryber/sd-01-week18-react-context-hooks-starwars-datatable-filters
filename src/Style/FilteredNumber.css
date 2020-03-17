@@ -3,7 +3,7 @@
   flex-direction: row;
   margin: 10px;
   padding-left: 10px;
-  width: 100%;
+  width: 150%;
 }
 
 .select-comparison {
@@ -11,7 +11,8 @@
 }
 
 .radio-coparison {
-  width: 30%;
+  margin-left: 20px;
+  width: 25%;
 }
 
 .input-number-comparison {

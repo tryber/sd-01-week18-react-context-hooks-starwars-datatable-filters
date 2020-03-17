@@ -111,28 +111,31 @@ const generateTable = (data, filterText, setOrderColumn, orderColumn) => {
   if (orderColumn.column !== '') {
     changeOrder(orderColumn, data);
   } return (
-    <table>
-      <thead>
-        <tr>
-          {headOfTag(data).map(
-            (tag) => (
-              <th key={tag}>
-                {tag}
-                <select
-                  onChange={(e) => setOrderColumn({ column: tag, order: e.target.value })}
-                  key={tag}
-                >
-                  <option value="">{`option ${tag}`}</option>
-                  <option value="ASC">ASC</option>
-                  <option value="DESC">DESC</option>
-                </select>
-              </th>
-            ),
-          )}
-        </tr>
-      </thead>
-      <tbody>{bodyTable(data, filterText)}</tbody>
-    </table>
+    <div>
+      <h2 className="content-title">Tabela Starwars</h2>
+      <table>
+        <thead>
+          <tr>
+            {headOfTag(data).map(
+              (tag) => (
+                <th key={tag}>
+                  {tag}
+                  <select
+                    onChange={(e) => setOrderColumn({ column: tag, order: e.target.value })}
+                    key={tag}
+                  >
+                    <option value="">ESCOLHA UMA OPÇÂO</option>
+                    <option value="ASC">ASC</option>
+                    <option value="DESC">DESC</option>
+                  </select>
+                </th>
+              ),
+            )}
+          </tr>
+        </thead>
+        <tbody>{bodyTable(data, filterText)}</tbody>
+      </table>
+    </div>
   );
 };
 

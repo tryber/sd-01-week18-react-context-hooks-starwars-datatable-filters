@@ -68,30 +68,36 @@ const generateRadio = (
   setComparison,
 ) => (
   <div className="radio-coparison">
-    <input
-      data-testid="radio-comparison-maior"
-      type="radio"
-      name="comparison"
-      value="Maior que"
-      onClick={(e) => setComparison(e.target.value)}
-    />
-    Maior que
-    <input
-      data-testid="radio-comparison-menor"
-      type="radio"
-      name="comparison"
-      value="Menor que"
-      onClick={(e) => setComparison(e.target.value)}
-    />
-    Menor que
-    <input
-      data-testid="radio-comparison-igual"
-      type="radio"
-      name="comparison"
-      value="Igual a"
-      onClick={(e) => setComparison(e.target.value)}
-    />
-    Igual a
+    <label>
+      Maior que
+      <input
+        data-testid="radio-comparison-maior"
+        type="radio"
+        name="comparison"
+        value="Maior que"
+        onClick={(e) => setComparison(e.target.value)}
+      />
+    </label>
+    <label>
+      Menor que
+      <input
+        data-testid="radio-comparison-menor"
+        type="radio"
+        name="comparison"
+        value="Menor que"
+        onClick={(e) => setComparison(e.target.value)}
+      /> <label htmlFor=""></label>
+    </label>
+    <label>
+      Igual a
+      <input
+        data-testid="radio-comparison-igual"
+        type="radio"
+        name="comparison"
+        value="Igual a"
+        onClick={(e) => setComparison(e.target.value)}
+      />
+    </label>
   </div>
 );
 
