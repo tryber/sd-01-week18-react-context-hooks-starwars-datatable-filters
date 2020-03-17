@@ -18,18 +18,25 @@ const bodyOfTag = (data) => {
   });
 };
 
+const isStringASC = (a, b) => {
+  if (a > b) return 1;
+  return -1;
+};
+
+const isNumericASC = (a, b) => {
+  if (a === 'unknown') return 1;
+  if (b === 'unknown') return -1;
+  if (Number(a) > Number(b)) return 1;
+  if (Number(b) > Number(a)) return -1;
+};
+
 const changeOrderASC = (orderColumn, planet, isNumeric) => {
   return planet.sort(function compareASC(w, y) {
     const a = w[orderColumn.column];
     const b = y[orderColumn.column];
     if (!isNumeric) {
-      if (a > b) return 1;
-      return -1;
-    }
-    if (a === 'unknown') return 1;
-    if (b === 'unknown') return -1;
-    if (Number(a) > Number(b)) return 1;
-    if (Number(b) > Number(a)) return -1;
+      return isStringASC(a, b);
+    } return isNumericASC(a, b);
   });
 };
 
