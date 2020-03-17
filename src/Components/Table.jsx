@@ -2,21 +2,23 @@ import React, { useContext } from 'react';
 import StarWarsContext from '../Context/StarWarsContext';
 import '../Style/Table.css';
 
-const headOfTag = (data) => {
-  return data.map((planets) => {
-    return Object.keys(planets).filter((tag) => {
-      return tag !== 'residents';
-    });
-  })[0];
-};
+const headOfTag = (
+  data,
+) => data.map(
+  (planets) => Object.keys(planets).filter(
+    (tag) => tag !== 'residents',
+  ),
+)[0];
 
-const bodyOfTag = (data) => {
-  return data.map((planets) => {
-    return Object.values(planets).filter((value, index) => {
-      return index !== 9;
-    });
-  });
-};
+
+const bodyOfTag = (
+  data,
+) => data.map(
+  (planets) => Object.values(planets).filter(
+    (value, index) => index !== 9,
+  ),
+);
+
 
 const isStringASC = (a, b) => {
   if (a > b) return 1;
@@ -30,15 +32,16 @@ const isNumericASC = (a, b) => {
   if (Number(b) > Number(a)) return -1;
 };
 
-const changeOrderASC = (orderColumn, planet, isNumeric) => {
-  return planet.sort(function compareASC(w, y) {
-    const a = w[orderColumn.column];
-    const b = y[orderColumn.column];
-    if (!isNumeric) {
-      return isStringASC(a, b);
-    } return isNumericASC(a, b);
-  });
-};
+const changeOrderASC = (
+  orderColumn, planet, isNumeric
+) => planet.sort(function compareASC(w, y) {
+  const a = w[orderColumn.column];
+  const b = y[orderColumn.column];
+  if (!isNumeric) {
+    return isStringASC(a, b);
+  } return isNumericASC(a, b);
+});
+
 const isStringDESC = (a, b) => {
   if (a > b) return -1;
   return 1;
@@ -51,15 +54,16 @@ const isNumericDESC = (a, b) => {
   if (Number(b) > Number(a)) return 1;
 };
 
-const changeOrderDESC = (orderColumn, planet, isNumeric) => {
-  return planet.sort(function compareDESC(x, z) {
-    const a = x[orderColumn.column];
-    const b = z[orderColumn.column];
-    if (!isNumeric) {
-      return isStringDESC(a, b);
-    } return isNumericDESC(a, b);
-  });
-};
+const changeOrderDESC = (
+  orderColumn, planet, isNumeric
+) => planet.sort(function compareDESC(x, z) {
+  const a = x[orderColumn.column];
+  const b = z[orderColumn.column];
+  if (!isNumeric) {
+    return isStringDESC(a, b);
+  } return isNumericDESC(a, b);
+});
+
 
 const changeOrder = (orderColumn, planet) => {
   const numericColumns = [
@@ -74,18 +78,16 @@ const changeOrder = (orderColumn, planet) => {
   return changeOrderDESC(orderColumn, planet, isNumeric);
 };
 
-const bodyTable = (data, filterText) => {
-  return bodyOfTag(data).map((planet) => {
-    (planet[0].includes(filterText));
-    return (
-      <tr key={planet[0]}>
-        {planet.map((tag) => (
-          <td key={tag}>{tag}</td>
-        ))}
-      </tr>
-    );
-  });
-};
+const bodyTable = (data, filterText) => bodyOfTag(data).map((planet) => {
+  (planet[0].includes(filterText));
+  return (
+    <tr key={planet[0]}>
+      {planet.map((tag) => (
+        <td key={tag}>{tag}</td>
+      ))}
+    </tr>
+  );
+});
 
 const generateTable = (data, filterText, setOrderColumn, orderColumn) => {
   console.log('generateTable', data);
@@ -95,8 +97,8 @@ const generateTable = (data, filterText, setOrderColumn, orderColumn) => {
     <table>
       <thead>
         <tr>
-          {headOfTag(data).map((tag) => {
-            return (
+          {headOfTag(data).map(
+            (tag) => (
               <th key={tag}>
                 {tag}
                 <select
@@ -108,8 +110,8 @@ const generateTable = (data, filterText, setOrderColumn, orderColumn) => {
                   <option value="DESC">DESC</option>
                 </select>
               </th>
-            );
-          })}
+            ),
+          )}
         </tr>
       </thead>
       <tbody>{bodyTable(data, filterText)}</tbody>
