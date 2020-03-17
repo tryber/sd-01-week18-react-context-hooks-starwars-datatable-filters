@@ -100,11 +100,13 @@ const filterName = (planet, filterText) => {
   } return false;
 };
 
-const bodyTable = (data, filterText) => {
-  return bodyOfTag(data).map(
-    (planet) => filterName(planet, filterText),
-  );
-};
+const bodyTable = (
+  data,
+  filterText,
+) => bodyOfTag(data).map(
+  (planet) => filterName(planet, filterText),
+);
+
 
 const generateTable = (data, filterText, setOrderColumn, orderColumn) => {
   if (orderColumn.column !== '') {
