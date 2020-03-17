@@ -25,21 +25,32 @@ const isStringASC = (a, b) => {
   return -1;
 };
 
-const isNumericASC = (a, b) => {
-  if (a === 'unknown') return 1;
-  if (b === 'unknown') return -1;
-  if (Number(a) > Number(b)) return 1;
-  if (Number(b) > Number(a)) return -1;
-};
+// const isNumericASC = (a, b) => {
+//   if (a === 'unknown') return 1;
+//   if (b === 'unknown') return -1;
+//   if (Number(a) > Number(b)) return 1;
+//   if (Number(b) > Number(a)) return -1;
+// };
 
+const isUndefinedASC = (a, b, isNumeric) => {
+  switch (isNumeric) {
+    case a === 'unknown':
+      return 1;
+    case b === 'unknown':
+      return -1;
+    default:
+      break;
+  } if (Number(a) > Number(b)) return 1;
+  return -1;
+};
 const changeOrderASC = (
   orderColumn, planet, isNumeric,
-) => planet.sort(function compareASC(w, y) {
+) => planet.sort((w, y) => {
   const a = w[orderColumn.column];
   const b = y[orderColumn.column];
   if (!isNumeric) {
     return isStringASC(a, b);
-  } return isNumericASC(a, b);
+  } return isUndefinedASC(a, b, isNumeric);
 });
 
 const isStringDESC = (a, b) => {
@@ -47,21 +58,27 @@ const isStringDESC = (a, b) => {
   return 1;
 };
 
-const isNumericDESC = (a, b) => {
-  if (Number(a) > Number(b)) return -1;
+
+const isUndefinedDESC = (a, b, isNumeric) => {
+  switch (isNumeric) {
+    case a === 'unknown':
+      return -1;
+    case b === 'unknown':
+      return 1;
+    default:
+      break;
+  } if (Number(a) > Number(b)) return -1;
   return 1;
 };
 
 const changeOrderDESC = (
   orderColumn, planet, isNumeric,
-) => planet.sort(function compareDESC(x, z) {
+) => planet.sort((x, z) => {
   const a = x[orderColumn.column];
   const b = z[orderColumn.column];
-  if (a === 'unknown') return -1;
-  if (b === 'unknown') return 1;
   if (!isNumeric) {
     return isStringDESC(a, b);
-  } return isNumericDESC(a, b);
+  } return isUndefinedDESC(a, b, isNumeric);
 });
 
 
