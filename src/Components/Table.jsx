@@ -97,7 +97,7 @@ const filterName = (planet, filterText) => {
         ))}
       </tr>
     );
-  }
+  } return false;
 };
 
 const bodyTable = (data, filterText) => {
