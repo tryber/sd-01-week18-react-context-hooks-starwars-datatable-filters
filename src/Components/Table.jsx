@@ -33,7 +33,7 @@ const isNumericASC = (a, b) => {
 };
 
 const changeOrderASC = (
-  orderColumn, planet, isNumeric
+  orderColumn, planet, isNumeric,
 ) => planet.sort(function compareASC(w, y) {
   const a = w[orderColumn.column];
   const b = y[orderColumn.column];
@@ -48,17 +48,17 @@ const isStringDESC = (a, b) => {
 };
 
 const isNumericDESC = (a, b) => {
-  if (a === 'unknown') return -1;
-  if (b === 'unknown') return 1;
   if (Number(a) > Number(b)) return -1;
-  if (Number(b) > Number(a)) return 1;
+  return 1;
 };
 
 const changeOrderDESC = (
-  orderColumn, planet, isNumeric
+  orderColumn, planet, isNumeric,
 ) => planet.sort(function compareDESC(x, z) {
   const a = x[orderColumn.column];
   const b = z[orderColumn.column];
+  if (a === 'unknown') return -1;
+  if (b === 'unknown') return 1;
   if (!isNumeric) {
     return isStringDESC(a, b);
   } return isNumericDESC(a, b);

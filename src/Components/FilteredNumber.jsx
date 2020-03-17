@@ -111,7 +111,7 @@ const generetaInputNumber = (
 const generateButtonSearch = (
   setNumericColumns,
   select,
-  comparison, value, setNewData, data
+  comparison, value, setNewData, data,
 ) => (
   <button
     className="btn"
@@ -127,7 +127,7 @@ const generateButtonSearch = (
 
 
 const showFilters = (
-  filters, removeFilters, setNewData, comparison, value, select, data
+  filters, removeFilters, setNewData, comparison, value, select, data,
 ) => filters.map((filter) => createFilter(
   filter,
   removeFilters,
