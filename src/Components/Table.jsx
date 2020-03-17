@@ -124,7 +124,7 @@ const generateTable = (data, filterText, setOrderColumn, orderColumn) => {
                     onChange={(e) => setOrderColumn({ column: tag, order: e.target.value })}
                     key={tag}
                   >
-                    <option value="">ESCOLHA UMA OPÇÂO</option>
+                    <option value="">Ordenar</option>
                     <option value="ASC">ASC</option>
                     <option value="DESC">DESC</option>
                   </select>

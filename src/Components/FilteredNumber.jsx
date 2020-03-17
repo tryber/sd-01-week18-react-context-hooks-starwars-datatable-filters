@@ -93,7 +93,7 @@ const generateRadio = (
     <label htmlFor="input-equal">
       Igual a
       <input
-        data-testid="radio-comparison-igual" 
+        data-testid="radio-comparison-igual"
         id="input-equal"
         type="radio"
         name="comparison"
