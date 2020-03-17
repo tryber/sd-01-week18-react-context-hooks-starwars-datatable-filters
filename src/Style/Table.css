@@ -1,0 +1,8 @@
+.content-head-search {
+  display: flex;
+  flex-direction: column;
+}
+
+.content-title {
+  text-align: center;
+}
