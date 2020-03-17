@@ -39,6 +39,7 @@ const createFilter = (
     <ol>{`${filter.select} | ${filter.comparison} | ${filter.value}  `}</ol>
     <button
       type="button"
+      data-testid="remove-filter"
       onClick={
         () => removeFilter(
           filter,
@@ -54,7 +55,11 @@ const createFilter = (
 const generateSelect = (
   numericColumns, setSelect,
 ) => (
-  <select className="select-comparison" onChange={(e) => setSelect(e.target.value)}>
+  <select
+    data-testid="select-column"
+    className="select-comparison"
+    onChange={(e) => setSelect(e.target.value)}
+  >
     <option>Escolha sua opção</option>
     {verifyFilter(numericColumns, 'population') && <option value="population">population</option>}
     {verifyFilter(numericColumns, 'orbital_period') && <option value="orbital_period">orbital_period</option>}

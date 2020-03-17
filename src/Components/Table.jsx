@@ -89,11 +89,11 @@ const changeOrder = (orderColumn, planet) => {
 };
 
 const filterName = (planet, filterText) => {
-  if (planet[0].toLowerCase().includes(filterText)) {
+  if (planet[0].toLowerCase().includes(filterText.toLowerCase())) {
     return (
       <tr key={planet[0]}>
-        {planet.map((tag) => (
-          <td key={tag}>{tag}</td>
+        {planet.map((tag, index) => (
+          <td data-testid={`planets-${index}`} key={tag}>{tag}</td>
         ))}
       </tr>
     );
@@ -101,14 +101,12 @@ const filterName = (planet, filterText) => {
 };
 
 const bodyTable = (data, filterText) => {
-  console.log('bodyTable', data);
   return bodyOfTag(data).map(
     (planet) => filterName(planet, filterText),
   );
 };
 
 const generateTable = (data, filterText, setOrderColumn, orderColumn) => {
-  console.log('generateTable', data);
   if (orderColumn.column !== '') {
     changeOrder(orderColumn, data);
   } return (
@@ -118,10 +116,11 @@ const generateTable = (data, filterText, setOrderColumn, orderColumn) => {
         <thead>
           <tr>
             {headOfTag(data).map(
-              (tag) => (
+              (tag, index) => (
                 <th key={tag}>
                   {tag}
                   <select
+                    data-testid={`select-${index}`}
                     onChange={(e) => setOrderColumn({ column: tag, order: e.target.value })}
                     key={tag}
                   >
